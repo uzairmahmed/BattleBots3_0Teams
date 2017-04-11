@@ -40,8 +40,8 @@ public class TestBot extends Bot implements Roles{
 	 * @see bots.Bot#getMove(arena.BotInfo, boolean, arena.BotInfo[], arena.BotInfo[], arena.Bullet[])
 	 */
 	@Override
-	public int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots,
-			BotInfo[] deadBots, Bullet[] bullets) {
+	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
+
 		// TODO Auto-generated method stub
 		//	HelperMethods.say("Deciding move"+me.getRole());//(me.getRole() == RoleType.MEDIC ));//&& me.getHealth() < Role.MEDIC_HEALTH && shotOK));
 		if (me.getRole() == RoleType.MEDIC && me.getHealth() < Role.MEDIC_HEALTH && shotOK){

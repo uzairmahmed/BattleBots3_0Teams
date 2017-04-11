@@ -51,8 +51,8 @@ public class HumanBot extends Bot implements KeyListener {
 	}
 
 	@Override
-	public int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots,
-			BotInfo[] deadBots, Bullet[] bullets) {
+	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
+
 		if (msg != null)
 			return BattleBotArena.SEND_MESSAGE;
 		cocked = shotOK;

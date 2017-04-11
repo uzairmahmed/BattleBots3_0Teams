@@ -67,8 +67,8 @@ public class SentryBot extends Bot {
 	/**
 	 * Shoots occasionally or yells at anything too close
 	 */
-	public int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets)
-	{
+	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
+
 		// check for a bot that's too close
 		for (int i=0; i<liveBots.length; i++)
 		{

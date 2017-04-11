@@ -95,8 +95,8 @@ public class RandBot extends Bot {
 	 * Generate a random direction, then stick with it for a random count between
 	 * 30 and 90 moves. Randomly take a shot when done each move.
 	 */
-	public int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets)
-	{
+	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
+
 		// for overheating
 		if (overheat){try{Thread.sleep(sleep);}catch (Exception e){}}
 

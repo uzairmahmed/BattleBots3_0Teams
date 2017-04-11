@@ -497,7 +497,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * The current speed multiplier
 	 */
-	private int speed = 8;//changed from 1
+	private int speed = 4;//changed from 1
 	/**
 	 * Controls the flashing if the game is paused
 	 */
@@ -703,17 +703,14 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			//if there is an empty space fill it with sentries
 			if (bots[i] == null)
 			{
-				/**
-				 * @rowbottom
-				 * below places the randbot at different roles to test the effect
-				 */
 				if ((i+i/TEAM_SIZE)%TEAM_SIZE  ==0)
 					bots[i] = new RandBot();
 				//				else if (c%2 ==1)
 				//					bots[i] = new RandBot();
 				else{
 					//				{
-					bots[i] = new TestBot();
+					//bots[i] = new TestBot();
+	
 					//c=0;
 				}
 				c++;
@@ -1029,8 +1026,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			totalns += (System.nanoTime()-start)/1000000000.0;
 			//System.out.println("nanosecond timer ... "+totalns);
 			nanoTimeCorrection = totalms/totalns;
-			if (DEBUG)
-				System.out.println("nanoTimeCorrection after "+(i+1)+" seconds = "+nanoTimeCorrection);
+		//	if (DEBUG)
+				//System.out.println("nanoTimeCorrection after "+(i+1)+" seconds = "+nanoTimeCorrection);
 		}
 		requestFocus();
 	}
@@ -1183,10 +1180,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 
 							// 2. set up to get the next move
 							// 2a. Can the current bot shoot?
+
 							BotInfo currentBot = botsInfo[i].copy(); 	// current Bot
-							currentBot.setRole(botRoles[i].getRole());
-							currentBot.setBulletsLeft(botRoles[i].getBulletsLeft());
-							currentBot.setHealth(botRoles[i].getHealth());
+							currentBot.setRole(botRoles[i]);//cheangerd from previous and might not need this anymore
+							currentBot.setBulletsLeft();
+							currentBot.setHealth();
 							
 							//HelperMethods.say("currentrole"+currentBot.getRole());
 							//Role currentRole  = botRoles[i];
@@ -1198,7 +1196,10 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 								if (bullets[i][j] == null && botRoles[i].getBulletsLeft() > 0){
 									shotOK = true;
 									//rowbottom specifiying whether each class can use their special
-									if (botRoles[i].getRole() == RoleType.MEDIC || botRoles[i].getRole() == RoleType.SUPPORT){
+									if (botRoles[i].getRole() == RoleType.MEDIC){
+										specialOK = true;
+									}
+									else if (botRoles[i].getRole() == RoleType.SUPPORT&&botRoles[i].getBulletsLeft()>Role.SUPPORT_AMMO_AMOUNT){
 										specialOK = true;
 									}
 									else if (botRoles[i].getRole() == RoleType.TANK){
@@ -1206,7 +1207,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 
 									}
 								}
-								if (bulletCount > 2&&botRoles[i].getRole() == RoleType.TANK){
+								if (bulletCount >= Role.TANK_BULLETS&&botRoles[i].getRole() == RoleType.TANK&&botRoles[i].getBulletsLeft() >= Role.TANK_BULLETS){
+								//	HelperMethods.say("I can blast");
 									specialOK = true;
 								}
 							}
@@ -1235,7 +1237,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 							startThink = System.nanoTime();
 							try {
 							//	HelperMethods.say("currentRole"+currentBot.getRole());
-								move = bots[i].getMove(currentBot, shotOK, cleanLiveBotsArray, cleanDeadBotsArray, cleanBulletArray);
+								move = bots[i].getMove(currentBot, shotOK, specialOK, cleanLiveBotsArray, cleanDeadBotsArray, cleanBulletArray);
 							}
 							catch(Exception e)
 							{
@@ -1266,7 +1268,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
 									{
 										bullets[i][j] = new Bullet(botsInfo[i].getX()+Bot.RADIUS, botsInfo[i].getY()-1, 0, -BULLET_SPEED);
-										botRoles[i].fireBullet();//reduce the amount of bullets by one.
+										botRoles[i].fireBullet(1);//reduce the amount of bullets by one.
 										if (state != TEST_MODE)
 											if (soundOn)
 												shot.play();
@@ -1278,7 +1280,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
 									{
 										bullets[i][j] = new Bullet(botsInfo[i].getX()+Bot.RADIUS, botsInfo[i].getY()+Bot.RADIUS * 2 + 1, 0, BULLET_SPEED);
-										botRoles[i].fireBullet();//reduce the amount of bullets by one.
+										botRoles[i].fireBullet(1);//reduce the amount of bullets by one.
 										if (state != TEST_MODE)
 											if (soundOn)
 												shot.play();
@@ -1290,7 +1292,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
 									{
 										bullets[i][j] = new Bullet(botsInfo[i].getX()-1, botsInfo[i].getY()+Bot.RADIUS, -BULLET_SPEED, 0);
-										botRoles[i].fireBullet();//decreases ammo count
+										botRoles[i].fireBullet(1);//decreases ammo count
 										if (state != TEST_MODE)
 											if (soundOn)
 												shot.play();
@@ -1302,7 +1304,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
 									{
 										bullets[i][j] = new Bullet(botsInfo[i].getX()+Bot.RADIUS * 2 + 1, botsInfo[i].getY()+Bot.RADIUS, BULLET_SPEED, 0);
-										botRoles[i].fireBullet();//decreases ammo count
+										botRoles[i].fireBullet(1);//decreases ammo count
 										if (state != TEST_MODE)
 											if (soundOn)
 												shot.play();
@@ -1330,6 +1332,10 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 								break;
 							case SPECIAL:
 								if (!specialOK){
+									//send back an indication that specials are not valid for some reason
+									//it will show up in lastMove the next getMove call
+									move = -1; 
+									break;
 									//HelperMethods.say("Bot"+i+botsInfo[i].getName()+" cannot use special");
 								}
 								else{
@@ -1351,7 +1357,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 										}
 										for (int f = 0; f < Role.TANK_BULLETS; f++){
 											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
-											botRoles[i].fireBullet();//decreases ammo count
+											botRoles[i].fireBullet(1);//decreases ammo count
 										}
 									}
 									else if (botRoles[i].getRole() == RoleType.MEDIC){
@@ -1366,12 +1372,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 											for (int j=0; j<botRoles[i].getNumBullet(); j++){// looks for the first unused bullet slot
 												if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
 												{
-													//HelperMethods.say("Health before "+botRoles[target.getBotNumber()].getHealth());
+													HelperMethods.say("Health before "+botRoles[target.getBotNumber()].getHealth());
 													botRoles[target.getBotNumber()].heal();
 													bullets[i][j] = new Bullet(BulletType.HEAL);
-													botRoles[i].fireBullet();//reduce the amount of bullets by one.
+													botRoles[i].fireBullet(1);//reduce the amount of bullets by one.
+													 HelperMethods.say("after "+botRoles[target.getBotNumber()].getHealth());
+
 												}
-												//HelperMethods.say("after "+botRoles[target.getBotNumber()].getHealth());
 											}//end for
 										}//end if inrange
 
@@ -1387,10 +1394,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 													HelperMethods.say("Bullets before "+target.getBulletsLeft());
 													botRoles[target.getBotNumber()].supply();
 													bullets[i][j] = new Bullet(BulletType.SUPPLY);
-													botRoles[i].fireBullet();//reduce the amount of bullets by one.
+													botRoles[i].fireBullet(Role.SUPPORT_AMMO_AMOUNT);//reduce the amount of bullets by one.
+													HelperMethods.say("after "+target.getBulletsLeft());
 												}
 											}//end for
-											HelperMethods.say("after "+target.getBulletsLeft());
+											
 										}//end if inrange
 
 									}									

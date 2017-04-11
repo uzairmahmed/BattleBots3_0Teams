@@ -27,6 +27,7 @@ import bots.Bot;
  * This class has been modified to allow for reporting health and roles
  * @author rowbottomn
  * @version 3.0 (Apr. 1 2017) Earlier work done
+ * @version 3.1 (Apr. 8 2017) Attempt to fix problems with medics and supports not getting correfct botinfo on health and ammo
  */
 
 public class BotInfo {
@@ -82,10 +83,10 @@ public class BotInfo {
 	
 	/**
 	 * @author rowbottomn
-	 * Roletype role - is taken from the Arena's array of roles that is formed when the Arena 
-	 * spawns the bots. This is the enum of the role of the bot
+	 * Role role - is taken from the Arena's array of roles that is formed when the Arena 
+	 * spawns the bots. This has been changed to the actual role class
 	 */
-	private RoleType role;
+	private Role role;
 	
 	/**
 	 * @author rowbottomn
@@ -152,33 +153,13 @@ public class BotInfo {
 	
 	protected BotInfo(double x, double y, int botNum, String name, Role role)
 	{
-		this.x = x;
-		this.y = y;
-		if (name == null)
-			this.name = "null";
-		else
-			this.name = name.substring(0,Math.min(name.length(), 8));
-		this.botNumber = botNum;
-		if (role.getRole() == RoleType.MEDIC){
-			health = role.getHealth(); 
-		}
-		if (role.getRole() == RoleType.SUPPORT){
-			bulletsLeft = role.getBulletsLeft(); 
-		}
+		this(x,y,botNum,name);
+		this.role = role;
 	}
 	
 	protected BotInfo(BotInfo bot, Role role)
 	{
-		this.x = bot.x;
-		this.y = bot.y;
-		this.name = bot.name;
-		this.botNumber = bot.botNumber;
-		if (role.getRole() == RoleType.MEDIC){
-			health = role.getHealth(); 
-		}
-		if (role.getRole() == RoleType.SUPPORT){
-			bulletsLeft = role.getBulletsLeft(); 
-		}
+		this(bot.x,bot.y, bot.botNumber,bot.name, role);
 	}
 
 	/**
@@ -202,9 +183,10 @@ public class BotInfo {
 		b.killedBy = killedBy;
 		b.numKills = numKills;
 		b.overheated = overheated;
-		b.bulletsLeft = bulletsLeft; //Rowbottom V2
-		b.role = role;//Rowbottom taken from Role
-		b.health = health;//Rowbottom taken from Role
+		b.role = role;//V3Rowbottom taken from Role
+		//update the bullets and health from the role
+		b.bulletsLeft = role.getBulletsLeft(); //Rowbottom V2
+		b.health = role.getHealth();//V3Rowbottom taken from Role
 		return b;
 	}
 	
@@ -212,8 +194,9 @@ public class BotInfo {
 	 * Deep copy method for BotInfo
 	 * @return New BotInfo object that is a copy of the current one
 	 */
-	protected BotInfo copy(Role role)
+	protected BotInfo copy(Role otherRole)
 	{
+	
 		BotInfo b = new BotInfo(x, y, botNumber, name);
 		b.timeOfDeath = timeOfDeath;
 		b.numExceptions = numExceptions;//
@@ -229,20 +212,22 @@ public class BotInfo {
 		b.killedBy = killedBy;
 		b.numKills = numKills;
 		b.overheated = overheated;
-		b.bulletsLeft = bulletsLeft; //Rowbottom V2
-		b.role = role.getRole();//Rowbottom taken from Role
-		b.health = health;//Rowbottom taken from Role
-		if (role.getRole() == RoleType.MEDIC){
-			health = role.getHealth(); 
+		//b.bulletsLeft = bulletsLeft; //Rowbottom V2
+		b.role = role;//V3Rowbottom taken from Role
+		//b.health = role.getHealth();//V3Rowbottom taken from Role
+		//A requesting medic can see everyone's health 
+		if (otherRole.getRole() == RoleType.MEDIC){
+			b.health = role.getHealth(); 
 		}
 		else{
-			health = -1;
+			health = -99;
 		}
-		if (role.getRole() == RoleType.SUPPORT){
-			bulletsLeft = role.getBulletsLeft(); 
+		//A requesting support can see everyone's bullets left 
+		if (otherRole.getRole() == RoleType.SUPPORT){
+			b.bulletsLeft = role.getBulletsLeft(); 
 		}
 		else{
-			bulletsLeft = -1;
+			bulletsLeft = -99;
 		}
 		return b;
 	}
@@ -512,8 +497,8 @@ public class BotInfo {
 	/**
 	 * @param bulletsLeft the bulletsLeft to set
 	 */
-	protected void setBulletsLeft(int bulletsLeft) {
-		this.bulletsLeft = bulletsLeft;
+	protected void setBulletsLeft() {
+		this.bulletsLeft = role.getBulletsLeft();
 	}
 	
 	/**
@@ -521,14 +506,14 @@ public class BotInfo {
 	 * @return role the RoleType
 	 */
 	public RoleType getRole() {
-		return role;
+		return role.getRole();
 	}
 
 	/**
 	 * @author rowbottomn
-	 * @param bulletsLeft the bulletsLeft to set
+	 * @param 
 	 */
-	protected void setRole(RoleType role) {
+	protected void setRole(Role role) {
 		this.role = role;
 	}
 	
@@ -536,7 +521,7 @@ public class BotInfo {
 		return health;
 	}
 	
-	public void setHealth(int health){
-		this.health = health;
+	public void setHealth(){
+		this.health = role.getHealth();
 	}
 }

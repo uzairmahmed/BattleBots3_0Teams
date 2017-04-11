@@ -59,8 +59,7 @@ public class Drone extends Bot {
 	/**
 	 * Move in squares and fire every now and then.
 	 */
-	public int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots,
-			BotInfo[] deadBots, Bullet[] bullets) {
+	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
 
 		if (me.getBulletsLeft()<0){
 			System.out.println("WTF!");

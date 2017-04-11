@@ -70,6 +70,9 @@ import arena.Bullet;
  *
  * @author Sam Scott
  * @version 1.0 (March 3, 2011)
+ * @author rowbottomn
+ * @version 3.0 Mar 30 2017 Added Botinfo target variable with getter and setter
+ * @version 3.1 Apr 4 2017 Modified getMove to include the specialOk boolean
  */
 public abstract class Bot implements Roles{
 
@@ -116,12 +119,14 @@ public abstract class Bot implements Roles{
 	 *
 	 * @param me		A BotInfo object with all publicly available info about this Bot
 	 * @param shotOK	True iff a FIRE move is currently allowed
+	 * @author rowbottomn
+	 * @param specialOK As of Version 3_1 True iff the bot can use its special
 	 * @param liveBots	An array of BotInfo objects for the other Bots currently in play
 	 * @param deadBots	An array of BotInfo objects for the dead Bots littering the arena
 	 * @param bullets	An array of all Bullet objects currently in play
 	 * @return			A legal move (use the constants defined in BattleBotArena)
 	 */
-	public abstract int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets);
+	public abstract int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets);
 
 	/**
 	 * Called when it is time to draw the Bot. Your Bot should be (mostly)

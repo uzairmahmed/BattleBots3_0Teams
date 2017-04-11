@@ -19,7 +19,13 @@ import bots.Bot;
  *Support	4			2					3000				30			10
  *Noob		2			2					20					
  *
- */
+ *@author rowbottomn
+ *@version 1.0 March basic roles
+ *@version 2.0 Apr 01 2017Fixes and more functionality
+ *@version 2.1 Apr 5 2017 Overloaded the fireBullet Method to allow supply to have proper amount of bullets deducted
+ *
+ **/
+
 public class Role {
 	//Public Class stats
 	//Tank
@@ -253,10 +259,23 @@ public class Role {
 		return numBullet;
 	}
 
+	/**
+	 * @author rowbottomn
+	 * @deprecated
+	 */
 	public void fireBullet(){
 		ammo--;
 	}
-	
+
+	/**
+	 * @rowbottom
+	 * @param amount
+	 * used to deduct bullets from the overall supply of bullets
+	 */
+	public void fireBullet(int amount){
+		ammo-= amount;
+	}
+
 	public void supply(){
 		ammo += SUPPORT_AMMO_AMOUNT;
 		if (ammo > maxAmmo){
