@@ -14,6 +14,8 @@ import roles.Role;
  *
  * @author sam.scott
  * @version 1.0 (March 3, 2011)
+ * @author rowbo
+ * My skillz is badass
  */
 public class Bullet {
 
