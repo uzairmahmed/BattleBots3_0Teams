@@ -13,9 +13,9 @@ import bots.Bot;
  *	
  *Roles and Values
  *Role		Health		Active Bullets		Starting Ammo		Cooldown	Special 	
- *Tank		6			3					15					None
+ *Tank		6			3					20					None
  *Attack	3			6					50					None		
- *Medic		3			2					20					60			1
+ *Medic		3			2					30					60			1
  *Support	4			2					3000				30			10
  *Noob		2			2					20					
  *
@@ -40,15 +40,17 @@ public class Role {
 	//MEDIC
 	public static final int MEDIC_HEALTH = 3;
 	public static final int MEDIC_BULLETS = 2;
-	public static final int MEDIC_MAX_AMMO = 20;
+	public static final int MEDIC_MAX_AMMO = 30;//changed to allow for more healing
 	public static final int MEDIC_COOLDOWN = 30;
 	public static final int MEDIC_HEAL_AMOUNT = 1;
+	public static final double MEDIC_HEAL_DISTANCE = Bot.RADIUS*4.;
 
 	public static final int SUPPORT_HEALTH = 3;
 	public static final int SUPPORT_BULLETS = 2;
 	public static final int SUPPORT_MAX_AMMO = 2000;
 	public static final int SUPPORT_COOLDOWN = 15;
 	public static final int SUPPORT_AMMO_AMOUNT = 10;	
+	public static final double SUPPORT_SUPPLY_DISTANCE = Bot.RADIUS*4.;
 	
 	//public ArrayList <Long> coolDowns;
 	
@@ -288,7 +290,55 @@ public class Role {
 			health++;
 		}
 	}
+	
+	/**
+	 * @author rowbottom
+	 * added this method to facilitate medic role decisions
+	 *  note that you can call it like this
+	 *  Role.getMaxHealth(RoleType.TANK)
+	 */
 
+	public static int getMaxHealth(RoleType r){
+		if (r == RoleType.ATTACK){
+			return ATTACK_HEALTH;
+		}
+		else if (r == RoleType.MEDIC){
+			return MEDIC_HEALTH;
+		}
+		else if (r == RoleType.SUPPORT){
+			return SUPPORT_HEALTH;
+		}
+		else if (r == RoleType.TANK){
+			return TANK_HEALTH;
+		}
+		
+		return -1;
+	}
+
+	/**
+	 * @author rowbottom
+	 * added this method to facilitate support role decisions
+	 *  note that you can call it like this
+	 *  Role.getMaxBullets(RoleType.TANK)
+	 */
+
+	public static int getMaxBullets(RoleType r){
+		if (r == RoleType.ATTACK){
+			return Role.ATTACK_MAX_AMMO;
+		}
+		else if (r == RoleType.MEDIC){
+			return MEDIC_MAX_AMMO;
+		}
+		else if (r == RoleType.SUPPORT){
+			return SUPPORT_MAX_AMMO;
+		}
+		else if (r == RoleType.TANK){
+			return TANK_MAX_AMMO;
+		}
+		
+		return -1;
+	}
+	
 }
 
 

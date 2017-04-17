@@ -187,7 +187,8 @@ import java.util.ArrayList;
  * @version <br>4.0(Mar 31 2017) - Added Role class, Roles interface and RoleType enum
  * @version <br>4.1(Apr 1 2017) - Added GUI elements
  * 		color ring for teams, arc amount shows health, number shows ammo left 
- * 
+ * @version <br>4.2(April 8 2017) - Fixed role dependent reporting of health and ammo, changed getMove method to include specialOK
+ * @version <br>4.2(April 15 2017) - Added array of images to use for roles, bot draw methods are only being called in debug mode.
  */
 public class BattleBotArena extends JPanel implements MouseListener, MouseWheelListener, MouseMotionListener, ActionListener, Runnable {
 
@@ -200,7 +201,9 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * @author rowbottomn
 	 * used to allow for unlimited distance to use healing and supplying
 	 */
-	public static final boolean OMNI_SPECIALS = true;
+	public static final boolean OMNI_SPECIALS = false;
+	
+	
 	//***********************************************
 	// MAIN SET OF CONSTANTS AVAILABLE TO THE BOTS...
 	//***********************************************
@@ -356,7 +359,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Initial ammo as part of limited ammo functionality
 	 * !Passed to the botInfo for its value.
 	 */
-	public static final int BULLETS_LEFT = 20;//ROWBOTTOM Ammo!
+//	public static final int BULLETS_LEFT = 20;//ROWBOTTOM Ammo limited but replaced!
 
 	/**
 	 * When ELIMINATIONS_PER_ROUND is set to 0 then 
@@ -550,6 +553,23 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Overheated Bot image
 	 */
 	private Image overheated;
+	
+	/**
+	 * @author rowbottomn
+	 * an array of roletypes
+	 * Apr 15 2017
+	 * Developed late so it could be used to simplify code
+	 * Presently used to dictate which image is used ffor drawing the bots
+	 */
+	
+	RoleType[] roleOrder = new RoleType[]{RoleType.TANK,RoleType.ATTACK, RoleType.MEDIC, RoleType.SUPPORT, RoleType.NOOB}; 
+	
+	/**
+	 * @author rowbottomn
+	 * See RoleType array above 
+	 */
+	Image [] roleImages = new Image[roleOrder.length];
+	
 	/**
 	 * For timing the game length
 	 */
@@ -688,14 +708,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** INSERT PLAYER BOTS HERE. Use any array numbers you like
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
-		// bots[9] = new AIBot();
-		//bots[0] = new Bott(); //blend
-		//bots[1] = new ZuccBot();//ben
-		//bots[2] = new The4992Bot();//calvin
 
+	//	bots[0] = new Test(3);//support
+	//	bots[1] = new Test(1);//attack
+	//	bots[2] = new Test(2);//medic
+	//	bots[3] = new Test(0);//tank
 
 		// *******************************
-
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
 		int c = 1;
 		for (int i=0; i<NUM_BOTS; i++)
@@ -705,17 +724,16 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			{
 				if ((i+i/TEAM_SIZE)%TEAM_SIZE  ==0)
 					bots[i] = new RandBot();
-				//				else if (c%2 ==1)
-				//					bots[i] = new RandBot();
 				else{
 					//				{
 					//bots[i] = new TestBot();
-	
-					//c=0;
+					bots[i] = new Drone();
+					c=0;
 				}
 				c++;
 			}
 		}
+
 		botRoles = getRoles(bots);//Rowbottom get the roles from the bots
 		reset(); // calls the between-round reset method
 	}
@@ -771,6 +789,20 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// images
 		deadBot = Toolkit.getDefaultToolkit ().getImage (getClass().getClassLoader().getResource("images/dead.png"));
 		overheated = Toolkit.getDefaultToolkit ().getImage (getClass().getClassLoader().getResource("images/overheated.png"));
+		
+		/**
+		 * @author rowbottomn
+		 * Load the role images
+		 */
+		//roleImages[0] = Toolkit.getDefaultToolkit().getImage("images/role_0.png");
+		
+		for (int i = 0; i < roleImages.length; i++){
+			String temp = "images/role_"+i+".png";
+			//System.out.println(roleImages[i]);
+			roleImages[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(temp));
+		//	System.out.println(roleImages[i]);
+		}
+		
 		// Listeners for mouse input
 		addMouseListener (this);
 		addMouseMotionListener (this);
@@ -800,20 +832,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		botsLeft = NUM_BOTS;				// put all the bots back in the game
 		messages = new LinkedList<String>();// clear the messag buffer
 
-		//Rowbottom No longer needed as positions are set by the team placement
-		/*// shuffle the bots
-		for (int i=0; i<NUM_BOTS*10; i++)
-		{
-			int b1 = (int)(Math.random()*NUM_BOTS);
-			int b2 = (int)(Math.random()*NUM_BOTS);
-			Bot temp = bots[b1];
-			bots[b1] = bots[b2];
-			bots[b2] = temp;
-			BotInfo temp2 = botsInfo[b1];
-			botsInfo[b1] = botsInfo[b2];
-			botsInfo[b2] = temp2;
-		}
-		 */
+
 		// Clear the array of public Bot info. (This is the info given to the Bots when making their moves.)
 		BotInfo[] newBotsInfo = new BotInfo[NUM_BOTS];
 		Role[] newBotRoles = new Role[NUM_BOTS];
@@ -893,7 +912,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// load the images & call the newRound message for the bots
 		for (int i = 0; i < NUM_BOTS; i++)
 		{
-			loadImages (i);
+			loadImages(i);
 			// BOT METHOD CALL - timed and exceptions caught
 			long startThink = System.nanoTime();
 			try {
@@ -909,7 +928,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 
 		bullets = new Bullet[NUM_BOTS][Role.ATTACK_BULLETS]; 	// init the bullets array
 
-		ready = true; // tell the paint method we're good to go
+		ready = true; // tell the paint method we're good to go 
 
 		// In test mode, spam the message area with these instructions
 		if (state == TEST_MODE)
@@ -965,12 +984,17 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	{
 		String[] imagePaths = null; // file names
 		Image[] images = null; 		// images
-
+		
 		// 1. get the image names
 		// BOT METHOD CALL - timed and exceptions caught
 		long startThink = System.nanoTime();
 		try {
-			imagePaths = bots[botNum].imageNames();
+			if (DEBUG){
+				imagePaths = bots[botNum].imageNames();
+			}
+			else{
+				imagePaths = new String[]{"images/role_"+botNum%4+".png"};
+			}
 		} catch (Exception e) {
 			botsInfo[botNum].exceptionThrown(e);
 		}
@@ -1335,8 +1359,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									//send back an indication that specials are not valid for some reason
 									//it will show up in lastMove the next getMove call
 									move = -1; 
+							//		HelperMethods.say("Bot"+i+botsInfo[i].getName()+" cannot use special");
 									break;
-									//HelperMethods.say("Bot"+i+botsInfo[i].getName()+" cannot use special");
 								}
 								else{
 									//if tank
@@ -1363,11 +1387,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									else if (botRoles[i].getRole() == RoleType.MEDIC){
 										BotInfo target = bots[i].getTarget() ;
 										if ( target == null){
-											HelperMethods.say("WTF");
+											HelperMethods.say("WTF, no target selected");
 										}
 										double d = Math.sqrt(Math.pow(botsInfo[i].getX()-target.getX(),2)+Math.pow(botsInfo[i].getY()-target.getY(),2));
 										
-										if (d <= (double)Bot.RADIUS*Math.sqrt(2)|| OMNI_SPECIALS){
+										if (d <= Role.MEDIC_HEAL_DISTANCE|| OMNI_SPECIALS){
 											
 											for (int j=0; j<botRoles[i].getNumBullet(); j++){// looks for the first unused bullet slot
 												if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
@@ -1387,7 +1411,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 										BotInfo target = bots[i].getTarget();
 										//HelperMethods.say("Bullets before "+target.getBulletsLeft());
 										double d = Math.sqrt(Math.pow(botsInfo[i].getX()-target.getX(),2)+Math.pow(botsInfo[i].getY()-target.getY(),2));
-										if (d <= Bot.RADIUS*Math.sqrt(2)|| OMNI_SPECIALS){
+										if (d <= Role.SUPPORT_SUPPLY_DISTANCE|| OMNI_SPECIALS){
 											for (int j=0; j<botRoles[i].getNumBullet(); j++){// looks for the first unused bullet slot
 												if (bullets[i][j] == null&&botRoles[i].getBulletsLeft()>0)
 												{
@@ -1773,14 +1797,34 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 						try {
 
 							if (state == GAME_ON){
+								//A gray background for the graphics
+								g2D.setColor(Color.GRAY);
+								g2D.fillOval((int)(botsInfo[i].getX()+1), (int)(botsInfo[i].getY()+1), (int)(Bot.RADIUS*1.7), (int)(Bot.RADIUS*1.7));
 								//Rowbottom draw the health if active mode
 								//set the team colour 
+								final int HEALTH_THICKNESS = 6;
 								g2D.setColor(teamColors[i/TEAM_SIZE]);
-								g2D.setStroke(new BasicStroke(3F));  // set stroke width of 5
-								g2D.drawArc((int)(botsInfo[i].getX()-2), (int)(botsInfo[i].getY()-2), 
-										Bot.RADIUS*2+4, Bot.RADIUS*2+4,0,(int)(360*(botRoles[i].getHealth()/(double)botRoles[i].getMaxHealth())));
+								g2D.setStroke(new BasicStroke((float)HEALTH_THICKNESS));  // set stroke width of 4
+								g2D.drawArc((int)(botsInfo[i].getX()), (int)(botsInfo[i].getY()), 
+										Bot.RADIUS*2-HEALTH_THICKNESS/3, Bot.RADIUS*2-HEALTH_THICKNESS/3,0,(int)(360*(botRoles[i].getHealth()/(double)botRoles[i].getMaxHealth())));
+
+//								g2D.drawArc((int)(botsInfo[i].getX()-HEALTH_THICKNESS/2), (int)(botsInfo[i].getY()-HEALTH_THICKNESS/2), 
+//										Bot.RADIUS*2+HEALTH_THICKNESS, Bot.RADIUS*2+HEALTH_THICKNESS,0,(int)(360*(botRoles[i].getHealth()/(double)botRoles[i].getMaxHealth())));
 							}
-							bots[i].draw(g, (int)(botsInfo[i].getX()+0.5), (int)(botsInfo[i].getY()+0.5));
+							if (DEBUG){
+								bots[i].draw(g, (int)(botsInfo[i].getX()+0.5), (int)(botsInfo[i].getY()+0.5));		
+							}
+							else{
+
+								for (int p = 0; p < roleOrder.length;p++){
+									if (botsInfo[i].getRole().equals(roleOrder[p])){
+								//		System.out.println(p+" in "+roleOrder[p]);
+										g.drawImage(roleImages[p], (int)(botsInfo[i].getX()), (int)(botsInfo[i].getY()), Bot.RADIUS*2-1, Bot.RADIUS*2-1, this);										
+									}
+								}
+							}
+							//call the bot's draw extras function
+							//bots[i].drawExtras(g);
 						}
 						catch(Exception e)
 						{

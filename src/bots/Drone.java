@@ -19,6 +19,27 @@ import arena.Bullet;
  */
 public class Drone extends Bot {
 
+	RoleType role;
+	public Drone(int num){
+		if (num%BattleBotArena.TEAM_SIZE == 0){
+			role = RoleType.TANK;
+		}
+		else if (num%BattleBotArena.TEAM_SIZE == 1){
+			role = RoleType.ATTACK;
+		}
+		else if (num%BattleBotArena.TEAM_SIZE == 2){
+			role = RoleType.MEDIC;
+		}
+		else if (num%BattleBotArena.TEAM_SIZE == 3){
+			role = RoleType.SUPPORT;
+		}
+
+	}
+	
+	public Drone(){
+		
+	}
+	
 	/**
 	 * My name
 	 */
@@ -61,6 +82,13 @@ public class Drone extends Bot {
 	 */
 	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
 
+		
+		
+//		if (me.getHealth()<Role.getMaxHealth(me.getRole())){
+//			setTarget(me);
+//			return 9;
+//		}
+		
 		if (me.getBulletsLeft()<0){
 			System.out.println("WTF!");
 		}
@@ -199,7 +227,7 @@ public class Drone extends Bot {
 	@Override
 	public Role getRole() {
 		// TODO Auto-generated method stub
-		return new Role(RoleType.NOOB);
+		return new Role(role);
 	}
 
 }

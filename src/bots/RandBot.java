@@ -21,6 +21,27 @@ import arena.Bullet;
  */
 public class RandBot extends Bot {
 
+	RoleType role;
+	public RandBot(int num){
+		if (num%BattleBotArena.TEAM_SIZE == 0){
+			role = RoleType.TANK;
+		}
+		else if (num%BattleBotArena.TEAM_SIZE == 1){
+			role = RoleType.ATTACK;
+		}
+		else if (num%BattleBotArena.TEAM_SIZE == 2){
+			role = RoleType.MEDIC;
+		}
+		else if (num%BattleBotArena.TEAM_SIZE == 3){
+			role = RoleType.SUPPORT;
+		}
+
+	}
+	
+	public RandBot() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Next message to send, or null if nothing to send.
 	 */
@@ -234,7 +255,7 @@ public class RandBot extends Bot {
 	@Override
 	public Role getRole() {
 		// TODO Auto-generated method stub
-		return new Role(RoleType.NOOB);
+		return new Role(role);
 	}
 
 }

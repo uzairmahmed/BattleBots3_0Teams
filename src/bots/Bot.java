@@ -1,4 +1,5 @@
 package bots;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -6,6 +7,13 @@ import java.awt.event.ActionEvent;
 import roles.Roles;
 import arena.BotInfo;
 import arena.Bullet;
+
+
+/**
+ * @author rowbottom
+ * drawExtras is used to draw other items that can be used fro debuggging
+ * can be overrode to draw more things
+ */
 
 /**
  * <b>Introduction</b> <br><br>
@@ -76,6 +84,8 @@ import arena.Bullet;
  */
 public abstract class Bot implements Roles{
 
+    int[] x; int[] y; int[] size;
+	
 	/**
 	 * The radius of a Bot. Each Bot should fit into a circle inscribed into a
 	 * square with height and width equal to RADIUS * 2.
@@ -243,7 +253,7 @@ public abstract class Bot implements Roles{
 	 * they which to use their ability on (which they designate using the setTarget method
 	 * 
 	 */
-	private BotInfo target;
+	protected BotInfo target;
 	
 	/**
 	 * @author rowbottomn 
@@ -255,4 +265,18 @@ public abstract class Bot implements Roles{
 	protected void setTarget(BotInfo target){
 		this.target = target; 
 	}
+	
+	protected void drawExtras(Graphics g){
+		if (x==null){
+			return;
+		}
+		g.setColor(Color.MAGENTA);
+		if (x.length !=y.length || x.length!= size.length ){
+			return;
+		}
+		for (int i = 0; i < x.length; i++){
+			g.fillOval(x[i], y[i], size[i], size[i]);			
+		}
+	}
+	
 }
