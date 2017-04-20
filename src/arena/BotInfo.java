@@ -115,6 +115,13 @@ public class BotInfo {
 	 * Who killed this Bot
 	 */
 	private String killedBy="";
+
+	/**
+	 * @author rowbottomn
+	 * added to keep track of how many times ally shoot each other
+	 */
+	private int numBetrayals = 0;
+	
 	/**
 	 * Number of kills by this Bot this round
 	 */
@@ -189,6 +196,7 @@ public class BotInfo {
 		b.health = role.getHealth();//V3Rowbottom taken from Role
 		b.numHeals = numHeals;//rowbottom for change in score calculating
 		b.numSupplies = numSupplies;//rowbottom for change in score calculating
+		b.numBetrayals =numBetrayals; 
 		return b;
 	}
 	
@@ -215,6 +223,7 @@ public class BotInfo {
 		b.killedBy = killedBy;
 		b.numKills = numKills;
 		b.overheated = overheated;
+		b.numBetrayals =numBetrayals;
 		//b.bulletsLeft = bulletsLeft; //Rowbottom V2
 		b.role = role;//V3Rowbottom taken from Role
 		//b.health = role.getHealth();//V3Rowbottom taken from Role
@@ -483,7 +492,17 @@ public class BotInfo {
 	protected void addKill() {
 		numKills++;
 	}
-
+	/**
+	 * Called by the arena when this Bot kills someone
+	 */
+	protected void addKill(boolean friendlyFire) {
+		if (!friendlyFire){
+			numKills++;	
+		}
+		else{
+			addNumBetrayal();
+		}
+	}
 	/**
 	 * @return Number of kills by this Bot this round
 	 */
@@ -491,6 +510,28 @@ public class BotInfo {
 		return numKills;
 	}
 
+	/**
+	 * @return Number of betrayals by this Bot cummulatively
+	 */
+	public int getNumBetrayals() {
+		return numBetrayals;
+	}
+	
+	/**
+	 * Setter for betrayals
+	 * @param num
+	 */
+	public void setNumBetrayals(int num){
+		numBetrayals = num;
+	}
+	
+	/**
+	 * used for wounding
+	 */
+	public void addNumBetrayal(){
+		numBetrayals++;
+	}
+	
 	/**
 	 * @author rowbottomn
 	 * @return amount of ammo

@@ -205,7 +205,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * @author rowbottomn
 	 * used to allow for unlimited distance to use healing and supplying
 	 */
-	public static final boolean OMNI_SPECIALS = true;
+	public static final boolean OMNI_SPECIALS = false;
 	
 	
 	//***********************************************
@@ -731,7 +731,6 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** Any empty spots will be filled with standard arena bots.
 
 	
-
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
 		int c = 1;
@@ -852,20 +851,6 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		botsLeft = NUM_BOTS;				// put all the bots back in the game
 		messages = new LinkedList<String>();// clear the messag buffer
 
-		//Rowbottom No longer needed as positions are set by the team placement
-		/*// shuffle the bots
-		for (int i=0; i<NUM_BOTS*10; i++)
-		{
-			int b1 = (int)(Math.random()*NUM_BOTS);
-			int b2 = (int)(Math.random()*NUM_BOTS);
-			Bot temp = bots[b1];
-			bots[b1] = bots[b2];
-			bots[b2] = temp;
-			BotInfo temp2 = botsInfo[b1];
-			botsInfo[b1] = botsInfo[b2];
-			botsInfo[b2] = temp2;
-		}
-		 */
 		// Clear the array of public Bot info. (This is the info given to the Bots when making their moves.)
 		BotInfo[] newBotsInfo = new BotInfo[NUM_BOTS];
 		Role[] newBotRoles = new Role[NUM_BOTS];
@@ -886,7 +871,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 				newBotRoles[i] = new Role(botRoles[i].getRole());
 				newBotsInfo[(i)] = new BotInfo(x*xScale + Bot.RADIUS, y*yScale + Bot.RADIUS, i, bots[i].getName(), newBotRoles[i]); // create new BotInfo object to keep track of bot's stats
 			//	HelperMethods.say("role"+newBotRoles[i].getRole());
-				//Rowbottom as of 3.0 teams are no longer newBotsInfo[i].setTeamName(bots[i].getTeamName()); // get start of game team names
+				//copy the number of betrayals
+
 				newBotsInfo[i].setTeamName("Team"+(i/TEAM_SIZE+1));//Rowbottom teams are set by the order in the bot array
 				if (grid[x][y] == 1)
 					i--;
@@ -927,16 +913,15 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 
 			for (int i = 0; i < NUM_BOTS; i++)
 			{
-				//Not needed anymorebots[i].assignNumber(i);  // assign new numbers
 				//make new botInfo objects and roles, note that these will have health and ammo values depending on roles
 				newBotRoles[i] = new Role(botRoles[i].getRole());
 				int shift = (i + random)%16;
 				newBotsInfo[i] = new BotInfo(xs[shift], ys[shift], i, botsInfo[i].getName(), newBotRoles[i]);
-				//Rowbottom as of 3.0 teams are no longer newBotsInfo[i].setTeamName(bots[i].getTeamName()); // get start of game team names
+			//Rowbottom as of 3.0 teams are no longer newBotsInfo[i].setTeamName(bots[i].getTeamName()); // get start of game team names
 				newBotsInfo[i].setTeamName("Team"+(i/TEAM_SIZE+1));//Rowbottom teams are set by the order in the bot array
-				if (botsInfo[i] != null && CUMULATIVE_SCORING && round > 1){
-					double timeAlive = botsInfo[i].getThinkTime()+botsInfo[i].getTimeOfDeath();
+				if (botsInfo[i] != null && round > 1){
 					newBotsInfo[i].setCumulativeScore(botsInfo[i].getCumulativeScore()+botsInfo[i].getScore());
+					newBotsInfo[i].setNumBetrayals(botsInfo[i].getNumBetrayals());
 				}
 				if (botsInfo[i] != null && (botsInfo[i].isOut() || botsInfo[i].isOutNextRound())){
 					newBotsInfo[i].knockedOut();
@@ -978,7 +963,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			sendMessage(-1,"Modified in 2015 to add ammo limits    ");
 			sendMessage(-1,"Modified in 2017 to add team roles    ");
 			sendMessage(-1,"Each bot is in its own class, and is under its own control. Bots");
-			sendMessage(-1,"declare their names once at the beginning, and are assigned into teams");
+			sendMessage(-1,"declare their roles once at the beginning, and are assigned into teams");
 			sendMessage(-1,"they can no longer change allegiances throughout the game.");
 			sendMessage(-1,"    ");
 			sendMessage(-1,"Bots choose their actions 30 times per second. If the action is");
@@ -1227,20 +1212,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 						else //bot still alive! Process move
 						{
 							long startThink = System.nanoTime();
-							// 1. Rowbottom No longer supporting changing teamsGet bot team name
-							/*// BOT METHOD CALL - timed and exceptions caught
-
-							try {
-								botsInfo[i].setTeamName(bots[i].getTeamName());
-							}
-							catch(Exception e)
-							{
-								botsInfo[i].exceptionThrown(e);
-							}
-							botsInfo[i].setThinkTime((System.nanoTime()-startThink)*nanoTimeCorrection);
-							 */
-							// ***********************
-
+	
 							// 2. set up to get the next move
 							// 2a. Can the current bot shoot?
 
@@ -1558,15 +1530,21 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 													bullets[i][k] = null; // no more bullet
 													if (botsInfo[j].isDead() == false) // kill bot if possible
 													{
+														boolean friendlyFire = (botsInfo[i].getBotNumber()/TEAM_SIZE) == (botsInfo[j].getBotNumber()/TEAM_SIZE);
+
 														//if the victim has health then subtract 1
 														if (botRoles[j].getHealth()>1){
 															botRoles[j].wound();
+															if (friendlyFire){
+																botsInfo[j].addNumBetrayal();
+															}
 															//HelperMethods.say("Ouch!");
 														}
 														else {
 															if (soundOn){
 																death.play();
 															}
+															//check for friendly fire
 															botsInfo[i].addKill();
 															botsInfo[j].killed(botsInfo[i].getName());
 															botsInfo[j].setTimeOfDeath(timePlayed);
@@ -1937,7 +1915,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			g.drawString("Stats for Round "+round, (RIGHT_EDGE+LEFT_EDGE)/2-120, yOffset);
 			yOffset += 24;
 			g.setFont(new Font("MonoSpaced",Font.PLAIN,STATS_FONT));
-			g.drawString("Name     Team     Round  Total  Time  Errors  Messages  Processor  Killed By",xOffset,yOffset);
+			g.drawString("Name     Team     Round  Total  Time  Errors Betrayals  Processor  Killed By",xOffset,yOffset);
 			for (int i=0; i<NUM_BOTS; i++)
 			{
 				String output = pad(newInfos[i].getName(), 8, false) + " " + pad(newInfos[i].getTeamName(),8, false)+" ";
@@ -1945,7 +1923,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 				if (!newInfos[i].isOut())
 				{
 					output += (newInfos[i].isDead()?pad(df.format(newInfos[i].getTimeOfDeath()),5,true):(state == GAME_OVER || state == WINNER?pad(df.format(TIME_LIMIT),5,true):pad(df.format(timePlayed),5,true)))+" ";
-					output += pad(""+newInfos[i].getNumExceptions(),6,true)+"    "+pad(""+newInfos[i].getNumMessages(),4,true)+"    ";
+					output += pad(""+newInfos[i].getNumExceptions(),6,true)+"    "+pad(""+newInfos[i].getNumBetrayals(),4,true)+"    ";
 					output += pad(df2.format(newInfos[i].getThinkTime()),8, true)+"    "+pad(newInfos[i].getKilledBy(),8,false);
 				}
 
