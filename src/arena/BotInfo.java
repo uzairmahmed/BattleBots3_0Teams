@@ -187,11 +187,14 @@ public class BotInfo {
 		//update the bullets and health from the role
 		b.bulletsLeft = role.getBulletsLeft(); //Rowbottom V2
 		b.health = role.getHealth();//V3Rowbottom taken from Role
+		b.numHeals = numHeals;//rowbottom for change in score calculating
+		b.numSupplies = numSupplies;//rowbottom for change in score calculating
 		return b;
 	}
 	
 	/**
 	 * Deep copy method for BotInfo
+	 * Note the changes which allow the copy to either provide accurate health and ammo info for all the bots or 99 based on role
 	 * @return New BotInfo object that is a copy of the current one
 	 */
 	protected BotInfo copy(Role otherRole)
@@ -229,6 +232,8 @@ public class BotInfo {
 		else{
 			bulletsLeft = -99;
 		}
+		b.numHeals = numHeals;//rowbottom for change in score calculating
+		b.numSupplies = numSupplies;//rowbottom for change in score calculating
 		return b;
 	}
 
@@ -239,7 +244,7 @@ public class BotInfo {
 	{
 		return "Name: "+name+". Role: "+role+". Health: "+health+". Team: "+team+". Score: "+df.format(score)+
 		". At: ("+df.format(x)+","+df.format(y)+"). Dead: "+dead+"("+timeOfDeath+")"+" <"+
-		thinkTime+","+numExceptions+","+numMessages+","+lastMove+","+bulletsLeft+">";
+		thinkTime+","+numExceptions+","+numMessages+","+lastMove+","+bulletsLeft+","+numHeals+","+numSupplies+">";
 	}
 
 	/**
@@ -429,7 +434,8 @@ public class BotInfo {
 	}
 
 	/**
-	 * @return The Bot's ID number. This will be a unique identifier between 0 and BattleBotArea.NUM_BOTS - 1. Numbers change from round to round.
+	 * @return The Bot's ID number. This will be a unique identifier between 0 and BattleBotArea.NUM_BOTS - 1. 
+	 * rowbottom - NO LONGER TRUE Numbers change from round to round.
 	 */
 	public int getBotNumber() {
 		return botNumber;
@@ -523,5 +529,74 @@ public class BotInfo {
 	
 	public void setHealth(){
 		this.health = role.getHealth();
+	}
+	
+	/**
+	 * @author rowbottomn
+	 * Scoring revamp
+	 * Calculating scoring is changed in responsibility from the BattleArena to each individual BotInfo instance
+	 * below are variables that are needed to calculate the score that accumulate during the rounds
+	 * For legacy reasons, the scoring constants will be kept in the BattleArena, so check those out for making strategy! 
+	 **/
+	private int numHeals = 0;
+	
+	/**
+	 * @author rowbottomn
+	 * public setter for increasing the amount of heals
+	 * used for scoring
+	 */
+	public void incHeals(){
+		numHeals++;
+	}
+	
+	private int numSupplies = 0;
+	
+	/**
+	 * @author rowbottomn
+	 * public setter for increasing the amount of successful supplies
+	 * used for scoring exclusively
+	 */
+	public void incSupplies(){
+		numSupplies++;
+	}	
+	
+	/**
+	 * @author rowbottomn
+	 * 
+	 * @param d
+	 * @return
+	 */
+	
+	public double calcScore(double d){
+		//individual round score is numKills*killBonus + timeAlive*timeBonus+healthRemaining*healthBonus + specials*specialAmount
+		//tank example 	2*10 + 120*0.1 + 5*1 = 37
+		//medic example 0*10 + 120*0.1 + 2*1 + 7*2 = 28
+		//support example 1*10 + 87*0.1 + 0*1 + 10*1 = 28.7
+		score = 0;
+		score += numKills*BattleBotArena.KILL_SCORE;//score the num kills
+		score += d*BattleBotArena.POINTS_PER_SECOND;//score for living
+		score += role.getHealth()*BattleBotArena.POINTS_PER_HEALTH;//score the health remaining
+		score += numHeals*BattleBotArena.POINTS_PER_HEAL;//score for healing
+		score += numSupplies*BattleBotArena.POINTS_PER_SUPPLY;//score for supplying	
+		score += (BattleBotArena.PROCESSOR_LIMIT - this.thinkTime/1000000)*BattleBotArena.EFFICIENCY_BONUS;//score for efficiency
+		score -= numExceptions*BattleBotArena.ERROR_PENALTY;//lower score for penalties
+		
+		//score 
+		//group round score is all score added
+		
+		//final score is based on sum of rounds
+		System.out.println(getBotNumber()+" : "+score);
+		return score;
+	}
+	
+	public static double[] calcTeamScore(BotInfo[] bots){
+		double[] teamScores = new double[BattleBotArena.NUM_BOTS/BattleBotArena.TEAM_SIZE];
+		for (int i = 0; i < teamScores.length; i ++){
+			for (int j = 0; j < BattleBotArena.TEAM_SIZE; j++){
+				teamScores[i] += bots[4*i+j].getCumulativeScore();	
+			}
+			
+		}
+		return teamScores;
 	}
 }

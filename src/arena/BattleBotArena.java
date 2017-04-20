@@ -188,20 +188,24 @@ import java.util.ArrayList;
  * @version <br>4.1(Apr 1 2017) - Added GUI elements
  * 		color ring for teams, arc amount shows health, number shows ammo left 
  * @version <br>4.2(April 8 2017) - Fixed role dependent reporting of health and ammo, changed getMove method to include specialOK
- * @version <br>4.2(April 15 2017) - Added array of images to use for roles, bot draw methods are only being called in debug mode.
+ * @version <br>4.3(April 15 2017) - Added array of images to use for roles, bot draw methods are only being called in debug mode.
+ * @version <br>4.4(April 19 2017 - Randomized the starting location for each team, however the starting orientation on the team is set by 
+ * 									order of the constructor calls
+ * 								  - Responsibilities for scoring is now the moved to the Botinfo class.
+ * 								
  */
 public class BattleBotArena extends JPanel implements MouseListener, MouseWheelListener, MouseMotionListener, ActionListener, Runnable {
 
 	/**
 	 * Set to TRUE for debugging output
 	 */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	/**
 	 * @author rowbottomn
 	 * used to allow for unlimited distance to use healing and supplying
 	 */
-	public static final boolean OMNI_SPECIALS = false;
+	public static final boolean OMNI_SPECIALS = true;
 	
 	
 	//***********************************************
@@ -299,11 +303,20 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * survival points 
 	 */
-	public static final double 	POINTS_PER_SECOND = 0.05;//Rowbottom changed from 0.1
+	public static final double 	POINTS_PER_SECOND = 0.1;//Rowbottom changed from 0.1
 	/**
 	 * healing points
 	 */
-	public static final double 	POINTS_PER_HEAL = 10;//Rowbottom changed from 0.1
+	public static final double 	POINTS_PER_HEAL = 2;
+	/**
+	 * supply points
+	 */
+	public static final double 	POINTS_PER_SUPPLY = 1;
+	/**
+	 * points for health remaining
+	 */
+	public static final double 	POINTS_PER_HEALTH = 1;
+
 	/**
 	 * points per unused second of processor time (mostly for breaking ties)
 	 */
@@ -317,6 +330,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * false = highest scoring Bot in last round is declared the winner
 	 */
 	public static final boolean CUMULATIVE_SCORING = true;
+	
 	/**
 	 * Number of bots to drop out per round
 	 */
@@ -324,7 +338,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Round time, in seconds
 	 */
-	public static final int 	TIME_LIMIT = 100;
+	public static final int 	TIME_LIMIT = 120;
 	/**
 	 * TIME_LIMIT / SECS_PER_MSG = Number of messages allowed per round
 	 */
@@ -356,6 +370,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 */
 	public static final int MAX_MESSAGE_LENGTH = 200;
 	/**
+	 * NO LONGER VALID as of version 3
 	 * Initial ammo as part of limited ammo functionality
 	 * !Passed to the botInfo for its value.
 	 */
@@ -365,8 +380,14 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * When ELIMINATIONS_PER_ROUND is set to 0 then 
 	 * NUM_ROUNDS determines the final round
 	 */
-	public static final int NUM_ROUNDS = 20;//ROWBOTTOM Rounds will be NUM_ROUNDS
+	public static final int NUM_ROUNDS = 5;//ROWBOTTOM Rounds will be NUM_ROUNDS
 
+	/**
+	 * @author rowbottomn
+	 * using this to store the final team scores
+	 */
+	private double[] teamScores;//
+	
 	//**************************************
 	// OTHER ARENA CONSTANTS -- DON'T CHANGE
 	//**************************************
@@ -447,7 +468,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * File name for drone sound during game
 	 */
-	private final String droneSoundFile = "def_star2.wav";
+	private final String droneSoundFile = "soundTrack1.wav";
 	/**
 	 * File name for opening sound (plays during opening screen)
 	 */
@@ -500,7 +521,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * The current speed multiplier
 	 */
-	private int speed = 4;//changed from 1
+	private int speed = 8;//changed from 1
 	/**
 	 * Controls the flashing if the game is paused
 	 */
@@ -709,10 +730,10 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 
-	//	bots[0] = new Test(3);//support
-	//	bots[1] = new Test(1);//attack
-	//	bots[2] = new Test(2);//medic
-	//	bots[3] = new Test(0);//tank
+	//	bots[0] = new Robo(2);//medic
+	//	bots[1] = new Robo(0);//tank
+	//	bots[2] = new Robo(3);//support
+	//	bots[3] = new Robo(1);//attack
 
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
@@ -723,17 +744,23 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			if (bots[i] == null)
 			{
 				if ((i+i/TEAM_SIZE)%TEAM_SIZE  ==0)
-					bots[i] = new RandBot();
+					bots[i] = new RandBot(i);
+				//				else if (c%2 ==1)
+				//					bots[i] = new RandBot();
 				else{
 					//				{
-					//bots[i] = new TestBot();
-					bots[i] = new Drone();
-					c=0;
+					bots[i] = new Drone(i);
+					//bots[i] = new Robo(i);
+					//c=0;
 				}
 				c++;
 			}
 		}
-
+		//For testing 
+//		bots[0] = new Robo(2);//medic
+//		bots[1] = new Robo(0);//tank
+//		bots[2] = new Robo(3);//support
+//		bots[3] = new Robo(1);//attack
 		botRoles = getRoles(bots);//Rowbottom get the roles from the bots
 		reset(); // calls the between-round reset method
 	}
@@ -832,14 +859,29 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		botsLeft = NUM_BOTS;				// put all the bots back in the game
 		messages = new LinkedList<String>();// clear the messag buffer
 
-
+		//Rowbottom No longer needed as positions are set by the team placement
+		/*// shuffle the bots
+		for (int i=0; i<NUM_BOTS*10; i++)
+		{
+			int b1 = (int)(Math.random()*NUM_BOTS);
+			int b2 = (int)(Math.random()*NUM_BOTS);
+			Bot temp = bots[b1];
+			bots[b1] = bots[b2];
+			bots[b2] = temp;
+			BotInfo temp2 = botsInfo[b1];
+			botsInfo[b1] = botsInfo[b2];
+			botsInfo[b2] = temp2;
+		}
+		 */
 		// Clear the array of public Bot info. (This is the info given to the Bots when making their moves.)
 		BotInfo[] newBotsInfo = new BotInfo[NUM_BOTS];
 		Role[] newBotRoles = new Role[NUM_BOTS];
-
+		teamScores = new double[NUM_BOTS/BattleBotArena.TEAM_SIZE];
+		
 		if (state == TEST_MODE) // we are restarting. everything is reset
 		{
-
+			//need to place the bots randomly but in groups
+			
 			int xScale = (RIGHT_EDGE-Bot.RADIUS*4)/Math.max(NUM_BOTS-1,1); // this spaces them out so they don't rez on top of each other
 			int yScale = (BOTTOM_EDGE-Bot.RADIUS*4)/5;
 			int[][] grid = new int[NUM_BOTS][5];
@@ -849,7 +891,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 				int x = (int)(Math.random()*NUM_BOTS);
 				int y = (int)(Math.random()*5);
 				newBotRoles[i] = new Role(botRoles[i].getRole());
-				newBotsInfo[i] = new BotInfo(x*xScale + Bot.RADIUS, y*yScale + Bot.RADIUS, i, bots[i].getName(), newBotRoles[i]); // create new BotInfo object to keep track of bot's stats
+				newBotsInfo[(i)] = new BotInfo(x*xScale + Bot.RADIUS, y*yScale + Bot.RADIUS, i, bots[i].getName(), newBotRoles[i]); // create new BotInfo object to keep track of bot's stats
 			//	HelperMethods.say("role"+newBotRoles[i].getRole());
 				//Rowbottom as of 3.0 teams are no longer newBotsInfo[i].setTeamName(bots[i].getTeamName()); // get start of game team names
 				newBotsInfo[i].setTeamName("Team"+(i/TEAM_SIZE+1));//Rowbottom teams are set by the order in the bot array
@@ -888,19 +930,22 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 					BOTTOM_EDGE - 19*Bot.RADIUS,BOTTOM_EDGE - 15*Bot.RADIUS,
 					BOTTOM_EDGE - 15*Bot.RADIUS,BOTTOM_EDGE - 19*Bot.RADIUS 
 			};
+			int random = (int) (Math.random()*4)*4;//gives values of 0, 4, 8, 12
 
 			for (int i = 0; i < NUM_BOTS; i++)
 			{
 				//Not needed anymorebots[i].assignNumber(i);  // assign new numbers
 				//make new botInfo objects and roles, note that these will have health and ammo values depending on roles
 				newBotRoles[i] = new Role(botRoles[i].getRole());
-				newBotsInfo[i] = new BotInfo(xs[i], ys[i], i, botsInfo[i].getName(), newBotRoles[i]);
+				int shift = (i + random)%16;
+				newBotsInfo[i] = new BotInfo(xs[shift], ys[shift], i, botsInfo[i].getName(), newBotRoles[i]);
 				//Rowbottom as of 3.0 teams are no longer newBotsInfo[i].setTeamName(bots[i].getTeamName()); // get start of game team names
 				newBotsInfo[i].setTeamName("Team"+(i/TEAM_SIZE+1));//Rowbottom teams are set by the order in the bot array
-				if (botsInfo[i] != null && CUMULATIVE_SCORING && round > 1)
+				if (botsInfo[i] != null && CUMULATIVE_SCORING && round > 1){
+					double timeAlive = botsInfo[i].getThinkTime()+botsInfo[i].getTimeOfDeath();
 					newBotsInfo[i].setCumulativeScore(botsInfo[i].getCumulativeScore()+botsInfo[i].getScore());
-				if (botsInfo[i] != null && (botsInfo[i].isOut() || botsInfo[i].isOutNextRound()))
-				{
+				}
+				if (botsInfo[i] != null && (botsInfo[i].isOut() || botsInfo[i].isOutNextRound())){
 					newBotsInfo[i].knockedOut();
 					botsLeft--;
 				}
@@ -1091,6 +1136,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 					for (int i=0; i<NUM_BOTS; i++)
 						if (botsInfo[i].isDead() == false && botsInfo[i].isOut() == false)
 						{
+							
 							botsInfo[i].setScore(currentScore(i, true));
 							break;
 						}
@@ -1648,38 +1694,16 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * @param gameOver Whether or not the game is over (full score alloted in this case)
 	 * @return The score
 	 */
-	@SuppressWarnings("unused")
 	private double currentScore(int botNum, boolean gameOver)
 	{
 		double score;
 		//Rowbottom handling score so that it does not increase bonuses by round
-		if (ELIMINATIONS_PER_ROUND==0){
-			score = KILL_SCORE * botsInfo[botNum].getNumKills() - ERROR_PENALTY * botsInfo[botNum].getNumExceptions() + EFFICIENCY_BONUS * (PROCESSOR_LIMIT - botsInfo[botNum].getThinkTime());			
-			if (score < 0)
-				score = 0;
-			if (gameOver)
-				score += TIME_LIMIT * POINTS_PER_SECOND;
-			else
-			{
-				if (botsInfo[botNum].getTimeOfDeath() > 0)
-					score += botsInfo[botNum].getTimeOfDeath()*POINTS_PER_SECOND;
-				else
-					score += timePlayed*POINTS_PER_SECOND;
-			}
+		//Moved responsibility to bot.calcScore
+		if (gameOver){
+			score = botsInfo[botNum].calcScore(TIME_LIMIT);	
 		}
 		else{
-			score = KILL_SCORE * botsInfo[botNum].getNumKills() * (round+1.0)/2 - ERROR_PENALTY * botsInfo[botNum].getNumExceptions() + EFFICIENCY_BONUS * (PROCESSOR_LIMIT - botsInfo[botNum].getThinkTime());			
-			if (score < 0)
-				score = 0;
-			if (gameOver)
-				score += TIME_LIMIT * POINTS_PER_SECOND * (round+1.0)/2;
-			else
-			{
-				if (botsInfo[botNum].getTimeOfDeath() > 0)
-					score += botsInfo[botNum].getTimeOfDeath()*POINTS_PER_SECOND*(round+1.0)/2;
-				else
-					score += timePlayed*POINTS_PER_SECOND*(round+1.0)/2;
-			}
+			score = botsInfo[botNum].calcScore(botsInfo[botNum].getTimeOfDeath());				
 		}
 		return score < 0?0:score;
 	}
@@ -1913,7 +1937,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		if (state != WAIT_TO_START)
 		{
 			g.setColor(new Color(60,60,60,130));
-			g.fillRect(0, yOffset-STATS_FONT-5, RIGHT_EDGE, STATS_FONT*(NUM_BOTS+1)+10+24);
+			g.fillRect(0, yOffset-STATS_FONT-5, RIGHT_EDGE, STATS_FONT*(NUM_BOTS+1)+34+100);
 
 			g.setColor(Color.white);
 			g.setFont(new Font("MonoSpaced",Font.BOLD,24));
@@ -1938,6 +1962,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 					g.setColor(Color.lightGray);
 				g.drawString(output,xOffset,yOffset+STATS_FONT+i*STATS_FONT);
 
+			}
+			//Rowbottom  - display the team scores
+			double [] teamScores = BotInfo.calcTeamScore(newInfos);
+			for (int i = 0; i < teamScores.length; i++){
+				g.setColor(teamColors[i]);
+				g.drawString("Team"+(i+1)+" : "+teamScores[i],xOffset,yOffset+STATS_FONT*i+NUM_BOTS*STATS_FONT+50);
+				
 			}
 		}
 	}
