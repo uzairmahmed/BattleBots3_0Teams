@@ -756,11 +756,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 				c++;
 			}
 		}
-		//For testing 
-//		bots[0] = new Robo(2);//medic
-//		bots[1] = new Robo(0);//tank
-//		bots[2] = new Robo(3);//support
-//		bots[3] = new Robo(1);//attack
+
 		botRoles = getRoles(bots);//Rowbottom get the roles from the bots
 		reset(); // calls the between-round reset method
 	}
@@ -1967,7 +1963,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			double [] teamScores = BotInfo.calcTeamScore(newInfos);
 			for (int i = 0; i < teamScores.length; i++){
 				g.setColor(teamColors[i]);
-				g.drawString("Team"+(i+1)+" : "+teamScores[i],xOffset,yOffset+STATS_FONT*i+NUM_BOTS*STATS_FONT+50);
+				g.drawString("Team"+(i+1)+" : "+(int)teamScores[i],xOffset,yOffset+STATS_FONT*i+NUM_BOTS*STATS_FONT+50);
 				
 			}
 		}
