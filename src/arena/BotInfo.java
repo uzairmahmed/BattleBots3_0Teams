@@ -578,14 +578,14 @@ public class BotInfo {
 		score += role.getHealth()*BattleBotArena.POINTS_PER_HEALTH;//score the health remaining
 		score += numHeals*BattleBotArena.POINTS_PER_HEAL;//score for healing
 		score += numSupplies*BattleBotArena.POINTS_PER_SUPPLY;//score for supplying	
-		score += (BattleBotArena.PROCESSOR_LIMIT - this.thinkTime/1000000)*BattleBotArena.EFFICIENCY_BONUS;//score for efficiency
+		score += (BattleBotArena.PROCESSOR_LIMIT - this.thinkTime)*BattleBotArena.EFFICIENCY_BONUS;//score for efficiency
 		score -= numExceptions*BattleBotArena.ERROR_PENALTY;//lower score for penalties
 		
 		//score 
 		//group round score is all score added
 		
 		//final score is based on sum of rounds
-		System.out.println(getBotNumber()+" : "+score);
+	//	System.out.println(getBotNumber()+" : "+score);
 		return score;
 	}
 	
@@ -594,6 +594,7 @@ public class BotInfo {
 		for (int i = 0; i < teamScores.length; i ++){
 			for (int j = 0; j < BattleBotArena.TEAM_SIZE; j++){
 				teamScores[i] += bots[4*i+j].getCumulativeScore();	
+//				System.out.println("Team" +i +" : " + teamScores[i]+ " and bot" + (4*i+j)+ " : "+ bots[4*i+j].getCumulativeScore());
 			}
 			
 		}

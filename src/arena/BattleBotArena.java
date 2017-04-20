@@ -315,7 +315,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points for health remaining
 	 */
-	public static final double 	POINTS_PER_HEALTH = 1;
+	public static final double 	POINTS_PER_HEALTH = 2;
 
 	/**
 	 * points per unused second of processor time (mostly for breaking ties)
@@ -730,10 +730,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 
-	//	bots[0] = new Robo(2);//medic
-	//	bots[1] = new Robo(0);//tank
-	//	bots[2] = new Robo(3);//support
-	//	bots[3] = new Robo(1);//attack
+	
 
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
@@ -1960,7 +1957,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 
 			}
 			//Rowbottom  - display the team scores
-			double [] teamScores = BotInfo.calcTeamScore(newInfos);
+			double [] teamScores = BotInfo.calcTeamScore(botsInfo);
 			for (int i = 0; i < teamScores.length; i++){
 				g.setColor(teamColors[i]);
 				g.drawString("Team"+(i+1)+" : "+(int)teamScores[i],xOffset,yOffset+STATS_FONT*i+NUM_BOTS*STATS_FONT+50);

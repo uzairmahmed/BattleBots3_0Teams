@@ -31,7 +31,7 @@ public class Role {
 	//Tank
 	public static final int TANK_HEALTH = 6;
 	public static final int TANK_BULLETS = 3;
-	public static final int TANK_MAX_AMMO = 20;
+	public static final int TANK_MAX_AMMO = 25;
 	public static final int TANK_COOLDOWN = 0;
 	//Attack
 	public static final int ATTACK_HEALTH = 3;
@@ -41,7 +41,7 @@ public class Role {
 	public static final int MEDIC_HEALTH = 3;
 	public static final int MEDIC_BULLETS = 2;
 	public static final int MEDIC_MAX_AMMO = 30;//changed to allow for more healing
-	public static final int MEDIC_COOLDOWN = 30;
+	public static final int MEDIC_COOLDOWN = 20;
 	public static final int MEDIC_HEAL_AMOUNT = 1;
 	public static final double MEDIC_HEAL_DISTANCE = Bot.RADIUS*4.;
 
