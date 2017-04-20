@@ -739,17 +739,17 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			//if there is an empty space fill it with sentries
 			if (bots[i] == null)
 			{
-				if ((i+i/TEAM_SIZE)%TEAM_SIZE  ==0)
-					bots[i] = new RandBot(i);
+		//	if ((i+i/TEAM_SIZE)%TEAM_SIZE  ==0)
+			//		bots[i] = new RandBot(i);
 				//				else if (c%2 ==1)
 				//					bots[i] = new RandBot();
-				else{
+		//		else{
 					//				{
 					bots[i] = new Drone(i);
 					//bots[i] = new Robo(i);
 					//c=0;
-				}
-				c++;
+		//		}
+		//		c++;
 			}
 		}
 
