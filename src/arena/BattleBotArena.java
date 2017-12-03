@@ -199,7 +199,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Set to TRUE for debugging output
 	 */
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	/**
 	 * @author rowbottomn
@@ -380,7 +380,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * When ELIMINATIONS_PER_ROUND is set to 0 then 
 	 * NUM_ROUNDS determines the final round
 	 */
-	public static final int NUM_ROUNDS = 5;//ROWBOTTOM Rounds will be NUM_ROUNDS
+	public static final int NUM_ROUNDS = 30;//ROWBOTTOM Rounds will be NUM_ROUNDS
 
 	/**
 	 * @author rowbottomn
@@ -517,11 +517,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Toggles sound effects on and off
 	 */
-	private boolean soundOn = true;
+	private boolean soundOn = false;
 	/**
 	 * The current speed multiplier
 	 */
-	private int speed = 8;//changed from 1
+	private int speed = 1;//changed from 1
 	/**
 	 * Controls the flashing if the game is paused
 	 */
@@ -729,6 +729,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** INSERT PLAYER BOTS HERE. Use any array numbers you like
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
+		bots[0] = new PrototypeLXI();
 
 	
 		// *******************************
