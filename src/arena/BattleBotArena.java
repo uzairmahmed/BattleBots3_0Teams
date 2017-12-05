@@ -192,6 +192,7 @@ import java.util.ArrayList;
  * @version <br>4.4(April 19 2017 - Randomized the starting location for each team, however the starting orientation on the team is set by 
  * 									order of the constructor calls
  * 								  - Responsibilities for scoring is now the moved to the Botinfo class.
+ * @version <br>5.0(Dec 5 2017) - Increased screen size and tweaks scoring values
  * 								
  */
 public class BattleBotArena extends JPanel implements MouseListener, MouseWheelListener, MouseMotionListener, ActionListener, Runnable {
@@ -261,7 +262,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 */
 	public static final int SEND_TEAM = 11;
 	/**
-	 * Rowbottom for send a team messagea bot to request healing, this will send a special message to the
+	 * NOT IMPLEMENTED Rowbottom for send a team messagea bot to request healing, this will send a special message to the medic
+     *
 	 */
 
 	public static final int REQUEST_HEALING = 12;
