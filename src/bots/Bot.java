@@ -90,7 +90,7 @@ public abstract class Bot implements Roles{
 	 * The radius of a Bot. Each Bot should fit into a circle inscribed into a
 	 * square with height and width equal to RADIUS * 2.
 	 */
-	public static final int RADIUS = 10;
+	public static final int RADIUS = 15;
 
 	/**
 	 * This is your Bot's number, a unique identifier assigned at the beginning of each round.
