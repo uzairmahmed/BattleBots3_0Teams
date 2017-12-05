@@ -13,16 +13,17 @@ import bots.Bot;
  *	
  *Roles and Values
  *Role		Health		Active Bullets		Starting Ammo		Cooldown	Special 	
- *Tank		6			3					20					None
+ *Tank		6			3					25					None
  *Attack	3			6					50					None		
- *Medic		3			2					30					60			1
- *Support	4			2					3000				30			10
- *Noob		2			2					20					
+ *Medic		3			2					30					20			1
+ *Support	3			2					2000				15			10
+ *Noob		2			2					10
  *
  *@author rowbottomn
  *@version 1.0 March basic roles
  *@version 2.0 Apr 01 2017Fixes and more functionality
  *@version 2.1 Apr 5 2017 Overloaded the fireBullet Method to allow supply to have proper amount of bullets deducted
+ * @version 2.2 Dec 1 2017 Updated stats in documentation and intial values
  *
  **/
 
@@ -97,7 +98,7 @@ public class Role {
 	/**
 	 * constructor used to get initial copy of roles so the arena will have its own tamper proof 
 	 * copy of the role
-	 * @param role
+	 * @param role decides the bot's role
 	 */
 	public Role(Role role){
 		this.role = role.role;

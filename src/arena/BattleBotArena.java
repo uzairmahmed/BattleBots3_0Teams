@@ -307,7 +307,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * healing points
 	 */
-	public static final double 	POINTS_PER_HEAL = 2;
+	public static final double 	POINTS_PER_HEAL = 1;
 	/**
 	 * supply points
 	 */
