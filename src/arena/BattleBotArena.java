@@ -275,11 +275,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Right edge of the screen
 	 */
-	public static final int RIGHT_EDGE = 700; // also arena panel width
+	public static final int RIGHT_EDGE = 1260; // also arena panel width
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 500; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -309,7 +309,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * healing points
 	 */
-	public static final double 	POINTS_PER_HEAL = 1;
+	public static final double 	POINTS_PER_HEAL = 2;
 	/**
 	 * supply points
 	 */
@@ -326,7 +326,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points off per exception caught
 	 */
-	public static final int 	ERROR_PENALTY = 1;// Rowbottom changed from 5
+	public static final int 	ERROR_PENALTY = 0;// Rowbottom changed from 5
 	/**
 	 * true = scores between rounds are cumulative
 	 * false = highest scoring Bot in last round is declared the winner
@@ -362,11 +362,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Bot speed in pixels/frame
 	 */
-	public static final double 	BOT_SPEED = 2.0;
+	public static final double 	BOT_SPEED = 2.0;//considering 3
 	/**
 	 * Bullet speed in pixels/frame
 	 */
-	public static final double 	BULLET_SPEED = 8;
+	public static final double 	BULLET_SPEED = 8;//considering 9
 	/**
 	 * Maximum message length
 	 */
@@ -767,6 +767,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Main method to create and display the arena
 	 * @param args unused
 	 */
+
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame();//set up the frame
@@ -821,7 +822,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			String temp = "images/role_"+i+".png";
 			//System.out.println(roleImages[i]);
 			roleImages[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(temp));
-		//	System.out.println(roleImages[i]);
+
 		}
 		
 		// Listeners for mouse input
@@ -829,7 +830,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		addMouseMotionListener (this);
 		addMouseWheelListener (this);
 		// Set size of panel and make it focusable
-		setPreferredSize(new Dimension(700, 600));
+		setPreferredSize(new Dimension(RIGHT_EDGE, BOTTOM_EDGE+TEXT_BUFFER));
 		setFocusable(true);
 	}
 
