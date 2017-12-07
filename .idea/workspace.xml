@@ -2,25 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a48f3ccb-1ff8-4ecc-95de-84a21790df8f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/BattleBotArena.class" afterPath="$PROJECT_DIR$/bin/arena/BattleBotArena.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/BotInfo.class" afterPath="$PROJECT_DIR$/bin/arena/BotInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/Bullet$BulletType.class" afterPath="$PROJECT_DIR$/bin/arena/Bullet$BulletType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/Bullet.class" afterPath="$PROJECT_DIR$/bin/arena/Bullet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/HelperMethods.class" afterPath="$PROJECT_DIR$/bin/arena/HelperMethods.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/Bot.class" afterPath="$PROJECT_DIR$/bin/bots/Bot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/BotHelper.class" afterPath="$PROJECT_DIR$/bin/bots/BotHelper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/DogeBot.class" afterPath="$PROJECT_DIR$/bin/bots/DogeBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/Drone.class" afterPath="$PROJECT_DIR$/bin/bots/Drone.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/FakeBotInfo.class" afterPath="$PROJECT_DIR$/bin/bots/FakeBotInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/HumanBot.class" afterPath="$PROJECT_DIR$/bin/bots/HumanBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/PrototypeLXI.class" afterPath="$PROJECT_DIR$/bin/bots/PrototypeLXI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/RandBot.class" afterPath="$PROJECT_DIR$/bin/bots/RandBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/SentryBot.class" afterPath="$PROJECT_DIR$/bin/bots/SentryBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/TestBot.class" afterPath="$PROJECT_DIR$/bin/bots/TestBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/roles/Role.class" afterPath="$PROJECT_DIR$/bin/roles/Role.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/roles/RoleType.class" afterPath="$PROJECT_DIR$/bin/roles/RoleType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/roles/Roles.class" afterPath="$PROJECT_DIR$/bin/roles/Roles.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/ramboBotTest.java" afterPath="$PROJECT_DIR$/src/bots/ramboBotTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -33,6 +14,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="Bot.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/bots/Bot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="138" column="136" lean-forward="false" selection-start-line="138" selection-start-column="24" selection-end-line="138" selection-end-column="136" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="BattleBotArena.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -46,9 +37,17 @@
       <file leaf-file-name="ramboBotTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bots/ramboBotTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="425">
+              <caret line="560" column="8" lean-forward="false" selection-start-line="560" selection-start-column="8" selection-end-line="560" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1605#1606#0" expanded="true" />
+                <element signature="e#1672#1673#0" expanded="true" />
+                <element signature="e#13531#13532#0" expanded="true" />
+                <element signature="e#13596#13597#0" expanded="true" />
+                <element signature="e#14052#14053#0" expanded="true" />
+                <element signature="e#14079#14080#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -262,12 +261,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1512669505919</updated>
-      <workItem from="1512669510790" duration="235000" />
+      <workItem from="1512669510790" duration="876000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235000" />
+    <option name="totallyTimeSpent" value="876000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="34" width="1366" height="734" extended-state="6" />
@@ -281,7 +280,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -321,11 +320,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/bots/Bot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="138" column="136" lean-forward="false" selection-start-line="138" selection-start-column="24" selection-end-line="138" selection-end-column="136" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/ramboBotTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="425">
+          <caret line="560" column="8" lean-forward="false" selection-start-line="560" selection-start-column="8" selection-end-line="560" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1605#1606#0" expanded="true" />
+            <element signature="e#1672#1673#0" expanded="true" />
+            <element signature="e#13531#13532#0" expanded="true" />
+            <element signature="e#13596#13597#0" expanded="true" />
+            <element signature="e#14052#14053#0" expanded="true" />
+            <element signature="e#14079#14080#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

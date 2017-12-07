@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import arena.BattleBotArena;
 import arena.BotInfo;
 import arena.Bullet;
+import roles.Role;
 
 /**
  * The HumanBot is a Bot that is under human control and should only be used for test purposes (e.g.
@@ -33,14 +34,14 @@ public class ramboBotTest extends Bot implements KeyListener {
 	private int botRange = 60; //60
 	private int firingTime = 30;
 	private int firingFreq = 20; //30
-	
+
 	/*
 	 * safe[0] represents if it is safe to the right
 	 * safe[1] represents if it is safe to the left
 	 * safe[2] represents if it is safe below
 	 * safe[3] represents if it is safe above
 	 */
-	
+
 	private boolean [] safe = new boolean[] {false,false,false,false};
 	private boolean offence = false;
 	private boolean cocked = true;
@@ -57,25 +58,25 @@ public class ramboBotTest extends Bot implements KeyListener {
 	}
 
 	@Override
-	public int getMove(BotInfo me, boolean shotOK, BotInfo[] liveBots,
-			BotInfo[] deadBots, Bullet[] bullets) {
-		
+	public int getMove(BotInfo me, boolean shotOK, boolean specialOK, BotInfo[] liveBots
+            , BotInfo[] deadBots, Bullet[] bullets) {
+
 		double myX = me.getX() + Bot.RADIUS/2;
 		double myY = me.getY() + Bot.RADIUS/2;
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
 		/*
-		
-		
+
+
 		//Bot Avoiding Code (updated) ----------------------------------------------------------------------------
 				for(int i = 0; i < liveBots.length; i++) {
 					//if bullet in range below, move left or right
@@ -83,100 +84,100 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[2] = true;
 						if(myX != 13) {
 							if(liveBots[i].getX() <= me.getX() && liveBots[i].getX() >= me.getX() - Bot.RADIUS/2) { //&& between my width then
-								
+
 								move = BattleBotArena.RIGHT;
 							}
-							
+
 							// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 							if(liveBots[i].getX() >= me.getX() && liveBots[i].getX() <= me.getX() + Bot.RADIUS/2) { //&& between my width then
-								
+
 								move = BattleBotArena.LEFT;
 							}
-						} 
-						
-					} 
-					
+						}
+
+					}
+
 					//if bullet in range above, move left or right
 					if(liveBots[i].getY() <= me.getY() && liveBots[i].getY() >= me.getY() - botRange + Bot.RADIUS/2) {
 						safe[3] = true;
 						if(myX != BattleBotArena.RIGHT_EDGE - 13) {
 							if(liveBots[i].getX() <= me.getX() && liveBots[i].getX() >= me.getX() - Bot.RADIUS/2) { //&& between my width then
-								
+
 								move = BattleBotArena.RIGHT;
 							}
-							
+
 							// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 							if(liveBots[i].getX() >= me.getX() && liveBots[i].getX() <= me.getX() + Bot.RADIUS/2) { //&& between my width then
-								
+
 								move = BattleBotArena.LEFT;
 							}
 						}
 					}
-							
-					
-					
+
+
+
 					//if bullet in range to my right, move up or down
 					if(liveBots[i].getX() + Bot.RADIUS/2 >= myX && liveBots[i].getX() + Bot.RADIUS/2 <= myX + botRange + Bot.RADIUS/2) {
 						safe[0] = true;
 						if(liveBots[i].getY() <= me.getY() && liveBots[i].getY() >= me.getY() - Bot.RADIUS/2) { //&& between my width then
-							
+
 							move = BattleBotArena.DOWN;
 						}
-						
+
 						// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 						if(liveBots[i].getY() >= me.getY() && liveBots[i].getY() <= me.getY() + Bot.RADIUS/2) { //&& between my width then
 							safe[0] = false;
 							move = BattleBotArena.UP;
 						}
 					}
-							
-							
-							
+
+
+
 					//if bullet in range to my left, move up or down
 					if(liveBots[i].getX() <= me.getX() && liveBots[i].getX() >= me.getX() - botRange + Bot.RADIUS/2) {
 						safe[1] = true;
 						if(liveBots[i].getY() <= me.getY() && liveBots[i].getY() >= me.getY() - Bot.RADIUS/2) { //&& between my width then
-							
+
 							move = BattleBotArena.DOWN;
 						}
-						
+
 						// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 						if(liveBots[i].getY() >= me.getY() && liveBots[i].getY() <= me.getY() + Bot.RADIUS/2) { //&& between my width then
-							
+
 							move = BattleBotArena.UP;
 						}
 					}
 				}
-				
-				
-		
-		
-		
-		
-		
-			*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
-		
-		
-		
-		
-		
+
+
+
+
+
+
+			*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		/*
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		//Bot Avoiding Code ----------------------------------------------------------------------------
 		for(int i = 0; i < liveBots.length; i++) {
 			//if bullet in range below, move left or right
@@ -187,16 +188,16 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[2] = false;
 						move = BattleBotArena.RIGHT;
 					}
-					
+
 					// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 					if(liveBots[i].getX() + Bot.RADIUS/2 > myX && liveBots[i].getX() + Bot.RADIUS/2 < myX + Bot.RADIUS) { //&& between my width then
 						safe[2] = false;
 						move = BattleBotArena.LEFT;
 					}
-				} 
-				
-			} 
-			
+				}
+
+			}
+
 			//if bullet in range above, move left or right
 			if(liveBots[i].getY() + Bot.RADIUS/2 < myY && liveBots[i].getY() + Bot.RADIUS/2 > myY - botRange) {
 				safe[3] = true;
@@ -205,7 +206,7 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[3] = false;
 						move = BattleBotArena.RIGHT;
 					}
-					
+
 					// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 					if(liveBots[i].getX() + Bot.RADIUS/2 > myX && liveBots[i].getX() + Bot.RADIUS/2 < myX + Bot.RADIUS) { //&& between my width then
 						safe[3] = false;
@@ -213,9 +214,9 @@ public class ramboBotTest extends Bot implements KeyListener {
 					}
 				}
 			}
-					
-			
-			
+
+
+
 			//if bullet in range to my right, move up or down
 			if(liveBots[i].getX() + Bot.RADIUS/2 > myX && liveBots[i].getX() + Bot.RADIUS/2 < myX + botRange) {
 				safe[0] = true;
@@ -223,16 +224,16 @@ public class ramboBotTest extends Bot implements KeyListener {
 					safe[0] = false;
 					move = BattleBotArena.DOWN;
 				}
-				
+
 				// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 				if(liveBots[i].getY() + Bot.RADIUS/2 > myY && liveBots[i].getY() + Bot.RADIUS/2 < myY + Bot.RADIUS) { //&& between my width then
 					safe[0] = false;
 					move = BattleBotArena.UP;
 				}
 			}
-					
-					
-					
+
+
+
 			//if bullet in range to my left, move up or down
 			if(liveBots[i].getX() + Bot.RADIUS/2 < myX && liveBots[i].getX() + Bot.RADIUS/2 > myX - botRange) {
 				safe[1] = true;
@@ -240,7 +241,7 @@ public class ramboBotTest extends Bot implements KeyListener {
 					safe[1] = false;
 					move = BattleBotArena.DOWN;
 				}
-				
+
 				// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 				if(liveBots[i].getY() + Bot.RADIUS/2 > myY && liveBots[i].getY() + Bot.RADIUS/2 < myY + Bot.RADIUS) { //&& between my width then
 					safe[1] = false;
@@ -248,35 +249,35 @@ public class ramboBotTest extends Bot implements KeyListener {
 				}
 			}
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
 		//if < so much ammo, track grave stones, otherwise, avoid
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		//Bullet Avoiding Code ---------------------------------------------------------------------
-		
+
 		for(int i = 0; i < bullets.length; i++) {
-			
+
 			//if bullet in range to my right, move up or down
 			if(bullets[i].getX() > myX && bullets[i].getX() < myX + dodgeRange && bullets[i].getXSpeed() < 0) {
 				safe[0] = true;
@@ -285,7 +286,7 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[0] = false;
 						move = BattleBotArena.DOWN;
 					}
-					
+
 					// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 					if(bullets[i].getY() > myY && bullets[i].getY() < myY + dodgeRange) { //&& between my width then
 						safe[0] = false;
@@ -293,9 +294,9 @@ public class ramboBotTest extends Bot implements KeyListener {
 					}
 				}
 			}
-			
-			
-			
+
+
+
 			//if bullet in range to my left, move up or down
 			if(bullets[i].getX() < myX && bullets[i].getX() > myX - dodgeRange && bullets[i].getXSpeed() > 0) {
 				safe[1] = true;
@@ -304,7 +305,7 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[1] = false;
 						move = BattleBotArena.DOWN;
 					}
-					
+
 					// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 					if(bullets[i].getY() > myY && bullets[i].getY() < myY + dodgeRange) { //&& between my width then
 						safe[1] = false;
@@ -312,10 +313,10 @@ public class ramboBotTest extends Bot implements KeyListener {
 					}
 				}
 			}
-			
-			
-			
-			
+
+
+
+
 			//if bullet in range below, move left or right
 			if(bullets[i].getY() > myY && bullets[i].getY() < myY + dodgeRange && bullets[i].getYSpeed() < 0) {
 				safe[2] = true;
@@ -324,16 +325,16 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[2] = false;
 						move = BattleBotArena.RIGHT;
 					}
-					
+
 					// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 					if(bullets[i].getX() > myX && bullets[i].getX() < myX + dodgeRange) { //&& between my width then
 						safe[2] = false;
 						move = BattleBotArena.LEFT;
 					}
-				} 
-				
-			} 
-			
+				}
+
+			}
+
 			//if bullet in range above, move left or right
 			if(bullets[i].getY() < myY && bullets[i].getY() > myY - dodgeRange && bullets[i].getYSpeed() > 0) {
 				safe[3] = true;
@@ -342,39 +343,39 @@ public class ramboBotTest extends Bot implements KeyListener {
 						safe[3] = false;
 						move = BattleBotArena.RIGHT;
 					}
-					
+
 					// if bullet is below me  and bullet is within 25 untis to my left and within 25 units below
 					if(bullets[i].getX() > myX && bullets[i].getX() < myX + dodgeRange) { //&& between my width then
 						safe[3] = false;
 						move = BattleBotArena.LEFT;
 					}
 				}
-				
-			}			
+
+			}
 		}
-		
-		
-		
-		
-		
+
+
+
+
+
 		if(safe[0] == true && safe[1] == true && safe[2] == true && safe[3] == true) {
 			offence = true;
 			//System.out.println("Offence has been activated");
 		} else {
 			offence = false;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
 		if(offence) {
-			
+
 			if(liveBots.length>0) {
 				BotInfo nearestBot = liveBots[0];
 				for(int i = 0;i<liveBots.length;i++) {
@@ -382,9 +383,9 @@ public class ramboBotTest extends Bot implements KeyListener {
 						nearestBot = liveBots[i];
 					}
 				}
-				
-				
-				
+
+
+
 				if(me.getX()!=nearestBot.getX()&&me.getX()!=nearestBot.getX()+1||me.getX()!=nearestBot.getX()+2) {
 					if(me.getX() != nearestBot.getX()) {
 					if(me.getX()>nearestBot.getX()) {
@@ -405,16 +406,16 @@ public class ramboBotTest extends Bot implements KeyListener {
 					}
 					}
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
+
+
+
 				if(me.getBulletsLeft() > 2) {
 					if(shotOK && firingTime > firingFreq) {
 							if(me.getX()==nearestBot.getX()||me.getX()==nearestBot.getX()+1||me.getX()==nearestBot.getX()+2) {
@@ -433,34 +434,34 @@ public class ramboBotTest extends Bot implements KeyListener {
 									move = 8;
 								}
 							}
-						
+
 						firingTime = 0;
 					} else {
 						firingTime++;
-						
+
 					}
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			}
-		
-		}
-		
 
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
+
+			}
+
+		}
+
+
+
+
+
 		//if shoot at
 		if(!offence) {
 			if(me.getX() > BattleBotArena.RIGHT_EDGE - (Bot.RADIUS+2)) {
@@ -476,12 +477,12 @@ public class ramboBotTest extends Bot implements KeyListener {
 				move = BattleBotArena.UP;
 			}
 		}
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		if (msg != null)
 			return BattleBotArena.SEND_MESSAGE;
 		cocked = shotOK;
@@ -539,20 +540,24 @@ public class ramboBotTest extends Bot implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
+    @Override
+    public Role getRole() {
+        return null;
+    }
 }
