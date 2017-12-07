@@ -81,6 +81,7 @@ import arena.Bullet;
  * @author rowbottomn
  * @version 3.0 Mar 30 2017 Added Botinfo target variable with getter and setter
  * @version 3.1 Apr 4 2017 Modified getMove to include the specialOk boolean
+ * @version 4.0 Dec 6 2017 Botsize to 15 to go with larger screen size
  */
 public abstract class Bot implements Roles{
 
@@ -90,7 +91,7 @@ public abstract class Bot implements Roles{
 	 * The radius of a Bot. Each Bot should fit into a circle inscribed into a
 	 * square with height and width equal to RADIUS * 2.
 	 */
-	public static final int RADIUS = 15;
+	public static final int RADIUS = 15;//ths seems nice
 
 	/**
 	 * This is your Bot's number, a unique identifier assigned at the beginning of each round.
