@@ -299,11 +299,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points per kill 
 	 */
-	public static final int 	KILL_SCORE = 5;//Rowbottom changed from 5
+	public static final int 	KILL_SCORE = 10;//Rowbottom changed from 5
 	/**
 	 * survival points 
 	 */
-	public static final double 	POINTS_PER_SECOND = 0.1;//Rowbottom changed from 0.1
+	public static final double 	POINTS_PER_SECOND = 0.05;//Rowbottom changed from 0.1
 	/**
 	 * healing points
 	 */

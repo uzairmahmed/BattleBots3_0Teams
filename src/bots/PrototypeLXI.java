@@ -326,16 +326,20 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		
-		BotInfo target = null;//Bot to actually target
-		BotInfo botTarget = myInfo;//Which bot to target, set to self in beginning to prevent NPE
+		//BotInfo target = null;//Bot to actually target
+		//BotInfo botTarget = myInfo;//Which bot to target, set to self in beginning to prevent NPE
 		if (crappyBots != null && crappyBots.size() > 0) {//If there are potential targets
 			// botTarget = crappyBots.get(targetIndex);
-			botTarget = crappyBots.get(0);//Get the first one
+			target = crappyBots.get(0);//Get the first one
 		}
+		
+		/*
 		// || frameCount <= 3
 		if (botTarget == null) {//If the bot target is null
-			botTarget = myInfo;//Set it to yourself
-		}
+			target = myInfo;//Set it to yourself
+		}*/
+		
+		/*
 		//Distance to target
 		double distanceToBotTarget = botHelper.calcDistance(me.getX(), me.getY(), botTarget.getX(), botTarget.getY());
 
@@ -362,7 +366,7 @@ public class PrototypeLXI extends Bot {
 		if (distanceToGraveTarget < BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3
 				&& me.getBulletsLeft() < 1000) {
 			target = graveTarget;
-		}
+		}*/
 		
 		BotInfo tempTarget = targetGlobal;
 		//Adjust the reference of the global target
@@ -566,6 +570,7 @@ public class PrototypeLXI extends Bot {
 
 	}
 
+	/*
 	//calculates the closest grave with loot
 	//takes in array of dead bots and this bot
 	private BotInfo closestGraveLoot(BotInfo[] deadBots, BotInfo me) {
@@ -585,7 +590,7 @@ public class PrototypeLXI extends Bot {
 
 		//returns closest grave with loot
 		return botHelper.findClosest(me, bulletsAvailArray);
-	}
+	}*/
 
 	//calculates closest grave
 	private BotInfo closestGrave(BotInfo[] deadBots) {
@@ -1382,7 +1387,9 @@ public class PrototypeLXI extends Bot {
 				desires[5] = 5;
 			}
 	
-		} else if (target.isDead() ) {
+		}
+		/*
+		else if (target.isDead() ) {
 			//dead target; gravestone looting
 			//System.out.println("xDif = " + xDif + " yDif = " + yDif);
 
@@ -1399,7 +1406,7 @@ public class PrototypeLXI extends Bot {
 			if (xDif < -RADIUS) {
 				desires[3] = ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
 			}
-		}
+		}*/
 
 		//calculates and returns the new choices with updated desires
 		for (int i = 0; i < possibleMoves.size(); i++) {
