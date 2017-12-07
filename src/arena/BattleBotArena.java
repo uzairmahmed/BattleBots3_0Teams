@@ -193,6 +193,7 @@ import java.util.ArrayList;
  * 									order of the constructor calls
  * 								  - Responsibilities for scoring is now the moved to the Botinfo class.
  * @version <br>5.0(Dec 5 2017) - Increased screen size and tweaks scoring values
+ * @version <br>5.1(Dec 6 2017) - Cleaned out the role  and roles from old stuff not being used and misleading cleaned graphics, made botsize larger.
  * 								
  */
 public class BattleBotArena extends JPanel implements MouseListener, MouseWheelListener, MouseMotionListener, ActionListener, Runnable {
@@ -723,8 +724,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** HUMAN TEST BOT CREATION
 		// *** Comment the next two lines out if you don't want to use the
 		// *** HumanBot (under user control)
-		//bots[0] = new HumanBot();
-		//addKeyListener((HumanBot)bots[0]);
+	//	bots[0] = new HumanBot();
+	//	addKeyListener((HumanBot)bots[0]);
 
 		// ******************************
 
@@ -1242,12 +1243,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									}
 									else if (botRoles[i].getRole() == RoleType.TANK){
 										bulletCount ++;
-
 									}
 								}
+								//if we have all our bullets available and we are a tank and the tank has enough ammo left
 								if (bulletCount >= Role.TANK_BULLETS&&botRoles[i].getRole() == RoleType.TANK&&botRoles[i].getBulletsLeft() >= Role.TANK_BULLETS){
 								//	HelperMethods.say("I can blast");
 									specialOK = true;
+
 								}
 							}
 							//System.out.println("Bot"+i+"'s bullets"+currentBot.getBulletsLeft()+","+shotOK);
@@ -1381,27 +1383,31 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (botRoles[i].getRole() == RoleType.TANK){
 										int ydir = 0;
 										int xdir = 0;
-										if (botsInfo[i].getLastMove()%4 == 1){//up or fire up
+										if (botsInfo[i].getLastMove() == 1){//up
 											ydir = -1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 2){//down or fireDown
+										else if (botsInfo[i].getLastMove() == 2){//down
 											ydir = 1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 3){//left or fireright
+										else if (botsInfo[i].getLastMove() == 3){//left
 											xdir = -1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 0){//right or fireRight
+										else if (botsInfo[i].getLastMove() == 0){//right
 											xdir = 1;
 										}
+										else{
+											HelperMethods.say("WTF? no direction selected");
+											continue;
+										}
 										for (int f = 0; f < Role.TANK_BULLETS; f++){
-											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
+											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*0.8*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*0.8*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
 											botRoles[i].fireBullet(1);//decreases ammo count
 										}
 									}
 									else if (botRoles[i].getRole() == RoleType.MEDIC){
 										BotInfo target = bots[i].getTarget() ;
 										if ( target == null){
-											HelperMethods.say("WTF, no target selected");
+											HelperMethods.say("WTF? no target selected");
 										}
 										double d = Math.sqrt(Math.pow(botsInfo[i].getX()-target.getX(),2)+Math.pow(botsInfo[i].getY()-target.getY(),2));
 										
