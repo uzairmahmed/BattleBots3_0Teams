@@ -192,6 +192,8 @@ import java.util.ArrayList;
  * @version <br>4.4(April 19 2017 - Randomized the starting location for each team, however the starting orientation on the team is set by 
  * 									order of the constructor calls
  * 								  - Responsibilities for scoring is now the moved to the Botinfo class.
+ * @version <br>5.0(Dec 5 2017) - Increased screen size and tweaks scoring values
+ * @version <br>5.1(Dec 6 2017) - Cleaned out the role  and roles from old stuff not being used and misleading cleaned graphics, made botsize larger.
  * 								
  */
 public class BattleBotArena extends JPanel implements MouseListener, MouseWheelListener, MouseMotionListener, ActionListener, Runnable {
@@ -261,7 +263,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 */
 	public static final int SEND_TEAM = 11;
 	/**
-	 * Rowbottom for send a team messagea bot to request healing, this will send a special message to the
+	 * NOT IMPLEMENTED Rowbottom for send a team messagea bot to request healing, this will send a special message to the medic
+     *
 	 */
 
 	public static final int REQUEST_HEALING = 12;
@@ -273,11 +276,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Right edge of the screen
 	 */
-	public static final int RIGHT_EDGE = 700; // also arena panel width
+	public static final int RIGHT_EDGE = 1260; // also arena panel width
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 500; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -324,7 +327,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points off per exception caught
 	 */
-	public static final int 	ERROR_PENALTY = 1;// Rowbottom changed from 5
+	public static final int 	ERROR_PENALTY = 0;// Rowbottom changed from 5
 	/**
 	 * true = scores between rounds are cumulative
 	 * false = highest scoring Bot in last round is declared the winner
@@ -360,11 +363,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Bot speed in pixels/frame
 	 */
-	public static final double 	BOT_SPEED = 2.0;
+	public static final double 	BOT_SPEED = 2.0;//considering 3
 	/**
 	 * Bullet speed in pixels/frame
 	 */
-	public static final double 	BULLET_SPEED = 8;
+	public static final double 	BULLET_SPEED = 8;//considering 9
 	/**
 	 * Maximum message length
 	 */
@@ -721,8 +724,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** HUMAN TEST BOT CREATION
 		// *** Comment the next two lines out if you don't want to use the
 		// *** HumanBot (under user control)
-		//bots[0] = new HumanBot();
-		//addKeyListener((HumanBot)bots[0]);
+	//	bots[0] = new HumanBot();
+	//	addKeyListener((HumanBot)bots[0]);
 
 		// ******************************
 
@@ -766,6 +769,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Main method to create and display the arena
 	 * @param args unused
 	 */
+
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame();//set up the frame
@@ -820,7 +824,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			String temp = "images/role_"+i+".png";
 			//System.out.println(roleImages[i]);
 			roleImages[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(temp));
-		//	System.out.println(roleImages[i]);
+
 		}
 		
 		// Listeners for mouse input
@@ -828,7 +832,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		addMouseMotionListener (this);
 		addMouseWheelListener (this);
 		// Set size of panel and make it focusable
-		setPreferredSize(new Dimension(700, 600));
+		setPreferredSize(new Dimension(RIGHT_EDGE, BOTTOM_EDGE+TEXT_BUFFER));
 		setFocusable(true);
 	}
 
@@ -1240,12 +1244,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									}
 									else if (botRoles[i].getRole() == RoleType.TANK){
 										bulletCount ++;
-
 									}
 								}
+								//if we have all our bullets available and we are a tank and the tank has enough ammo left
 								if (bulletCount >= Role.TANK_BULLETS&&botRoles[i].getRole() == RoleType.TANK&&botRoles[i].getBulletsLeft() >= Role.TANK_BULLETS){
 								//	HelperMethods.say("I can blast");
 									specialOK = true;
+
 								}
 							}
 							//System.out.println("Bot"+i+"'s bullets"+currentBot.getBulletsLeft()+","+shotOK);
@@ -1379,27 +1384,31 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (botRoles[i].getRole() == RoleType.TANK){
 										int ydir = 0;
 										int xdir = 0;
-										if (botsInfo[i].getLastMove()%4 == 1){//up or fire up
+										if (botsInfo[i].getLastMove() == 1){//up
 											ydir = -1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 2){//down or fireDown
+										else if (botsInfo[i].getLastMove() == 2){//down
 											ydir = 1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 3){//left or fireright
+										else if (botsInfo[i].getLastMove() == 3){//left
 											xdir = -1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 0){//right or fireRight
+										else if (botsInfo[i].getLastMove() == 0){//right
 											xdir = 1;
 										}
+										else{
+											HelperMethods.say("WTF? no direction selected");
+											continue;
+										}
 										for (int f = 0; f < Role.TANK_BULLETS; f++){
-											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
+											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*0.8*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*0.8*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
 											botRoles[i].fireBullet(1);//decreases ammo count
 										}
 									}
 									else if (botRoles[i].getRole() == RoleType.MEDIC){
 										BotInfo target = bots[i].getTarget() ;
 										if ( target == null){
-											HelperMethods.say("WTF, no target selected");
+											HelperMethods.say("WTF? no target selected");
 										}
 										double d = Math.sqrt(Math.pow(botsInfo[i].getX()-target.getX(),2)+Math.pow(botsInfo[i].getY()-target.getY(),2));
 										

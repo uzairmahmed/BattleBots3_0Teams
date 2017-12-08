@@ -24,11 +24,11 @@ import roles.RoleType;
  */
 public class PrototypeLXI extends Bot {
 	
-	RoleType role;
+	protected RoleType role;
 	
 	//Constants to report to field
-	private final String NAME = "PrototypeLXI";
-	private final String TEAM_NAME = "Byte";
+	protected String NAME;
+	private final String TEAM_NAME = "LeftOvers";
 
 	//Current Image
 	private Image current;
@@ -95,6 +95,7 @@ public class PrototypeLXI extends Bot {
 	 * 
 	 */
 	public PrototypeLXI() {
+		NAME = "PrototypeLXI";
 		previousPos = new double[NUMBER_OF_FRAMES_TO_SAVE][3];
 		frameCount = 0;
 		//Calculate how many frames are required to doge bullet
@@ -102,6 +103,8 @@ public class PrototypeLXI extends Bot {
 			double distanceToMove = RADIUS * 3;
 			timeNeeded = Math.ceil(distanceToMove / BattleBotArena.BOT_SPEED);
 		}
+		
+		role = RoleType.TANK;
 		// System.out.println(mode(new Integer[] {3,1,1,1,3,3,4,4,4,4}));
 	}
 
@@ -1642,8 +1645,7 @@ public class PrototypeLXI extends Bot {
 
 	@Override
 	public Role getRole() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Role(role);
 	}
 
 

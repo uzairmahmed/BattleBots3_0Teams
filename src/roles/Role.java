@@ -13,16 +13,18 @@ import bots.Bot;
  *	
  *Roles and Values
  *Role		Health		Active Bullets		Starting Ammo		Cooldown	Special 	
- *Tank		6			3					20					None
+ *Tank		6			3					30					None		3 bullet blast
  *Attack	3			6					50					None		
- *Medic		3			2					30					60			1
- *Support	4			2					3000				30			10
- *Noob		2			2					20					
+ *Medic		3			2					30					20			1 per heal
+ *Support	3			2					2000				15			10 per supply
+ *Noob		2			2					10
  *
  *@author rowbottomn
  *@version 1.0 March basic roles
  *@version 2.0 Apr 01 2017Fixes and more functionality
  *@version 2.1 Apr 5 2017 Overloaded the fireBullet Method to allow supply to have proper amount of bullets deducted
+ * @version 3.0 Dec 1 2017 Updated stats in documentation and initial values
+ * @version 3.1 Dec 6 2017 Tank starting ammo to 30
  *
  **/
 
@@ -31,7 +33,7 @@ public class Role {
 	//Tank
 	public static final int TANK_HEALTH = 6;
 	public static final int TANK_BULLETS = 3;
-	public static final int TANK_MAX_AMMO = 25;
+	public static final int TANK_MAX_AMMO = 30;
 	public static final int TANK_COOLDOWN = 0;
 	//Attack
 	public static final int ATTACK_HEALTH = 3;
@@ -51,10 +53,7 @@ public class Role {
 	public static final int SUPPORT_COOLDOWN = 15;
 	public static final int SUPPORT_AMMO_AMOUNT = 10;	
 	public static final double SUPPORT_SUPPLY_DISTANCE = Bot.RADIUS*4.;
-	
-	//public ArrayList <Long> coolDowns;
-	
-	//public long coolDownTime;
+
 	//Private instance variables
 	protected RoleType role;//this is set private so it can only be set on the constructor call
 		
@@ -65,15 +64,7 @@ public class Role {
 	private int health = 2;
 	
 	private int maxHealth = 2;
-	
-	private double speedMultiplier = 1.0;
-	
-	private double ammoMultiplier = 1.0;
-	
-	private double sizeMultiplier = 1.0;
-	
-	private double numBulletMultiplier= 1.0;
-	
+
 	private int numBullet = 2;
 		
 	private int coolDown = -1;
@@ -97,7 +88,7 @@ public class Role {
 	/**
 	 * constructor used to get initial copy of roles so the arena will have its own tamper proof 
 	 * copy of the role
-	 * @param role
+	 * @param role decides the bot's role
 	 */
 	public Role(Role role){
 		this.role = role.role;
@@ -123,10 +114,6 @@ public class Role {
 		r.maxAmmo = maxAmmo;
 		r.health = health;
 		r.maxHealth = maxHealth;
-		//r.speedMultiplier = speedMultipler;
-		r.ammoMultiplier = ammoMultiplier;
-		r.sizeMultiplier = sizeMultiplier;
-		//r.numBulletMultiplier = numBulletMultiplier;
 		r.numBullet = numBullet;
 		r.coolDown = coolDown;
 		r.specialOK = specialOK;
@@ -153,13 +140,7 @@ public class Role {
 		ammo = TANK_MAX_AMMO;					//Starting ammo 
 		
 		health =TANK_HEALTH;					//5 health as opposed to 3 for most others
-				
-//		speedMultiplier = 0.7;  	//1.4 speed but might need to safeguard against getting stuck on tombstones
-		
-//		ammoMultiplier =  1.43;		//
-		
-		sizeMultiplier = 1.5;		//50% bigger
-	
+
 		numBullet = TANK_BULLETS;	//3 bullets at once
 		
 		coolDown = -1; 				//no cooldown needed
@@ -172,13 +153,7 @@ public class Role {
 		ammo = ATTACK_MAX_AMMO;					//Starting ammo 
 		
 		health = ATTACK_HEALTH;					//5 health as opposed to 3 for most others
-		
-		speedMultiplier = 1.0;  	//2.0 speed but might need to safeguard against getting stuck on tombstones
-		
-//		ammoMultiplier =  1.43;		//
-		
-		sizeMultiplier = 1.0;		//regular size
-	
+
 		numBullet = ATTACK_BULLETS;	//6 bullets at once
 
 		coolDown = -1; 				//no cooldown needed
@@ -192,17 +167,11 @@ public class Role {
 		
 		health = MEDIC_HEALTH;					//5 health as opposed to 3 for most others
 		
-		speedMultiplier = 1.2;  	//2.4 speed but might need to safeguard against getting stuck on tombstones
-		
-//		ammoMultiplier =  1.43;		//
-		
-		sizeMultiplier = 1.0;		//regular size
-	
+
 		numBullet = MEDIC_BULLETS;	//2 bullets or abilities at once		
 		
 		coolDown = MEDIC_COOLDOWN; 			//cooldown on healing of 500 ms
 		
-//		coolDowns = new ArrayList<Long>();
 
 		specialOK = true;			//Start as true
 	}
@@ -214,21 +183,10 @@ public class Role {
 		
 		health = SUPPORT_HEALTH;					//5 health as opposed to 3 for most others
 		
-		speedMultiplier = 1.0;  	//2.0 speed but might need to safeguard against getting stuck on tombstones
-		
-//		ammoMultiplier =  1.43;		//
-		
-		sizeMultiplier = 1.0;		//regular size
-	
-		numBulletMultiplier = 0.75;	//3 bullets at once
 
 		numBullet = SUPPORT_BULLETS;
 		
 		coolDown = SUPPORT_COOLDOWN; 			//cooldown on adding ammo of 500 ms
-
-		//ammoGeneration = SUPPORT_MAX_SUPPLY;		//maybe not needed
-		
-		//coolDowns = new ArrayList<Long>();
 
 		specialOK = true;			//Start as true
 	}
@@ -292,6 +250,7 @@ public class Role {
 	}
 	
 	/**
+	 * @deprecated
 	 * @author rowbottom
 	 * added this method to facilitate medic role decisions
 	 *  note that you can call it like this
@@ -316,6 +275,7 @@ public class Role {
 	}
 
 	/**
+	 * @deprecated
 	 * @author rowbottom
 	 * added this method to facilitate support role decisions
 	 *  note that you can call it like this
