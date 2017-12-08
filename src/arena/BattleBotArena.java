@@ -280,7 +280,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 804; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 600; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -354,7 +354,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Total number of Bots in round 1 (if you have fewer than this, the rest of the spots
 	 * in the array will be filled with Drones, RandBots, and Sentries).
 	 */
-	public static final int 	NUM_BOTS = 16;
+	public static final int 	NUM_BOTS = 2;
 	/**
 	 * Rowbottom 
 	 * Not used*Number of bullets on screen at once for each bot
@@ -733,8 +733,10 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 		bots[0] = new PrototypeLXI();
+		bots[1] = new PrototypeLXI();
 
-	
+
+
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
 		int c = 1;

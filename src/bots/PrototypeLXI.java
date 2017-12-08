@@ -85,6 +85,11 @@ public class PrototypeLXI extends Bot {
 	double targetFakePos = -1;
 	boolean arrivedX;
 	boolean arrivedY;
+
+	//Arraylist for team
+	protected ArrayList<Integer> team =new ArrayList<Integer>();
+	//TeamName Checking Message
+	protected String teamMessage = "PandasRLife";
 	
 	//direction to line up shots
 	//0 = on x axis,
@@ -115,7 +120,7 @@ public class PrototypeLXI extends Bot {
 	 */
 	@Override
 	public void newRound() {
-
+		counter = 0;
 		spoofTargets.clear();
 	}
 
@@ -137,7 +142,9 @@ public class PrototypeLXI extends Bot {
 
 		//randomly fire in the first frame, since moving can be dangerous
 		if (counter == 0) {
-			double temp = Math.random();
+			move = BattleBotArena.SEND_MESSAGE;
+
+			/*double temp = Math.random();
 			if (temp <= 0.25) {
 				move = BattleBotArena.FIREUP;
 			} else if (temp > 0.25 && temp <= 0.5) {
@@ -146,12 +153,12 @@ public class PrototypeLXI extends Bot {
 				move = BattleBotArena.FIREDOWN;
 			} else if (temp > 0.75) {
 				move = BattleBotArena.FIRELEFT;
-			}
+			}*/
 
 			counter++;
 			return move;
 		}
-
+		System.out.println(team.size());///////////////////////////////////
 		// If there are any bullets 
 		if (!shotOK || counter % FRAMES_TO_DODGE != remainder) {
 			//don't fire
@@ -638,7 +645,7 @@ public class PrototypeLXI extends Bot {
 	//removes any unwanted targets from the arrayList of targets
 	private void removeUnwantedTargets(ArrayList<BotInfo> list) {
 		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getTeamName().equals(TEAM_NAME)) {
+			if (team.contains(list.get(i).getBotNumber())) {
 				//target is team member
 				list.remove(i);
 			}
@@ -1599,8 +1606,7 @@ public class PrototypeLXI extends Bot {
 	 */
 	@Override
 	public String outgoingMessage() {
-		// TODO Auto-generated method stub
-		return null;
+		return teamMessage;
 	}
 
 	/*
@@ -1610,8 +1616,11 @@ public class PrototypeLXI extends Bot {
 	 */
 	@Override
 	public void incomingMessage(int botNum, String msg) {
-		// TODO Auto-generated method stub
-
+		if (counter<4){
+			if (msg == teamMessage){
+				team.add(botNum);
+			}
+		}
 	}
 
 	/*
