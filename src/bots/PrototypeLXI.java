@@ -19,7 +19,7 @@ import roles.Role;
 import roles.RoleType;
 
 /**
- * @author Winnie Trandinh & Ansar Khan
+ * @author Winnie Trandinh
  *
  */
 public class PrototypeLXI extends Bot {
@@ -28,17 +28,17 @@ public class PrototypeLXI extends Bot {
 	
 	//Constants to report to field
 	protected String NAME;
-	private final String TEAM_NAME = "LeftOvers";
+	protected final String TEAM_NAME = "LeftOvers";
 
 	//Current Image
-	private Image current;
+	protected Image current;
 
 	//Store move
-	private int move = BattleBotArena.FIRELEFT;
+	protected int move = BattleBotArena.FIRELEFT;
 
-	private int counter = 0;
+	protected int counter = 0;
 	// used for firing intervals
-	private int remainder = 0;
+	protected int remainder = 0;
 	
 	
 
@@ -47,34 +47,34 @@ public class PrototypeLXI extends Bot {
 	ArrayList<BotInfo> crappyBots;
 
 	//Number of frames required to dodge imminent threat 
-	private double timeNeeded = -1;
+	protected double timeNeeded = -1;
 
 
 	// used for firing intervals
-	private final int FRAMES_TO_DODGE = (int) (Math.floor((RADIUS * 2) / BattleBotArena.BOT_SPEED) - 1);
-	// private final int MAX_FRAMES_PER_BULLET =
+	protected final int FRAMES_TO_DODGE = (int) (Math.floor((RADIUS * 2) / BattleBotArena.BOT_SPEED) - 1);
+	// protected final int MAX_FRAMES_PER_BULLET =
 	// (int) (Math.floor( (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)
 	/// BattleBotArena.BULLET_SPEED) );
 	
 	//Number of previous frames to save
-	private final int NUMBER_OF_FRAMES_TO_SAVE = 4;
+	protected final int NUMBER_OF_FRAMES_TO_SAVE = 4;
 
 	//Running tally of number of frames
-	private int frameCount;
+	protected int frameCount;
 
 	//Stores last postion and move
-	private double[][] previousPos;
+	protected double[][] previousPos;
 	
 	//Target to get
-	private BotInfo targetGlobal;
+	protected BotInfo targetGlobal;
 	//whether the target has changed or not
-	private boolean targetChanged = false;
+	protected boolean targetChanged = false;
 	//Index of target
-	private int targetIndex = 0;
+	protected int targetIndex = 0;
 	//Time when target changed 
-	private int whenTargetChanged;
+	protected int whenTargetChanged;
 	//Used to stor bot's own info
-	private BotInfo myInfo;
+	protected BotInfo myInfo;
 	boolean stuck;//Stores whether or not bot is stuck
 	int stuckDir;//Stores whether bot is stuck going left/right or up/down
 	//the grave that the bot is stuck to
@@ -156,6 +156,11 @@ public class PrototypeLXI extends Bot {
 		if (!shotOK || counter % FRAMES_TO_DODGE != remainder) {
 			//don't fire
 			noMoves = noFire(noMoves);
+		}
+		
+		//special not available
+		if (!specialOK) {
+			noMoves = noSpecial(noMoves);
 		}
 		// add if for one bullet left
 
@@ -265,6 +270,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveR(noMoves);
 					noMoves = noMoveL(noMoves);
 					noMoves = noStay(noMoves);
+					noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from right");
 				}
@@ -279,6 +285,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveR(noMoves);
 					noMoves = noMoveL(noMoves);
 					noMoves = noStay(noMoves);
+					noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from left");
 				}
@@ -293,6 +300,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveU(noMoves);
 					noMoves = noMoveD(noMoves);
 					noMoves = noStay(noMoves);
+					noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from below");
 				}
@@ -307,6 +315,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveU(noMoves);
 					noMoves = noMoveD(noMoves);
 					noMoves = noStay(noMoves);
+					noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from above");
 				}
@@ -329,12 +338,15 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		
-		//BotInfo target = null;//Bot to actually target
-		//BotInfo botTarget = myInfo;//Which bot to target, set to self in beginning to prevent NPE
+		BotInfo target = null;//Bot to actually target
+		BotInfo botTarget = myInfo;//Which bot to target, set to self in beginning to prevent NPE
+		BotInfo allyTarget = null;
 		if (crappyBots != null && crappyBots.size() > 0) {//If there are potential targets
 			// botTarget = crappyBots.get(targetIndex);
-			target = crappyBots.get(0);//Get the first one
+			botTarget = crappyBots.get(0);//Get the first one
 		}
+		
+		allyTarget = getAllies(team, liveBots);
 		
 		/*
 		// || frameCount <= 3
@@ -371,6 +383,16 @@ public class PrototypeLXI extends Bot {
 			target = graveTarget;
 		}*/
 		
+		if (role != RoleType.TANK) {
+			if (allyTarget != null) {
+				target = allyTarget;
+			} else {
+				target = botTarget;
+			}
+		} else {
+			target = botTarget;
+		}
+		
 		BotInfo tempTarget = targetGlobal;
 		//Adjust the reference of the global target
 		//if target changed, then change variable of targetChanged accordingly
@@ -394,7 +416,7 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		if (!threat) {//If there is no threat
-			if (shotOK) {//If able to shoot
+			if (shotOK || specialOK) {//If able to shoot
 				choices = calcDesire(choices, possibleMoves, me, target);//Calculate desires for where to go
 			}
 			for (BotInfo fakeTarget : spoofTargets) {
@@ -465,7 +487,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//Checks whether or not the bot is stuck
-	private boolean isStuck() {
+	protected boolean isStuck() {
 		int oldestIndex = 0;
 		double oldestX = previousPos[oldestIndex][0] + RADIUS;
 		double oldestY = previousPos[oldestIndex][1] + RADIUS;
@@ -487,7 +509,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//Returns which direction robot is stuck in
-	private boolean stuckOnX() {
+	protected boolean stuckOnX() {
 
 		ArrayList<Integer> modes = new ArrayList<Integer>();//List to hold the modes of the most common moves
 		for (int i = 0; i < previousPos.length; i++) {//Go through all saved move
@@ -505,7 +527,7 @@ public class PrototypeLXI extends Bot {
 	}
 	//Updates all global data
 	//Takes in all the information that is given to getMove()
-	private void update(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
+	protected void update(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
 		myInfo = me;//Update own info
 
 		crappyBots = getClosestBots(liveBots);//Get the closest bots
@@ -558,7 +580,7 @@ public class PrototypeLXI extends Bot {
 	}
 	//Saves the last move, requires a move
 	//Saving is required to know if bot is stuck
-	private void saveMove(int move) {
+	protected void saveMove(int move) {
 		//Shift everything in the array back
 		for (int i = 0; i < previousPos.length - 1; i++) {
 			previousPos[i] = previousPos[i + 1];
@@ -576,7 +598,7 @@ public class PrototypeLXI extends Bot {
 	/*
 	//calculates the closest grave with loot
 	//takes in array of dead bots and this bot
-	private BotInfo closestGraveLoot(BotInfo[] deadBots, BotInfo me) {
+	protected BotInfo closestGraveLoot(BotInfo[] deadBots, BotInfo me) {
 		//creats an arrayList of all graves that have loot
 		ArrayList<BotInfo> bulletsAvail = new ArrayList<BotInfo>();
 		for (BotInfo bot : deadBots) {
@@ -596,12 +618,12 @@ public class PrototypeLXI extends Bot {
 	}*/
 
 	//calculates closest grave
-	private BotInfo closestGrave(BotInfo[] deadBots) {
+	protected BotInfo closestGrave(BotInfo[] deadBots) {
 		return botHelper.findClosest(myInfo, deadBots);
 	}
 
 	//calculates closest bots
-	private ArrayList<BotInfo> getClosestBots(BotInfo[] allBots) {
+	protected ArrayList<BotInfo> getClosestBots(BotInfo[] allBots) {
 		ArrayList<BotInfo> copy = new ArrayList<BotInfo>(Arrays.asList(Arrays.copyOf(allBots, allBots.length)));
 
 		// System.out.println("Copied Array" + allBots.length + ", "+copy);
@@ -636,7 +658,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//removes any unwanted targets from the arrayList of targets
-	private void removeUnwantedTargets(ArrayList<BotInfo> list) {
+	protected void removeUnwantedTargets(ArrayList<BotInfo> list) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getTeamName().equals(TEAM_NAME)) {
 				//target is team member
@@ -645,6 +667,11 @@ public class PrototypeLXI extends Bot {
 		}
 	}
 
+	//override this for support classes
+	protected BotInfo getAllies(ArrayList<Integer> team, BotInfo[] liveBots) {
+		return null;
+	}
+	
 	//updates info about target
 	void updateTarget(BotInfo[] liveBots) {
 		if (targetGlobal == null) {
@@ -749,7 +776,7 @@ public class PrototypeLXI extends Bot {
 	}
 	
 	//this method calculates the valid positions for the spoof targets
-	private double findValidPos(int stuckDir, BotInfo[] deadBots, BotInfo target, 
+	protected double findValidPos(int stuckDir, BotInfo[] deadBots, BotInfo target, 
 			double pos, int direction) {
 		//direction = 1 if spoofing on x; 2 if spoofing on y
 		double xPos = 0;;
@@ -819,70 +846,77 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//these methods create a no move for the specified moves if not added already
-	private ArrayList<Integer> noMoveL(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noMoveL(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.LEFT)) {
 			noMoves.add(BattleBotArena.LEFT);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noMoveR(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noMoveR(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.RIGHT)) {
 			noMoves.add(BattleBotArena.RIGHT);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noMoveU(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noMoveU(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.UP)) {
 			noMoves.add(BattleBotArena.UP);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noMoveD(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noMoveD(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.DOWN)) {
 			noMoves.add(BattleBotArena.DOWN);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noStay(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noStay(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.STAY)) {
 			noMoves.add(BattleBotArena.STAY);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noFireL(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noFireL(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.FIRELEFT)) {
 			noMoves.add(BattleBotArena.FIRELEFT);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noFireR(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noFireR(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.FIRERIGHT)) {
 			noMoves.add(BattleBotArena.FIRERIGHT);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noFireU(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noFireU(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.FIREUP)) {
 			noMoves.add(BattleBotArena.FIREUP);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noFireD(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noFireD(ArrayList<Integer> noMoves) {
 		if (!noMoves.contains(BattleBotArena.FIREDOWN)) {
 			noMoves.add(BattleBotArena.FIREDOWN);
 		}
 		return noMoves;
 	}
 
-	private ArrayList<Integer> noFire(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> noSpecial(ArrayList<Integer> noMoves) {
+		if (!noMoves.contains(BattleBotArena.SPECIAL)) {
+			noMoves.add(BattleBotArena.SPECIAL);
+		}
+		return noMoves;
+	}
+	
+	protected ArrayList<Integer> noFire(ArrayList<Integer> noMoves) {
 		noFireU(noMoves);
 		noFireR(noMoves);
 		noFireD(noMoves);
@@ -891,7 +925,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//method to calculate all the possible moves after deleting the no moves
-	private ArrayList<Integer> calcPossibleMoves(ArrayList<Integer> noMoves) {
+	protected ArrayList<Integer> calcPossibleMoves(ArrayList<Integer> noMoves) {
 		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();
 		//adds all the moves into the new arrayList
 		for (int i = 1; i < 10; i++) {
@@ -909,7 +943,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//method to calculate dangers for the bot
-	private double[] calcDangers(double[] choices, ArrayList<Integer> possibleMoves, Bullet[] bullets, BotInfo me,
+	protected double[] calcDangers(double[] choices, ArrayList<Integer> possibleMoves, Bullet[] bullets, BotInfo me,
 			BotInfo[] deadBots, ArrayList<Integer> bulletDirs, BotInfo target) {
 
 		if (possibleMoves.size() == 0) {
@@ -1106,7 +1140,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	/*
-	private boolean ableToFire(BotInfo b, BotInfo[] graves) {
+	protected boolean ableToFire(BotInfo b, BotInfo[] graves) {
 		for (BotInfo g : graves) {
 
 		}
@@ -1115,7 +1149,7 @@ public class PrototypeLXI extends Bot {
 	}*/
 
 	// calculates desire
-	private double[] calcDesire(double[] choices, ArrayList<Integer> possibleMoves, BotInfo me, BotInfo target) {
+	protected double[] calcDesire(double[] choices, ArrayList<Integer> possibleMoves, BotInfo me, BotInfo target) {
 		double[] desires = new double[8];
 		if (target == null) {
 			//no target, hence no desire
@@ -1437,7 +1471,7 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//calculates the mode of the array
-	private ArrayList<Integer> mode(Integer[] values) { // mode (double [] values)
+	protected ArrayList<Integer> mode(Integer[] values) { // mode (double [] values)
 
 		// Initialize variables:
 		// In a for loop (repeating twice)
