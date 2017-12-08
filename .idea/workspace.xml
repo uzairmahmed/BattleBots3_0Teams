@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a48f3ccb-1ff8-4ecc-95de-84a21790df8f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/BattleBotArena.class" afterPath="$PROJECT_DIR$/bin/arena/BattleBotArena.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/BotInfo.class" afterPath="$PROJECT_DIR$/bin/arena/BotInfo.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/Bot.class" afterPath="$PROJECT_DIR$/bin/bots/Bot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/DogeBot.class" afterPath="$PROJECT_DIR$/bin/bots/DogeBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/Drone.class" afterPath="$PROJECT_DIR$/bin/bots/Drone.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/HumanBot.class" afterPath="$PROJECT_DIR$/bin/bots/HumanBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/PrototypeLXI.class" afterPath="$PROJECT_DIR$/bin/bots/PrototypeLXI.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/RandBot.class" afterPath="$PROJECT_DIR$/bin/bots/RandBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/SentryBot.class" afterPath="$PROJECT_DIR$/bin/bots/SentryBot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/roles/Role.class" afterPath="$PROJECT_DIR$/bin/roles/Role.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/arena/BattleBotArena.java" afterPath="$PROJECT_DIR$/src/arena/BattleBotArena.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/PrototypeLXI.java" afterPath="$PROJECT_DIR$/src/bots/PrototypeLXI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/Ziploc.java" afterPath="$PROJECT_DIR$/src/bots/Ziploc.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -39,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BattleBotArena.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BattleBotArena.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-32060">
-              <caret line="255" column="32" lean-forward="false" selection-start-line="255" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
+            <state relative-caret-position="339">
+              <caret line="356" column="45" lean-forward="false" selection-start-line="356" selection-start-column="43" selection-end-line="356" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -69,7 +57,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrototypeLXI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PrototypeLXI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/PrototypeLXI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
@@ -138,8 +126,8 @@
         <option value="$PROJECT_DIR$/src/bots/ramboBotTest.java" />
         <option value="$PROJECT_DIR$/src/bots/TinFoil.java" />
         <option value="$PROJECT_DIR$/src/bots/Ziploc.java" />
-        <option value="$PROJECT_DIR$/src/arena/BattleBotArena.java" />
         <option value="$PROJECT_DIR$/src/bots/PrototypeLXI.java" />
+        <option value="$PROJECT_DIR$/src/arena/BattleBotArena.java" />
       </list>
     </option>
   </component>
@@ -344,12 +332,12 @@
       <workItem from="1512669510790" duration="876000" />
       <workItem from="1512753097324" duration="70000" />
       <workItem from="1512753209830" duration="1170000" />
-      <workItem from="1512754417751" duration="1156000" />
+      <workItem from="1512754417751" duration="1492000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3272000" />
+    <option name="totallyTimeSpent" value="3608000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="197" y="34" width="1366" height="734" extended-state="6" />
@@ -562,14 +550,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-32060">
-          <caret line="255" column="32" lean-forward="false" selection-start-line="255" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/arena/BotInfo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -588,6 +568,14 @@
             <element signature="e#50870#50871#0" expanded="true" />
             <element signature="e#50895#50896#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="356" column="45" lean-forward="false" selection-start-line="356" selection-start-column="43" selection-end-line="356" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>

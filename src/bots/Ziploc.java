@@ -3,6 +3,7 @@
  */
 package bots;
 
+import arena.BotInfo;
 import roles.Role;
 import roles.RoleType;
 
@@ -27,4 +28,12 @@ public class Ziploc extends PrototypeLXI {
 		return new Role(role);
 	}
 
+
+	/*public BotInfo chooseNeedyAlly (){
+
+	}
+
+	public getAllies(){
+
+	}*/
 }
