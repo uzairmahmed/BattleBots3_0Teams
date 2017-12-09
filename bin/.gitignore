@@ -6,3 +6,6 @@
 /images/
 /roles/
 /sounds/
+
+
+*.class
