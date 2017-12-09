@@ -270,7 +270,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveR(noMoves);
 					noMoves = noMoveL(noMoves);
 					noMoves = noStay(noMoves);
-					noSpecial(noMoves);
+					noMoves = noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from right");
 				}
@@ -285,7 +285,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveR(noMoves);
 					noMoves = noMoveL(noMoves);
 					noMoves = noStay(noMoves);
-					noSpecial(noMoves);
+					noMoves = noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from left");
 				}
@@ -300,7 +300,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveU(noMoves);
 					noMoves = noMoveD(noMoves);
 					noMoves = noStay(noMoves);
-					noSpecial(noMoves);
+					noMoves = noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from below");
 				}
@@ -315,7 +315,7 @@ public class PrototypeLXI extends Bot {
 					noMoves = noMoveU(noMoves);
 					noMoves = noMoveD(noMoves);
 					noMoves = noStay(noMoves);
-					noSpecial(noMoves);
+					noMoves = noSpecial(noMoves);
 					threat = true;
 					//System.out.println("threat from above");
 				}
