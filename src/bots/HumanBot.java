@@ -59,6 +59,12 @@ public class HumanBot extends Bot implements KeyListener {
 		int moveNow = move;
 		move = resume;
 		
+		/*
+		if (deadBots.length != 0) {
+			System.out.println(withinProx(me, deadBots[0]));
+		}*/
+		
+		/*
 		if (shotOK){//If firing/special moves are ok
 			if (me.getRole() == RoleType.MEDIC && me.getHealth() != Role.MEDIC_HEALTH){
 				//if roletype is medic then heal self if needed
@@ -74,7 +80,7 @@ public class HumanBot extends Bot implements KeyListener {
 				return BattleBotArena.SPECIAL;
 			}
 			
-		}
+		}*/
 		return moveNow;
 	}
 
@@ -189,5 +195,45 @@ public class HumanBot extends Bot implements KeyListener {
 	}
 
 
+	private boolean withinProx(BotInfo bot, BotInfo grave) {
+		//var rect1 = {x: 5, y: 5, width: 50, height: 50}
+		//var rect2 = {x: 20, y: 10, width: 10, height: 10}
+		
+		double [] botPos = new double [4];
+		botPos[0] = bot.getX();
+		botPos[1] = bot.getY();
+		botPos[2] = botPos[0] + 2*RADIUS;
+		botPos[3] = botPos[1] + 2*RADIUS;
+		
+		double [] gravePos = new double [4];
+		gravePos[0] = grave.getX();
+		gravePos[1] = grave.getY();
+		gravePos[2] = gravePos[0] + 2*RADIUS;
+		gravePos[3] = gravePos[1] + 2*RADIUS;
+
+		double dangerZone = RADIUS*4;
+		
+		return ((botPos[0] - dangerZone <= gravePos[0] && gravePos[0] <= botPos[2] + dangerZone ||
+				botPos[0] - dangerZone <= gravePos[2] && gravePos[2] <= botPos[2] + dangerZone) &&
+				(botPos[1] - dangerZone <= gravePos[1] && gravePos[1] <= botPos[3] + dangerZone ||
+				botPos[1] - dangerZone <= gravePos[3] && gravePos[3] <= botPos[3] + dangerZone));
+		
+		/*
+		return ((minA.x-MAX_DISTANCE <= minB.x && minB.x <= maxA.x+MAX_DISTANCE ||
+			      minA.x-MAX_DISTANCE <= maxB.x && maxB.x <= maxA.x+MAX_DISTANCE) &&
+			      (minA.y-MAX_DISTANCE <= minB.y && minB.y <= maxA.y+MAX_DISTANCE ||
+			      minA.y-MAX_DISTANCE <= maxB.y && maxB.y <= maxA.y+MAX_DISTANCE));
+	    }
+		
+		if (rect1.x < rect2.x + rect2.width &&
+		   rect1.x + rect1.width > rect2.x &&
+		   rect1.y < rect2.y + rect2.height &&
+		   rect1.height + rect1.y > rect2.y) {
+		    // collision detected!
+		}
+		
+		return false;*/
+	}
+	
 
 }
