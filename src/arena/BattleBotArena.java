@@ -733,8 +733,10 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 		bots[0] = new PrototypeLXI();
+		bots[1] = new PrototypeLXI();
 
-	
+
+
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
 		int c = 1;
