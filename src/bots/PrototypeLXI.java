@@ -87,7 +87,7 @@ public class PrototypeLXI extends Bot {
 	boolean arrivedY;
 
 	//Arraylist for team
-	protected ArrayList<Integer> team =new ArrayList<Integer>();
+	protected ArrayList<BotInfo> team =new ArrayList<BotInfo>();
 	//TeamName Checking Message
 	protected String teamMessage = "PandasRLife";
 	
@@ -677,7 +677,8 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//override this for support classes
-	protected BotInfo getAllies(ArrayList<Integer> team, BotInfo[] liveBots) {
+
+	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
 		return null;
 	}
 	
@@ -1720,7 +1721,7 @@ public class PrototypeLXI extends Bot {
 	public void incomingMessage(int botNum, String msg) {
 		if (counter<4){
 			if (msg == teamMessage){
-				team.add(botNum);
+				team.add(myInfo);
 			}
 		}
 	}
