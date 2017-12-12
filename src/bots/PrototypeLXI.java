@@ -99,6 +99,7 @@ public class PrototypeLXI extends Bot {
 	//formation variables
 	protected boolean formation;
 	protected FakeBotInfo formationCenter;
+	protected FakeBotInfo myLocation;
 
 	/**
 	 * 
@@ -129,6 +130,7 @@ public class PrototypeLXI extends Bot {
 		formation = true;
 		//creates formation center at 300, 300
 		formationCenter = new FakeBotInfo(300, 300, -10, "Center");
+		myLocation = new FakeBotInfo(300, 300, -10, "Locale");
 	}
 
 	/*
@@ -445,7 +447,7 @@ public class PrototypeLXI extends Bot {
 			}
 			if (formation) {
 				//calculates desire to stay in formation
-				choices = calcDesire(choices, possibleMoves, me, formationCenter);
+				choices = calcDesire(choices, possibleMoves, me, myLocation);
 			}
 		}
 
@@ -561,6 +563,8 @@ public class PrototypeLXI extends Bot {
 
 		frameCount++;//Increase frame counter
 		stuck = isStuck();//Check if stuck
+
+		updateFakeBotInfo(); //Updates the personal location
 		
 		if(BattleBotArena.DEBUG) {
 			//System.out.println("TargetIndex: " + targetIndex);	
@@ -641,6 +645,8 @@ public class PrototypeLXI extends Bot {
 		//returns closest grave with loot
 		return botHelper.findClosest(me, bulletsAvailArray);
 	}*/
+
+	protected void updateFakeBotInfo(){}
 
 	//calculates closest grave
 	protected BotInfo closestGrave(BotInfo[] deadBots) {
@@ -1610,7 +1616,7 @@ public class PrototypeLXI extends Bot {
 			//matches x and y coordinates to pick up loot
 			if (yDif > RADIUS) {
 				//desires[0] = -((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-				me.
+				//me.
 			}
 			if (yDif < -RADIUS) {
 				//desires[1] = ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
@@ -1783,6 +1789,8 @@ public class PrototypeLXI extends Bot {
 			for (BotInfo target : spoofTargets) {
 				g.drawRect((int) target.getX(), (int) target.getY(), RADIUS * 2, RADIUS * 2);
 			}
+			g.setColor(Color.yellow);
+			g.drawRect((int) formationCenter.getX(), (int) formationCenter.getY(), RADIUS * 2, RADIUS * 2);
 		}
 	}
 
