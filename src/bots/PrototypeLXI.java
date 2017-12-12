@@ -75,6 +75,7 @@ public class PrototypeLXI extends Bot {
 	protected int whenTargetChanged;
 	//Used to stor bot's own info
 	protected BotInfo myInfo;
+	protected BotInfo[] allBots; 
 	protected boolean stuck;//Stores whether or not bot is stuck
 	protected int stuckDir;//Stores whether bot is stuck going left/right or up/down
 	//the grave that the bot is stuck to
@@ -149,6 +150,7 @@ public class PrototypeLXI extends Bot {
 
 		//randomly fire in the first frame, since moving can be dangerous
 		if (counter == 0) {
+			allBots = liveBots;
 			move = BattleBotArena.SEND_MESSAGE;
 
 			/*double temp = Math.random();
@@ -347,8 +349,8 @@ public class PrototypeLXI extends Bot {
 		//Init possible moves
 		if (possibleMoves.size() != 0) {
 			if (possibleMoves.get(possibleMoves.size() - 1) == 9) {
-				// makes stay unfavourable
-				choices[choices.length - 1] = 4;
+				// makes special unfavourable by default
+				choices[choices.length - 1] = 5;
 			}
 		}
 		
@@ -433,9 +435,9 @@ public class PrototypeLXI extends Bot {
 		}
 		if (!threat) {//If there is no threat
 			if (shotOK || specialOK) {//If able to shoot
-				if (!formation) {
-					choices = calcDesire(choices, possibleMoves, me, target);//Calculate desires for where to go
-				} else if (formation) {
+				choices = calcDesire(choices, possibleMoves, me, target);//Calculate desires for where to go
+				if (formation) {
+					//moves the formation position
 					choices = calcDesire(choices, possibleMoves, formationCenter, target);
 				}
 				
@@ -685,8 +687,9 @@ public class PrototypeLXI extends Bot {
 	//removes any unwanted targets from the arrayList of targets
 	protected void removeUnwantedTargets(ArrayList<BotInfo> list) {
 		for (int i = 0; i < list.size(); i++) {
-			if (team.contains(list.get(i).getBotNumber())) {
+			if (team.contains(list.get(i))) {
 				//target is team member
+				System.err.println("removing target");
 				list.remove(i);
 			}
 		}
@@ -1227,7 +1230,7 @@ public class PrototypeLXI extends Bot {
 
 	// calculates desire
 	protected double[] calcDesire(double[] choices, ArrayList<Integer> possibleMoves, BotInfo me, BotInfo target) {
-		double[] desires = new double[8];
+		double[] desires = new double[9];
 		if (target == null) {
 			//no target, hence no desire
 			return choices;
@@ -1299,105 +1302,136 @@ public class PrototypeLXI extends Bot {
 			if (spoofTargets.isEmpty()) {
 				//not in the process of spoofing target
 				if (target.getBotNumber() >= 0) {
-				
-					if (lineUpDir == 0) {
-						//line up on x axis
-						//matches y values with target
+					
+					if (team.contains(target) ) {
+						//goes towards target
 						if (yDif > BattleBotArena.BOT_SPEED*2) {
-							desires[0] = -0.00 - ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-							//System.out.println("greater");
+							desires[0] = -((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
 						}
 						if (yDif < -BattleBotArena.BOT_SPEED*2) {
-							desires[1] = -0.00 + ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-							//System.out.println("below");
+							desires[1] = ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
 						}
-						
-						//matches x values with target
-						//System.out.println("xDif = " + xDif);
-						if (xDif >= BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3) {
-							//too far to target
-							desires[2] = -0.00 - (((xDif - BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3)
-									/ (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
-							 //System.out.println("left prim");
-						} else if (xDif >= 0 && xDif < BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 2) {
-							//too close to target
-							desires[3] = -0.00 - (((xDif) / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
-							//System.out.println("right sec");
-						}
-						if (xDif <= -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3) {
-							//too far to target
-							desires[3] = -0.00 + (((xDif + BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3)
-									/ (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
-							//System.out.println("right prim ");
-						} else if (xDif > -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 2 && xDif < 0) {
-							//too close to target
-							desires[2] = -0.00 + (((xDif) / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
-							//System.out.println("left sec");
-						}
-					} else if (lineUpDir == 1) {
-						//same as above but lines up on y axis
-						if (yDif >= BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3) {
-							desires[0] = -0.00 - (((yDif - BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3)
-									/ (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-							// System.out.println("left prim");
-						} else if (yDif >= 0 && yDif < BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 2) {
-							desires[1] = -0.00 - (((yDif) / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-							// System.out.println("right sec");
-						}
-						if (yDif <= -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3) {
-							desires[1] = -0.00 + (((yDif + BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3)
-									/ (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-							// System.out.println("right prim ");
-						} else if (yDif > -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 2 && yDif < 0) {
-							desires[0] = -0.00 + (((yDif) / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-							// System.out.println("left sec");
-						}
-						
 						if (xDif > BattleBotArena.BOT_SPEED*2) {
-							// desires[0] = -2.00 + ( (distanceToTarget/MAX_DISTANCE) * 2);
-							desires[2] = -0.00 - ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
-							// System.out.println("greater");
+							desires[2] = -((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
 						}
 						if (xDif < -BattleBotArena.BOT_SPEED*2) {
-							// desires[1] = -2.00 + ((distanceToTarget / MAX_DISTANCE) * 2);
-							desires[3] = -0.00 + ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
-							// System.out.println("below");
+							desires[3] = ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
 						}
-					}
-					
-					//System.out.println("xDif = " + xDif + " yDif = " + yDif + " ideal x = " +
-					//idealDistanceX + " ideal y = " + idealDistanceY);
-					//System.out.println(BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3);
-					
-					//assume not in line
-					desires[4] = 5;
-					desires[5] = 5;
-					desires[6] = 5;
-					desires[7] = 5;
-					
-					if (-idealDistanceY <= yDif && yDif <= idealDistanceY) {
-						//lined up in y
-						if (xDif > 0) {
-							//fire left
-							desires[6] = -6.5
-									+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
-						} else {
-							//fire right
-							desires[7] = -6.5
-									+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
+						//assume not in range of special yet
+						desires[4] = 5;
+						desires[5] = 5;
+						desires[6] = 5;
+						desires[7] = 5;
+						desires[8] = 5;
+						if (Math.abs(botHelper.calcDistance(me.getX(), me.getY(), 
+								target.getX(), target.getY() ) ) <= RADIUS*4) {
+							//make special desirable
+							desires[8] = -10;
 						}
-					}
-					if (-idealDistanceX <= xDif && xDif <= idealDistanceX) {
-						//lined up in x
-						if (yDif > 0) {
-							//fire up
-							desires[4] = -6.5
-									+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
-						} else {
-							//fire down
-							desires[5] = -6.5
-									+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
+						
+					} else {
+				
+						if (lineUpDir == 0) {
+							//line up on x axis
+							//matches y values with target
+							if (yDif > BattleBotArena.BOT_SPEED*2) {
+								desires[0] = -0.00 - ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
+								//System.out.println("greater");
+							}
+							if (yDif < -BattleBotArena.BOT_SPEED*2) {
+								desires[1] = -0.00 + ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
+								//System.out.println("below");
+							}
+							
+							//matches x values with target
+							//System.out.println("xDif = " + xDif);
+							if (xDif >= BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3) {
+								//too far to target
+								desires[2] = -0.00 - (((xDif - BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3)
+										/ (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
+								 //System.out.println("left prim");
+							} else if (xDif >= 0 && xDif < BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 2) {
+								//too close to target
+								desires[3] = -0.00 - (((xDif) / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
+								//System.out.println("right sec");
+							}
+							if (xDif <= -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3) {
+								//too far to target
+								desires[3] = -0.00 + (((xDif + BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3)
+										/ (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
+								//System.out.println("right prim ");
+							} else if (xDif > -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 2 && xDif < 0) {
+								//too close to target
+								desires[2] = -0.00 + (((xDif) / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
+								//System.out.println("left sec");
+							}
+						} else if (lineUpDir == 1) {
+							//same as above but lines up on y axis
+							if (yDif >= BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3) {
+								desires[0] = -0.00 - (((yDif - BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3)
+										/ (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
+								// System.out.println("left prim");
+							} else if (yDif >= 0 && yDif < BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 2) {
+								desires[1] = -0.00 - (((yDif) / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
+								// System.out.println("right sec");
+							}
+							if (yDif <= -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3) {
+								desires[1] = -0.00 + (((yDif + BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 3)
+										/ (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
+								// System.out.println("right prim ");
+							} else if (yDif > -BattleBotArena.BULLET_SPEED * timeNeeded - RADIUS * 2 && yDif < 0) {
+								desires[0] = -0.00 + (((yDif) / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
+								// System.out.println("left sec");
+							}
+							
+							if (xDif > BattleBotArena.BOT_SPEED*2) {
+								// desires[0] = -2.00 + ( (distanceToTarget/MAX_DISTANCE) * 2);
+								desires[2] = -0.00 - ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
+								// System.out.println("greater");
+							}
+							if (xDif < -BattleBotArena.BOT_SPEED*2) {
+								// desires[1] = -2.00 + ((distanceToTarget / MAX_DISTANCE) * 2);
+								desires[3] = -0.00 + ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
+								// System.out.println("below");
+							}
 						}
+						
+						//System.out.println("xDif = " + xDif + " yDif = " + yDif + " ideal x = " +
+						//idealDistanceX + " ideal y = " + idealDistanceY);
+						//System.out.println(BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 3);
+						
+						//assume not in line
+						desires[4] = 5;
+						desires[5] = 5;
+						desires[6] = 5;
+						desires[7] = 5;
+						desires[8] = 5;
+						
+						if (-idealDistanceY <= yDif && yDif <= idealDistanceY) {
+							//lined up in y
+							if (xDif > 0) {
+								//fire left
+								desires[6] = -6.5
+										+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
+							} else {
+								//fire right
+								desires[7] = -6.5
+										+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
+							}
+						}
+						if (-idealDistanceX <= xDif && xDif <= idealDistanceX) {
+							//lined up in x
+							if (yDif > 0) {
+								//fire up
+								desires[4] = -6.5
+										+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
+							} else {
+								//fire down
+								desires[5] = -6.5
+										+ Math.abs((botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY())) / 39);
+							}
+						}
+						
 					}
 					
 				} else if (formation == true && target.getBotNumber() == -10) {
@@ -1610,7 +1644,6 @@ public class PrototypeLXI extends Bot {
 			//matches x and y coordinates to pick up loot
 			if (yDif > RADIUS) {
 				//desires[0] = -((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
-				me.
 			}
 			if (yDif < -RADIUS) {
 				//desires[1] = ((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
@@ -1628,7 +1661,7 @@ public class PrototypeLXI extends Bot {
 
 		//calculates and returns the new choices with updated desires
 		for (int i = 0; i < possibleMoves.size(); i++) {
-			if (possibleMoves.get(i) < 9) {
+			if (possibleMoves.get(i) < 10) {
 				choices[i] += desires[possibleMoves.get(i) - 1];
 			} else {
 				break;
@@ -1825,9 +1858,16 @@ public class PrototypeLXI extends Bot {
 	@Override
 	public void incomingMessage(int botNum, String msg) {
 		if (counter<4){
-			if (msg == teamMessage){
-				team.add(myInfo);
+			
+			if (msg.equals(teamMessage) ){
+				for (BotInfo bot : allBots) {
+					if (bot.getBotNumber() == botNum) {
+						team.add(bot);
+						break;
+					}
+				}
 			}
+			
 		}
 	}
 
