@@ -95,6 +95,9 @@ public class PrototypeLXI extends Bot {
 	protected ArrayList<BotInfo> team =new ArrayList<BotInfo>();
 	//TeamName Checking Message
 	protected String teamMessage = "PandasRLife";
+
+	//This is to distinguish between both tanks, 0 if not tank.
+	protected int whichTank = 0;
 	
 	//direction to line up shots
 	//0 = on x axis,
@@ -136,6 +139,7 @@ public class PrototypeLXI extends Bot {
 		//creates formation center at 300, 300
 		formationCenter = new FakeBotInfo(300, 300, -10, "Center");
 		myLocation = new FakeBotInfo(300, 300, -10, "Locale");
+
 	}
 
 	/*
@@ -151,7 +155,7 @@ public class PrototypeLXI extends Bot {
 		boolean threat = false;//Whether or not there is a threat
 		update(me, shotOK, liveBots, deadBots, bullets);//Updates all variables based on new data
 		
-		//noMoves = noFire(possibleMoves);
+		noMoves = noFire(possibleMoves);
 
 
 		//randomly fire in the first frame, since moving can be dangerous
@@ -172,6 +176,10 @@ public class PrototypeLXI extends Bot {
 
 			counter++;
 			return move;
+		}
+
+		if(counter == 3){
+			whichTank();
 		}
 		//System.out.println("team size = " + team.size() );
 		// If there are any bullets 
@@ -419,11 +427,13 @@ public class PrototypeLXI extends Bot {
 		//Adjust the reference of the global target
 		//if target changed, then change variable of targetChanged accordingly
 		targetGlobal = target;
-		if (targetGlobal.getBotNumber() != tempTarget.getBotNumber()) {
-			targetChanged = true;
-			//System.out.println("target changed from " + tempTarget.getName() + " to " + targetGlobal.getName() );
-		} else {
-			targetChanged = false;
+		if (target!=null) {
+			if (targetGlobal.getBotNumber() != tempTarget.getBotNumber()) {
+				targetChanged = true;
+				//System.out.println("target changed from " + tempTarget.getName() + " to " + targetGlobal.getName() );
+			} else {
+				targetChanged = false;
+			}
 		}
 		
 
@@ -1807,6 +1817,10 @@ public class PrototypeLXI extends Bot {
 		return c;
 	}
 
+	public void whichTank(){
+		whichTank = 0;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1827,7 +1841,11 @@ public class PrototypeLXI extends Bot {
 				g.drawRect((int) target.getX(), (int) target.getY(), RADIUS * 2, RADIUS * 2);
 			}
 			g.setColor(Color.yellow);
-			g.drawRect((int) formationCenter.getX(), (int) formationCenter.getY(), RADIUS * 2, RADIUS * 2);
+			g.drawRect((int) formationCenter.getX(), (int) formationCenter.getY(), RADIUS, RADIUS);
+			g.setColor(Color.lightGray);
+			g.drawRect((int) myLocation.getX(), (int) myLocation.getY(), RADIUS * 2, RADIUS * 2);
+
+
 		}
 	}
 

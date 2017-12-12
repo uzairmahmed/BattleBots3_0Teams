@@ -35,8 +35,6 @@ public class Ziploc extends PrototypeLXI {
 	@Override
 	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
 		ArrayList<BotInfo> needyBots = new ArrayList<BotInfo>();
-		BotInfo needyBot = null;
-
 		//Go through every teammate
 		for (int i = 0; i < team.size(); i++){
 			BotInfo curBot = team.get(i);

@@ -31,6 +31,11 @@ public class TupperWare extends PrototypeLXI {
 	}
 
 	@Override
+	protected void updateFakeBotInfo(){
+		myLocation.setPos(formationCenter.getFakeX() - RADIUS*4, formationCenter.getFakeY());
+	}
+
+	@Override
 	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
 		ArrayList<BotInfo> needyBots = new ArrayList<BotInfo>();
 		BotInfo needyBot = null;
