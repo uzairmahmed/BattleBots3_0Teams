@@ -985,12 +985,24 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 */
 	private void reset()
 	{
+		if(round != 0) {
+			System.out.println("Score for round "+ round + ": " + currentScore(1,false));
+			newScore += currentScore(1,false);
+		}
+		
+		
+		
+		
+		System.out.println("-----------------------------");
+		System.out.println("Round: " + (round + 1));
+		System.out.println("-----------------------------");
+
 		
 		
 		
 		
 		
-		System.out.println("Round: " + round);
+		
 
 		if(round == 0) {
 			savedTraits = PrototypeLXI.startingBotTraits;
@@ -998,36 +1010,43 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			mutatedTraits = currentTraits;
 			oldScore = 0;
 			
-		} else {
+		} else if(round % 4 >= 3) {
 			
-			System.out.println("Pevious Score: " + oldScore );
-			System.out.println("New Score: " + currentScore(0,false) );
+			System.out.println("Score for Last 3 Rounds: " + newScore );
+			System.out.println("Old Score: " + oldScore );
+			System.out.println();
 			
 			
 			
 			
 			currentTraits = mutateTraits(currentTraits);
-			if(currentScore(0,false) > oldScore) {
+			if(newScore > oldScore) {
 				currentTraits = mutatedTraits;
 				mutatedTraits = mutateTraits(mutatedTraits);
-				oldScore = currentScore(0,false);
+				//oldScore = currentScore(0,false);
 				
 				System.out.println("Mutating Better Traits");
+				System.out.println();
 				
 			} else{
 				mutatedTraits = mutateTraits(currentTraits);
 				
 				System.out.println("Mutating Old Traits");
+				System.out.println();
 				
 				//otherwise leaves old score as the higher score
 			}
 			
+			
+			oldScore = newScore;
+			newScore = 0;
 			
 			
 			
 
 			
 		}
+		
 		
 		/*
 		for(int i = 0; i < mutatedTraits.length; i ++) {
@@ -1050,7 +1069,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		
 		
 		
-		HelperMethods.say("reseting");
+		//HelperMethods.say("reseting");
 		timePlayed = 0;						// reset the clock
 		round ++;							// advance the round
 		botsLeft = NUM_BOTS;				// put all the bots back in the game
