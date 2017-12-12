@@ -327,7 +327,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Set to TRUE for debugging output
 	 */
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	/**
 	 * @author rowbottomn
@@ -402,11 +402,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Right edge of the screen
 	 */
-	public static final int RIGHT_EDGE = 1260; // also arena panel width
+	public static final int RIGHT_EDGE = 800; //1260 // also arena panel width
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 804; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 500;//804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -428,11 +428,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points per kill 
 	 */
-	public static final int 	KILL_SCORE = 5;//Rowbottom changed from 5
+	public static final int 	KILL_SCORE = 10;//Rowbottom changed from 5
 	/**
 	 * survival points 
 	 */
-	public static final double 	POINTS_PER_SECOND = 0.1;//Rowbottom changed from 0.1
+	public static final double 	POINTS_PER_SECOND = 0.05;//Rowbottom changed from 0.1
 	/**
 	 * healing points
 	 */
@@ -646,11 +646,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Toggles sound effects on and off
 	 */
-	private boolean soundOn = true;
+	private boolean soundOn = false;
 	/**
 	 * The current speed multiplier
 	 */
-	private int speed = 8;//changed from 1
+	private int speed = 1;//changed from 1
 	/**
 	 * Controls the flashing if the game is paused
 	 */
@@ -850,8 +850,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** HUMAN TEST BOT CREATION
 		// *** Comment the next two lines out if you don't want to use the
 		// *** HumanBot (under user control)
-	//	bots[0] = new HumanBot();
-	//	addKeyListener((HumanBot)bots[0]);
+		bots[0] = new HumanBot();
+		addKeyListener((HumanBot)bots[0]);
 
 		// ******************************
 
@@ -859,7 +859,15 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 		
-		bots[0] = new PrototypeLXI();
+		//bots[0] = new PrototypeLXI();
+		bots[1] = new PrototypeLXI();
+		 
+	    //bots[1] = new PrototypeLXI();
+	 
+	    //bots[2] = new PrototypeV();
+	 
+	    bots[2] = new Ziploc();
+
 	
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
