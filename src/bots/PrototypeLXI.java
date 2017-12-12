@@ -24,6 +24,10 @@ import roles.RoleType;
  */
 public class PrototypeLXI extends Bot {
 	
+	
+	public static double[] startingBotTraits = new double[] {1,2,3,5,6};
+	public static double[] botTraits = startingBotTraits;
+	
 	protected RoleType role;
 	
 	//Constants to report to field
