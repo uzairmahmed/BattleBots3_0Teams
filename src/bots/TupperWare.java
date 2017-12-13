@@ -32,7 +32,7 @@ public class TupperWare extends PrototypeLXI {
 
 	@Override
 	protected void updateFakeBotInfo(){
-		myLocation.setPos(formationCenter.getFakeX() - RADIUS*4, formationCenter.getFakeY());
+		myLocation.setPos(formationCenter.getFakeX() - RADIUS*6, formationCenter.getFakeY());
 	}
 
 	@Override
