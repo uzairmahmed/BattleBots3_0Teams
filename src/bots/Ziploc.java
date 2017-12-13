@@ -35,8 +35,6 @@ public class Ziploc extends PrototypeLXI {
 	@Override
 	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
 		ArrayList<BotInfo> needyBots = new ArrayList<BotInfo>();
-		BotInfo needyBot = null;
-
 		//Go through every teammate
 		for (int i = 0; i < team.size(); i++){
 			BotInfo curBot = team.get(i);
@@ -79,8 +77,12 @@ public class Ziploc extends PrototypeLXI {
 		return null;
 	}
 
-	//THESE ARE HARD CODED VARIABLES REMEMBER TO CHANGE THEM IF ARENA CHANGES
+	@Override
+	protected void updateFakeBotInfo(){
+		myLocation.setPos(formationCenter.getFakeX() + RADIUS*4, formationCenter.getFakeY());
+	}
 
+	//THESE ARE HARD CODED VARIABLES REMEMBER TO CHANGE THEM IF ARENA CHANGES
 	//Returns the max ammo, and the support priority
 	protected int[] roleValues(BotInfo bot){
 		if (bot.getRole() == RoleType.TANK) return new int[]{6,2};
@@ -90,4 +92,6 @@ public class Ziploc extends PrototypeLXI {
 		else if (bot.getRole() == RoleType.NOOB) return new int[]{2,1};
 		else return new int[]{0,0};
 	}
+
+
 }

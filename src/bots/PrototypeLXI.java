@@ -24,6 +24,10 @@ import roles.RoleType;
  */
 public class PrototypeLXI extends Bot {
 	
+	
+	public static double[] startingBotTraits = new double[] {1,2,3,5,6};
+	public static double[] botTraits = startingBotTraits;
+	
 	protected RoleType role;
 	
 	//Constants to report to field
@@ -91,6 +95,9 @@ public class PrototypeLXI extends Bot {
 	protected ArrayList<BotInfo> team =new ArrayList<BotInfo>();
 	//TeamName Checking Message
 	protected String teamMessage = "PandasRLife";
+
+	//This is to distinguish between both tanks, 0 if not tank.
+	protected int whichTank = 0;
 	
 	//direction to line up shots
 	//0 = on x axis,
@@ -100,6 +107,7 @@ public class PrototypeLXI extends Bot {
 	//formation variables
 	protected boolean formation;
 	protected FakeBotInfo formationCenter;
+	protected FakeBotInfo myLocation;
 
 	/**
 	 * 
@@ -130,6 +138,8 @@ public class PrototypeLXI extends Bot {
 		formation = true;
 		//creates formation center at 300, 300
 		formationCenter = new FakeBotInfo(300, 300, -10, "Center");
+		myLocation = new FakeBotInfo(300, 300, -10, "Locale");
+
 	}
 
 	/*
@@ -145,7 +155,7 @@ public class PrototypeLXI extends Bot {
 		boolean threat = false;//Whether or not there is a threat
 		update(me, shotOK, liveBots, deadBots, bullets);//Updates all variables based on new data
 		
-		//noMoves = noFire(possibleMoves);
+		noMoves = noFire(possibleMoves);
 
 
 		//randomly fire in the first frame, since moving can be dangerous
@@ -166,6 +176,10 @@ public class PrototypeLXI extends Bot {
 
 			counter++;
 			return move;
+		}
+
+		if(counter == 3){
+			whichTank();
 		}
 		//System.out.println("team size = " + team.size() );
 		// If there are any bullets 
@@ -413,11 +427,13 @@ public class PrototypeLXI extends Bot {
 		//Adjust the reference of the global target
 		//if target changed, then change variable of targetChanged accordingly
 		targetGlobal = target;
-		if (targetGlobal.getBotNumber() != tempTarget.getBotNumber()) {
-			targetChanged = true;
-			//System.out.println("target changed from " + tempTarget.getName() + " to " + targetGlobal.getName() );
-		} else {
-			targetChanged = false;
+		if (target!=null) {
+			if (targetGlobal.getBotNumber() != tempTarget.getBotNumber()) {
+				targetChanged = true;
+				//System.out.println("target changed from " + tempTarget.getName() + " to " + targetGlobal.getName() );
+			} else {
+				targetChanged = false;
+			}
 		}
 		
 
@@ -447,21 +463,21 @@ public class PrototypeLXI extends Bot {
 			}
 			if (formation) {
 				//calculates desire to stay in formation
-				choices = calcDesire(choices, possibleMoves, me, formationCenter);
+				choices = calcDesire(choices, possibleMoves, me, myLocation);
 			}
 		}
 
 		// System.out.println("bullets left = " + me.getBulletsLeft() );
 		if(BattleBotArena.DEBUG) {
-			System.out.println(possibleMoves);
+			//System.out.println(possibleMoves);
 			if (BattleBotArena.DEBUG) {
 				for (int i = 0; i < choices.length; i++) {
-					System.out.println("choice of " + possibleMoves.get(i) + " is " + choices[i]);
+					//System.out.println("choice of " + possibleMoves.get(i) + " is " + choices[i]);
 				}
 			}
 			if (stuck && BattleBotArena.DEBUG) {
 				// System.err.println("stuck");
-				System.err.println("stuck direction = " + stuckDir);
+				//System.err.println("stuck direction = " + stuckDir);
 			}
 		}
 		/*
@@ -495,7 +511,7 @@ public class PrototypeLXI extends Bot {
 			//return BattleBotArena.SUICIDE;
 		}
 		if(BattleBotArena.DEBUG) {
-			System.out.println("move = " + move);
+			//System.out.println("move = " + move);
 		}
 		
 		// saveMove(move);
@@ -563,6 +579,8 @@ public class PrototypeLXI extends Bot {
 
 		frameCount++;//Increase frame counter
 		stuck = isStuck();//Check if stuck
+
+		updateFakeBotInfo(); //Updates the personal location
 		
 		if(BattleBotArena.DEBUG) {
 			//System.out.println("TargetIndex: " + targetIndex);	
@@ -595,7 +613,7 @@ public class PrototypeLXI extends Bot {
 				targetFakePos = -1;
 				arrivedX = false;
 				arrivedY = false;
-				System.out.println("spoof target cleared");
+				//System.out.println("spoof target cleared");
 				break;
 			}		
 		}
@@ -643,6 +661,8 @@ public class PrototypeLXI extends Bot {
 		//returns closest grave with loot
 		return botHelper.findClosest(me, bulletsAvailArray);
 	}*/
+
+	protected void updateFakeBotInfo(){}
 
 	//calculates closest grave
 	protected BotInfo closestGrave(BotInfo[] deadBots) {
@@ -1166,7 +1186,7 @@ public class PrototypeLXI extends Bot {
 				if (bot.getX() > me.getX() - RADIUS*4 && bot.getX() < me.getX() + RADIUS*6) {
 					if (bot.getY() <= me.getY()+RADIUS && bot.getY() > me.getY() - RADIUS*4) {
 						// above
-						System.out.println("grave above");
+						//System.out.println("grave above");
 						double distance = botHelper.calcDistance(me.getX(), me.getY(), bot.getX(), bot.getY());
 						dangers[0] = 3.54 - distance / 20;
 						if (!bot.isDead() && !bot.getTeamName().equals("Arena")) {
@@ -1176,7 +1196,7 @@ public class PrototypeLXI extends Bot {
 					}
 					if (bot.getY() > me.getY()+RADIUS && bot.getY() < me.getY() + RADIUS*6) {
 						// below
-						System.out.println("grave below");
+						//System.out.println("grave below");
 						double distance = botHelper.calcDistance(me.getX(), me.getY(), bot.getX(), bot.getY());
 						dangers[1] = 3.54 - distance / 20;
 						if (!bot.isDead() && !bot.getTeamName().equals("Arena")) {
@@ -1188,7 +1208,7 @@ public class PrototypeLXI extends Bot {
 				if (bot.getY() > me.getY() - RADIUS*4 && bot.getY() < me.getY() + RADIUS*6) {
 					if (bot.getX() <= me.getX()+RADIUS && bot.getX() > me.getX() - RADIUS*4) {
 						// left
-						System.out.println("grave left");
+						//System.out.println("grave left");
 						double distance = botHelper.calcDistance(me.getX(), me.getY(), bot.getX(), bot.getY());
 						dangers[2] = 3.54 - distance / 20;
 						if (!bot.isDead() && !bot.getTeamName().equals("Arena")) {
@@ -1198,7 +1218,7 @@ public class PrototypeLXI extends Bot {
 					}
 					if (bot.getX() > me.getX()+RADIUS && bot.getX() < me.getX() + RADIUS*6) {
 						// right
-						System.out.println("grave right");
+						//System.out.println("grave right");
 						double distance = botHelper.calcDistance(me.getX(), me.getY(), bot.getX(), bot.getY());
 						dangers[3] = 3.54 - distance / 20;
 						if (!bot.isDead() && !bot.getTeamName().equals("Arena")) {
@@ -1514,11 +1534,11 @@ public class PrototypeLXI extends Bot {
 					//updates the variables to know if the target is reached
 					if (xDif <= BattleBotArena.BOT_SPEED*2 && xDif >= -BattleBotArena.BOT_SPEED*2) {
 						arrivedX = true;
-						System.err.println("arrived at x");
+						//System.err.println("arrived at x");
 					}
 					if (yDif <= BattleBotArena.BOT_SPEED*2 && yDif >= -BattleBotArena.BOT_SPEED*2) {
 						arrivedY = true;
-						System.err.println("arrived at y");
+						//System.err.println("arrived at y");
 					}
 
 					//matches coordinates with target's
@@ -1798,6 +1818,10 @@ public class PrototypeLXI extends Bot {
 		return c;
 	}
 
+	public void whichTank(){
+		whichTank = 0;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -1817,6 +1841,12 @@ public class PrototypeLXI extends Bot {
 			for (BotInfo target : spoofTargets) {
 				g.drawRect((int) target.getX(), (int) target.getY(), RADIUS * 2, RADIUS * 2);
 			}
+			g.setColor(Color.yellow);
+			g.drawRect((int) formationCenter.getX(), (int) formationCenter.getY(), RADIUS, RADIUS);
+			g.setColor(Color.lightGray);
+			g.drawRect((int) myLocation.getX(), (int) myLocation.getY(), RADIUS * 2, RADIUS * 2);
+
+
 		}
 	}
 
