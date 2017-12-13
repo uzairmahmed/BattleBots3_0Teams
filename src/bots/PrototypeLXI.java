@@ -687,6 +687,7 @@ public class PrototypeLXI extends Bot {
 	//removes any unwanted targets from the arrayList of targets
 	protected void removeUnwantedTargets(ArrayList<BotInfo> list) {
 		for (int i = 0; i < list.size(); i++) {
+			System.out.println("team size = " + team.size());
 			if (team.contains(list.get(i))) {
 				//target is team member
 				System.err.println("removing target");
