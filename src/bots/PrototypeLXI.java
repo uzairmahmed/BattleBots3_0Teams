@@ -23,13 +23,13 @@ import roles.RoleType;
  *
  */
 public class PrototypeLXI extends Bot {
-	
-	
+
+
 	public static double[] startingBotTraits = new double[] {1,2,3,5,6};
 	public static double[] botTraits = startingBotTraits;
-	
+
 	protected RoleType role;
-	
+
 	//Constants to report to field
 	protected String NAME;
 	protected final String TEAM_NAME = "LeftOvers";
@@ -43,8 +43,8 @@ public class PrototypeLXI extends Bot {
 	protected int counter = 0;
 	// used for firing intervals
 	protected int remainder = 0;
-	
-	
+
+
 
 	BotHelper botHelper = new BotHelper();
 	//Array that holds potential targets
@@ -59,7 +59,7 @@ public class PrototypeLXI extends Bot {
 	// protected final int MAX_FRAMES_PER_BULLET =
 	// (int) (Math.floor( (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)
 	/// BattleBotArena.BULLET_SPEED) );
-	
+
 	//Number of previous frames to save
 	protected final int NUMBER_OF_FRAMES_TO_SAVE = 4;
 
@@ -68,7 +68,7 @@ public class PrototypeLXI extends Bot {
 
 	//Stores last postion and move
 	protected double[][] previousPos;
-	
+
 	//Target to get
 	protected BotInfo targetGlobal;
 	//whether the target has changed or not
@@ -79,7 +79,7 @@ public class PrototypeLXI extends Bot {
 	protected int whenTargetChanged;
 	//Used to stor bot's own info
 	protected BotInfo myInfo;
-	protected BotInfo[] allBots; 
+	protected BotInfo[] allBots;
 	protected boolean stuck;//Stores whether or not bot is stuck
 	protected int stuckDir;//Stores whether bot is stuck going left/right or up/down
 	//the grave that the bot is stuck to
@@ -98,19 +98,19 @@ public class PrototypeLXI extends Bot {
 
 	//This is to distinguish between both tanks, 0 if not tank.
 	protected int whichTank = 0;
-	
+
 	//direction to line up shots
 	//0 = on x axis,
 	//1 = on y axis
 	protected int lineUpDir = 0;
-	
+
 	//formation variables
 	protected boolean formation;
 	protected FakeBotInfo formationCenter;
 	protected FakeBotInfo myLocation;
 
 	/**
-	 * 
+	 *
 	 */
 	public PrototypeLXI() {
 		NAME = "PrototypeLXI";
@@ -121,7 +121,7 @@ public class PrototypeLXI extends Bot {
 			double distanceToMove = RADIUS * 3;
 			timeNeeded = Math.ceil(distanceToMove / BattleBotArena.BOT_SPEED);
 		}
-		
+
 		role = RoleType.TANK;
 		// System.out.println(mode(new Integer[] {3,1,1,1,3,3,4,4,4,4}));
 	}
@@ -154,8 +154,8 @@ public class PrototypeLXI extends Bot {
 		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();//List of possible moves
 		boolean threat = false;//Whether or not there is a threat
 		update(me, shotOK, liveBots, deadBots, bullets);//Updates all variables based on new data
-		
-		noMoves = noFire(possibleMoves);
+
+		//noMoves = noFire(possibleMoves);
 
 
 		//randomly fire in the first frame, since moving can be dangerous
@@ -187,7 +187,7 @@ public class PrototypeLXI extends Bot {
 			//don't fire
 			noMoves = noFire(noMoves);
 		}
-		
+
 		//special not available
 		if (!specialOK) {
 			noMoves = noSpecial(noMoves);
@@ -197,16 +197,16 @@ public class PrototypeLXI extends Bot {
 		// Prevents moving into a grave
 		for (BotInfo b : deadBots) {
 			//Make sure this grave is not an ammo loot
-			if (targetGlobal != null && 
+			if (targetGlobal != null &&
 				targetGlobal.getBotNumber() != b.getBotNumber()) {
 				double myX = me.getX();
 				double myY = me.getY();
-				
+
 				double graveX = b.getX();
 				double graveY = b.getY();
-				
+
 				double speed = BattleBotArena.BOT_SPEED *2;
-				
+
 				//Check graves that are above and below
 				if(graveX > myX-2*RADIUS && graveX < myX+RADIUS*2) {
 					if(myY > graveY && (myY - speed) < (graveY+(2*RADIUS)) && Math.abs(myX - graveX) >= 2*RADIUS) {
@@ -217,7 +217,7 @@ public class PrototypeLXI extends Bot {
 						noMoveD(noMoves);
 						//System.err.println("Grave Below");
 					}
-					
+
 				}
 				//Check graves that are left and right
 				if(graveY > myY-2*RADIUS && graveY < myY+RADIUS*2) {
@@ -230,7 +230,7 @@ public class PrototypeLXI extends Bot {
 						//System.err.println("Grave on Right");
 					}
 				}
-				
+
 			}
 		}
 
@@ -367,7 +367,7 @@ public class PrototypeLXI extends Bot {
 				choices[choices.length - 1] = 5;
 			}
 		}
-		
+
 		BotInfo target = null;//Bot to actually target
 		BotInfo botTarget = myInfo;//Which bot to target, set to self in beginning to prevent NPE
 		BotInfo allyTarget = null;
@@ -375,7 +375,7 @@ public class PrototypeLXI extends Bot {
 			// botTarget = crappyBots.get(targetIndex);
 			botTarget = crappyBots.get(0);//Get the first one
 		}
-		
+
 		allyTarget = getAllies(team, liveBots);
 		
 		/*
@@ -412,7 +412,7 @@ public class PrototypeLXI extends Bot {
 				&& me.getBulletsLeft() < 1000) {
 			target = graveTarget;
 		}*/
-		
+
 		if (role != RoleType.TANK) {
 			if (allyTarget != null) {
 				target = allyTarget;
@@ -422,7 +422,7 @@ public class PrototypeLXI extends Bot {
 		} else {
 			target = botTarget;
 		}
-		
+
 		BotInfo tempTarget = targetGlobal;
 		//Adjust the reference of the global target
 		//if target changed, then change variable of targetChanged accordingly
@@ -435,16 +435,16 @@ public class PrototypeLXI extends Bot {
 				targetChanged = false;
 			}
 		}
-		
+
 
 		BotInfo[] allBots = concat(deadBots, liveBots);//COncat live bots and deadbots
-		
+
 		//Calc dangers of bullets/bots
 		choices = calcDangers(choices, possibleMoves, bullets, me, allBots, bulletDirs, target);
-		
+
 		if (target != null) {
 			//If distance to target is greater than 200
-			if (Math.abs(botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY()) ) > 
+			if (Math.abs(botHelper.calcDistance(me.getX(), me.getY(), target.getX(), target.getY()) ) >
 			BattleBotArena.BULLET_SPEED * timeNeeded + RADIUS * 5) {
 				noMoves = noFire(noMoves);//Do not shoot
 			}
@@ -458,7 +458,7 @@ public class PrototypeLXI extends Bot {
 					//calculates desire to stay in formation
 					choices = calcDesire(choices, possibleMoves, me, myLocation);
 				}
-				
+
 			}
 			for (BotInfo fakeTarget : spoofTargets) {
 				choices = calcDesire(choices, possibleMoves, me, fakeTarget);//Calc desires with all the spoofed targets
@@ -512,7 +512,7 @@ public class PrototypeLXI extends Bot {
 		if(BattleBotArena.DEBUG) {
 			//System.out.println("move = " + move);
 		}
-		
+
 		// saveMove(move);
 		if (move > 4 && move < 9) {
 			// if fired
@@ -524,7 +524,7 @@ public class PrototypeLXI extends Bot {
 		counter++;
 		// return 9;
 		saveMove(move);
-		
+
 		return move;
 	}
 
@@ -574,17 +574,17 @@ public class PrototypeLXI extends Bot {
 
 		crappyBots = getClosestBots(liveBots);//Get the closest bots
 
-		removeUnwantedTargets(crappyBots);//Make sure team mate is not a target
+		crappyBots = removeUnwantedTargets(crappyBots);//Make sure team mate is not a target
 
 		frameCount++;//Increase frame counter
 		stuck = isStuck();//Check if stuck
 
 		updateFakeBotInfo(); //Updates the personal location
-		
+
 		if(BattleBotArena.DEBUG) {
 			//System.out.println("TargetIndex: " + targetIndex);	
 		}
-		
+
 		//System.out.println("TargetIndex: "+ targetIndex);
 
 		boolean stuckDirection = stuckOnX();//Store which direction stuck in
@@ -599,13 +599,13 @@ public class PrototypeLXI extends Bot {
 				stuckDir = 2;
 			}
 		}
-		
+
 		//Check if bot has arrived at any of the spoofed targets or new spoof is necessary
 		for (BotInfo fakeTarget : spoofTargets) {
-			if ( (myInfo.getX() <= fakeTarget.getX() + BattleBotArena.BOT_SPEED*2 && 
-				myInfo.getX() >= fakeTarget.getX() - BattleBotArena.BOT_SPEED*2 && 
-				myInfo.getY() <= fakeTarget.getY() + BattleBotArena.BOT_SPEED*2 && 
-				myInfo.getY() >= fakeTarget.getY() - BattleBotArena.BOT_SPEED*2) || 
+			if ( (myInfo.getX() <= fakeTarget.getX() + BattleBotArena.BOT_SPEED*2 &&
+				myInfo.getX() >= fakeTarget.getX() - BattleBotArena.BOT_SPEED*2 &&
+				myInfo.getY() <= fakeTarget.getY() + BattleBotArena.BOT_SPEED*2 &&
+				myInfo.getY() >= fakeTarget.getY() - BattleBotArena.BOT_SPEED*2) ||
 				stuckDir != tempStuckDir || targetChanged) {
 				spoofTargets.clear();
 				graveStuckTo = null;
@@ -614,7 +614,7 @@ public class PrototypeLXI extends Bot {
 				arrivedY = false;
 				//System.out.println("spoof target cleared");
 				break;
-			}		
+			}
 		}
 		//Calc spoofed targets if stuck and there are no spoofed targets already
 		if (stuck && spoofTargets.isEmpty() ) {
@@ -672,7 +672,7 @@ public class PrototypeLXI extends Bot {
 	protected ArrayList<BotInfo> getClosestBots(BotInfo[] allBots) {
 		ArrayList<BotInfo> copy = new ArrayList<BotInfo>(Arrays.asList(Arrays.copyOf(allBots, allBots.length)));
 
-		// System.out.println("Copied Array" + allBots.length + ", "+copy);
+		//System.out.println("Copied Array" + allBots.length + ", "+copy);
 		BotInfo temp;
 		if (allBots.length < 2) {
 			//only one bot left
@@ -704,15 +704,14 @@ public class PrototypeLXI extends Bot {
 	}
 
 	//removes any unwanted targets from the arrayList of targets
-	protected void removeUnwantedTargets(ArrayList<BotInfo> list) {
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println("team size = " + team.size());
-			if (team.contains(list.get(i))) {
-				//target is team member
-				System.err.println("removing target");
-				list.remove(i);
+	protected ArrayList<BotInfo> removeUnwantedTargets(ArrayList<BotInfo> list) {
+		ArrayList<BotInfo> targets = new ArrayList<BotInfo>();
+		for (BotInfo nearBot : list) {
+			if (!(nearBot.getTeamName().contains(myInfo.getTeamName()))) {
+				targets.add(nearBot);
 			}
 		}
+		return targets;
 	}
 
 	//override this for support classes

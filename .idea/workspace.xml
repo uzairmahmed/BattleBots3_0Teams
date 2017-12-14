@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a48f3ccb-1ff8-4ecc-95de-84a21790df8f" name="Default" comment="Added the needy bot code with extra decision making">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/arena/BattleBotArena.class" afterPath="$PROJECT_DIR$/bin/arena/BattleBotArena.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/PrototypeLXI.class" afterPath="$PROJECT_DIR$/bin/bots/PrototypeLXI.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/RandBot.class" afterPath="$PROJECT_DIR$/bin/bots/RandBot.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/bots/SentryBot.class" afterPath="$PROJECT_DIR$/bin/bots/SentryBot.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/arena/BattleBotArena.java" afterPath="$PROJECT_DIR$/src/arena/BattleBotArena.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/PrototypeLXI.java" afterPath="$PROJECT_DIR$/src/bots/PrototypeLXI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/TinFoil.java" afterPath="$PROJECT_DIR$/src/bots/TinFoil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/TupperWare.java" afterPath="$PROJECT_DIR$/src/bots/TupperWare.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/Ziploc.java" afterPath="$PROJECT_DIR$/src/bots/Ziploc.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -18,27 +20,26 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="PrototypeLXI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bots/PrototypeLXI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="156" column="8" lean-forward="true" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+            <state relative-caret-position="176">
+              <caret line="157" column="42" lean-forward="true" selection-start-line="157" selection-start-column="42" selection-end-line="157" selection-end-column="42" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#2297#2306#0" expanded="true" />
-                <element signature="e#2499#2508#0" expanded="true" />
-                <element signature="e#3984#3993#0" expanded="true" />
-                <element signature="e#4105#4114#0" expanded="true" />
-                <element signature="e#7139#7148#0" expanded="true" />
-                <element signature="e#17151#17160#0" expanded="true" />
-                <element signature="e#21080#21089#0" expanded="true" />
-                <element signature="e#23114#23123#0" expanded="true" />
-                <element signature="e#29776#29785#0" expanded="true" />
-                <element signature="e#56948#56957#0" expanded="true" />
-                <element signature="e#58876#58877#0" expanded="true" />
-                <element signature="e#58896#58897#0" expanded="true" />
-                <marker date="1513122725109" expanded="true" signature="60552:60559" ph="{...}" />
+                <element signature="e#2288#2297#0" expanded="true" />
+                <element signature="e#2490#2499#0" expanded="true" />
+                <element signature="e#3970#3979#0" expanded="true" />
+                <element signature="e#4091#4100#0" expanded="true" />
+                <element signature="e#7101#7110#0" expanded="true" />
+                <element signature="e#17090#17099#0" expanded="true" />
+                <element signature="e#21020#21029#0" expanded="true" />
+                <element signature="e#22181#22190#0" expanded="true" />
+                <element signature="e#23097#23106#0" expanded="true" />
+                <element signature="e#29759#29768#0" expanded="true" />
+                <element signature="e#56931#56940#0" expanded="true" />
+                <marker date="1513291271532" expanded="true" signature="60535:60542" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -47,11 +48,9 @@
       <file leaf-file-name="Ziploc.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/Ziploc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="87" column="62" lean-forward="true" selection-start-line="87" selection-start-column="62" selection-end-line="87" selection-end-column="62" />
-              <folding>
-                <element signature="e#600#609#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="945">
+              <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,7 +58,7 @@
       <file leaf-file-name="TinFoil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/TinFoil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
+            <state relative-caret-position="540">
               <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
               <folding />
             </state>
@@ -69,8 +68,8 @@
       <file leaf-file-name="BattleBotArena.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="911" column="39" lean-forward="false" selection-start-line="911" selection-start-column="39" selection-end-line="911" selection-end-column="39" />
+            <state relative-caret-position="14745">
+              <caret line="1015" column="12" lean-forward="false" selection-start-line="1015" selection-start-column="12" selection-end-line="1015" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,7 +80,7 @@
       <file leaf-file-name="TupperWare.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/TupperWare.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
+            <state relative-caret-position="405">
               <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -95,22 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getall</find>
-      <find>geta</find>
-      <find>max</find>
-      <find>role</find>
-      <find>getRole</find>
-      <find>maxAmmo</find>
-      <find>getBulletsLeft</find>
-      <find>desire</find>
-      <find>spooftar</find>
-      <find>draw</find>
-      <find>formationC</find>
-      <find>target =</find>
-      <find>set</find>
-      <find>get</find>
-      <find>getX</find>
-      <find>formatio</find>
       <find>update</find>
       <find>void up</find>
       <find>updat</find>
@@ -125,6 +108,22 @@
       <find>updateFakeBotInfo</find>
       <find>formation</find>
       <find>void dr</find>
+      <find>targets</find>
+      <find>removeUn</find>
+      <find>println</find>
+      <find>removeUnwan</find>
+      <find>crappyBots</find>
+      <find>getClos</find>
+      <find>allBots</find>
+      <find>getClo</find>
+      <find>copied</find>
+      <find>remove</find>
+      <find>shuffle</find>
+      <find>crappy</find>
+      <find>list</find>
+      <find>removeU</find>
+      <find>removeUnwantedTargets</find>
+      <find>noFire</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,9 +145,9 @@
         <option value="$PROJECT_DIR$/src/bots/ramboBotTest.java" />
         <option value="$PROJECT_DIR$/src/roles/RoleType.java" />
         <option value="$PROJECT_DIR$/src/bots/FakeBotInfo.java" />
-        <option value="$PROJECT_DIR$/src/bots/Ziploc.java" />
         <option value="$PROJECT_DIR$/src/bots/TupperWare.java" />
         <option value="$PROJECT_DIR$/src/bots/TinFoil.java" />
+        <option value="$PROJECT_DIR$/src/bots/Ziploc.java" />
         <option value="$PROJECT_DIR$/src/arena/BattleBotArena.java" />
         <option value="$PROJECT_DIR$/src/bots/PrototypeLXI.java" />
       </list>
@@ -160,7 +159,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="36" />
     <option name="width" value="1280" />
     <option name="height" value="988" />
@@ -221,6 +220,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/uzair/Documents/Programming/Grade 12/Java/Battlebots/BattleBots3_0Teams/src/arena/BattleBotArena.java" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -366,25 +366,29 @@
       <workItem from="1513036302274" duration="6609000" />
       <workItem from="1513099981259" duration="2990000" />
       <workItem from="1513115853182" duration="7003000" />
+      <workItem from="1513185404325" duration="3809000" />
+      <workItem from="1513272289181" duration="8829000" />
+      <workItem from="1513288436406" duration="1389000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30165000" />
+    <option name="totallyTimeSpent" value="44192000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="36" width="1280" height="988" extended-state="6" />
+    <frame x="0" y="36" width="1366" height="734" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276644" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32643312" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.3057325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="877" y="172" width="414" height="484" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3276644" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -395,14 +399,14 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280255" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -459,19 +463,18 @@
           <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2297#2306#0" expanded="true" />
-            <element signature="e#2499#2508#0" expanded="true" />
-            <element signature="e#3984#3993#0" expanded="true" />
-            <element signature="e#4105#4114#0" expanded="true" />
-            <element signature="e#7139#7148#0" expanded="true" />
-            <element signature="e#17151#17160#0" expanded="true" />
-            <element signature="e#21080#21089#0" expanded="true" />
-            <element signature="e#23114#23123#0" expanded="true" />
-            <element signature="e#29776#29785#0" expanded="true" />
-            <element signature="e#56948#56957#0" expanded="true" />
-            <element signature="e#58876#58877#0" expanded="true" />
-            <element signature="e#58896#58897#0" expanded="true" />
-            <marker date="1513122725109" expanded="true" signature="60552:60559" ph="{...}" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3970#3979#0" expanded="true" />
+            <element signature="e#4091#4100#0" expanded="true" />
+            <element signature="e#7101#7110#0" expanded="true" />
+            <element signature="e#17090#17099#0" expanded="true" />
+            <element signature="e#21020#21029#0" expanded="true" />
+            <element signature="e#22181#22190#0" expanded="true" />
+            <element signature="e#23097#23106#0" expanded="true" />
+            <element signature="e#29759#29768#0" expanded="true" />
+            <element signature="e#56931#56940#0" expanded="true" />
+            <marker date="1513291271532" expanded="true" signature="60535:60542" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -501,8 +504,8 @@
         <state relative-caret-position="1320">
           <caret line="88" column="14" lean-forward="false" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
           <folding>
-            <element signature="e#7222#7223#0" expanded="true" />
-            <element signature="e#7237#7238#0" expanded="true" />
+            <element signature="e#7222#7223#0" expanded="false" />
+            <element signature="e#7237#7238#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -521,19 +524,18 @@
           <caret line="644" column="39" lean-forward="true" selection-start-line="644" selection-start-column="39" selection-end-line="644" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2297#2306#0" expanded="true" />
-            <element signature="e#2499#2508#0" expanded="true" />
-            <element signature="e#3984#3993#0" expanded="true" />
-            <element signature="e#4105#4114#0" expanded="true" />
-            <element signature="e#7139#7148#0" expanded="true" />
-            <element signature="e#17151#17160#0" expanded="true" />
-            <element signature="e#21080#21089#0" expanded="true" />
-            <element signature="e#23114#23123#0" expanded="true" />
-            <element signature="e#29776#29785#0" expanded="true" />
-            <element signature="e#56948#56957#0" expanded="true" />
-            <element signature="e#58876#58877#0" expanded="true" />
-            <element signature="e#58896#58897#0" expanded="true" />
-            <marker date="1513122725109" expanded="true" signature="60552:60559" ph="{...}" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3970#3979#0" expanded="true" />
+            <element signature="e#4091#4100#0" expanded="true" />
+            <element signature="e#7101#7110#0" expanded="true" />
+            <element signature="e#17090#17099#0" expanded="true" />
+            <element signature="e#21020#21029#0" expanded="true" />
+            <element signature="e#22181#22190#0" expanded="true" />
+            <element signature="e#23097#23106#0" expanded="true" />
+            <element signature="e#29759#29768#0" expanded="true" />
+            <element signature="e#56931#56940#0" expanded="true" />
+            <marker date="1513291271532" expanded="true" signature="60535:60542" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -560,9 +562,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="22" column="5" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="e#600#609#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -601,9 +601,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#600#609#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -663,8 +661,8 @@
         <state relative-caret-position="1320">
           <caret line="94" column="7" lean-forward="false" selection-start-line="94" selection-start-column="7" selection-end-line="94" selection-end-column="7" />
           <folding>
-            <element signature="e#7222#7223#0" expanded="true" />
-            <element signature="e#7237#7238#0" expanded="true" />
+            <element signature="e#7222#7223#0" expanded="false" />
+            <element signature="e#7237#7238#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -683,9 +681,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="65">
           <caret line="11" column="2" lean-forward="false" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-          <folding>
-            <element signature="e#600#609#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -695,19 +691,18 @@
           <caret line="149" column="32" lean-forward="false" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2297#2306#0" expanded="true" />
-            <element signature="e#2499#2508#0" expanded="true" />
-            <element signature="e#3984#3993#0" expanded="true" />
-            <element signature="e#4105#4114#0" expanded="true" />
-            <element signature="e#7139#7148#0" expanded="true" />
-            <element signature="e#17151#17160#0" expanded="true" />
-            <element signature="e#21080#21089#0" expanded="true" />
-            <element signature="e#23114#23123#0" expanded="true" />
-            <element signature="e#29776#29785#0" expanded="true" />
-            <element signature="e#56948#56957#0" expanded="true" />
-            <element signature="e#58876#58877#0" expanded="true" />
-            <element signature="e#58896#58897#0" expanded="true" />
-            <marker date="1513122725109" expanded="true" signature="60552:60559" ph="{...}" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3970#3979#0" expanded="true" />
+            <element signature="e#4091#4100#0" expanded="true" />
+            <element signature="e#7101#7110#0" expanded="true" />
+            <element signature="e#17090#17099#0" expanded="true" />
+            <element signature="e#21020#21029#0" expanded="true" />
+            <element signature="e#22181#22190#0" expanded="true" />
+            <element signature="e#23097#23106#0" expanded="true" />
+            <element signature="e#29759#29768#0" expanded="true" />
+            <element signature="e#56931#56940#0" expanded="true" />
+            <marker date="1513291271532" expanded="true" signature="60535:60542" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -737,8 +732,8 @@
         <state relative-caret-position="1320">
           <caret line="88" column="14" lean-forward="false" selection-start-line="88" selection-start-column="14" selection-end-line="88" selection-end-column="14" />
           <folding>
-            <element signature="e#7222#7223#0" expanded="true" />
-            <element signature="e#7237#7238#0" expanded="true" />
+            <element signature="e#7222#7223#0" expanded="false" />
+            <element signature="e#7237#7238#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -757,19 +752,18 @@
           <caret line="644" column="39" lean-forward="true" selection-start-line="644" selection-start-column="39" selection-end-line="644" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2297#2306#0" expanded="true" />
-            <element signature="e#2499#2508#0" expanded="true" />
-            <element signature="e#3984#3993#0" expanded="true" />
-            <element signature="e#4105#4114#0" expanded="true" />
-            <element signature="e#7139#7148#0" expanded="true" />
-            <element signature="e#17151#17160#0" expanded="true" />
-            <element signature="e#21080#21089#0" expanded="true" />
-            <element signature="e#23114#23123#0" expanded="true" />
-            <element signature="e#29776#29785#0" expanded="true" />
-            <element signature="e#56948#56957#0" expanded="true" />
-            <element signature="e#58876#58877#0" expanded="true" />
-            <element signature="e#58896#58897#0" expanded="true" />
-            <marker date="1513122725109" expanded="true" signature="60552:60559" ph="{...}" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3970#3979#0" expanded="true" />
+            <element signature="e#4091#4100#0" expanded="true" />
+            <element signature="e#7101#7110#0" expanded="true" />
+            <element signature="e#17090#17099#0" expanded="true" />
+            <element signature="e#21020#21029#0" expanded="true" />
+            <element signature="e#22181#22190#0" expanded="true" />
+            <element signature="e#23097#23106#0" expanded="true" />
+            <element signature="e#29759#29768#0" expanded="true" />
+            <element signature="e#56931#56940#0" expanded="true" />
+            <marker date="1513291271532" expanded="true" signature="60535:60542" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -796,9 +790,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="22" column="5" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="e#600#609#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -837,9 +829,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="e#600#609#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -892,7 +882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,8 +890,8 @@
         <state relative-caret-position="15">
           <caret line="278" column="22" lean-forward="false" selection-start-line="278" selection-start-column="18" selection-end-line="278" selection-end-column="22" />
           <folding>
-            <element signature="e#7222#7223#0" expanded="true" />
-            <element signature="e#7237#7238#0" expanded="true" />
+            <element signature="e#7222#7223#0" expanded="false" />
+            <element signature="e#7237#7238#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -925,37 +914,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/bots/Ziploc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/TinFoil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
+        <state relative-caret-position="540">
           <caret line="38" column="8" lean-forward="false" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="911" column="39" lean-forward="false" selection-start-line="911" selection-start-column="39" selection-end-line="911" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bots/Ziploc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="87" column="62" lean-forward="true" selection-start-line="87" selection-start-column="62" selection-end-line="87" selection-end-column="62" />
-          <folding>
-            <element signature="e#600#609#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/TupperWare.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
+        <state relative-caret-position="405">
           <caret line="33" column="25" lean-forward="false" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -964,25 +941,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14745">
+          <caret line="1015" column="12" lean-forward="false" selection-start-line="1015" selection-start-column="12" selection-end-line="1015" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/PrototypeLXI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="156" column="8" lean-forward="true" selection-start-line="156" selection-start-column="8" selection-end-line="156" selection-end-column="8" />
+        <state relative-caret-position="176">
+          <caret line="157" column="42" lean-forward="true" selection-start-line="157" selection-start-column="42" selection-end-line="157" selection-end-column="42" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#2297#2306#0" expanded="true" />
-            <element signature="e#2499#2508#0" expanded="true" />
-            <element signature="e#3984#3993#0" expanded="true" />
-            <element signature="e#4105#4114#0" expanded="true" />
-            <element signature="e#7139#7148#0" expanded="true" />
-            <element signature="e#17151#17160#0" expanded="true" />
-            <element signature="e#21080#21089#0" expanded="true" />
-            <element signature="e#23114#23123#0" expanded="true" />
-            <element signature="e#29776#29785#0" expanded="true" />
-            <element signature="e#56948#56957#0" expanded="true" />
-            <element signature="e#58876#58877#0" expanded="true" />
-            <element signature="e#58896#58897#0" expanded="true" />
-            <marker date="1513122725109" expanded="true" signature="60552:60559" ph="{...}" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3970#3979#0" expanded="true" />
+            <element signature="e#4091#4100#0" expanded="true" />
+            <element signature="e#7101#7110#0" expanded="true" />
+            <element signature="e#17090#17099#0" expanded="true" />
+            <element signature="e#21020#21029#0" expanded="true" />
+            <element signature="e#22181#22190#0" expanded="true" />
+            <element signature="e#23097#23106#0" expanded="true" />
+            <element signature="e#29759#29768#0" expanded="true" />
+            <element signature="e#56931#56940#0" expanded="true" />
+            <marker date="1513291271532" expanded="true" signature="60535:60542" ph="{...}" />
           </folding>
         </state>
       </provider>
