@@ -135,7 +135,7 @@ public class PrototypeLXI extends Bot {
 	public void newRound() {
 		counter = 0;
 		spoofTargets.clear();
-		formation = true;
+		formation = false;
 		//creates formation center at 300, 300
 		formationCenter = new FakeBotInfo(300, 300, -5, "Center");
 		myLocation = new FakeBotInfo(300, 300, -10, "Locale");
@@ -162,6 +162,12 @@ public class PrototypeLXI extends Bot {
 		if (counter == 0) {
 			allBots = liveBots;
 			move = BattleBotArena.SEND_MESSAGE;
+			team.add(me);
+			for (BotInfo bot : liveBots) {
+				if (bot.getTeamName().equals(me.getTeamName() ) ) {
+					team.add(bot);
+				}
+			}
 
 			/*double temp = Math.random();
 			if (temp <= 0.25) {
@@ -190,6 +196,7 @@ public class PrototypeLXI extends Bot {
 
 		//special not available
 		if (!specialOK) {
+			System.out.println("special not ok");
 			noMoves = noSpecial(noMoves);
 		}
 		// add if for one bullet left
@@ -369,14 +376,14 @@ public class PrototypeLXI extends Bot {
 		}
 
 		BotInfo target = null;//Bot to actually target
-		BotInfo botTarget = myInfo;//Which bot to target, set to self in beginning to prevent NPE
+		BotInfo botTarget = null;//Which bot to target, set to self in beginning to prevent NPE
 		BotInfo allyTarget = null;
 		if (crappyBots != null && crappyBots.size() > 0) {//If there are potential targets
 			// botTarget = crappyBots.get(targetIndex);
 			botTarget = crappyBots.get(0);//Get the first one
 		}
 
-		allyTarget = getAllies(team, liveBots);
+		allyTarget = getAllies(team);
 		
 		/*
 		// || frameCount <= 3
@@ -416,10 +423,10 @@ public class PrototypeLXI extends Bot {
 		if (role != RoleType.TANK) {
 			if (allyTarget != null) {
 				target = allyTarget;
-			} else {
+			} else if (botTarget != null) {
 				target = botTarget;
 			}
-		} else {
+		} else if (botTarget != null) {
 			target = botTarget;
 		}
 
@@ -427,7 +434,7 @@ public class PrototypeLXI extends Bot {
 		//Adjust the reference of the global target
 		//if target changed, then change variable of targetChanged accordingly
 		targetGlobal = target;
-		if (target!=null) {
+		if (tempTarget!=null && targetGlobal != null) {
 			if (targetGlobal.getBotNumber() != tempTarget.getBotNumber()) {
 				targetChanged = true;
 				//System.out.println("target changed from " + tempTarget.getName() + " to " + targetGlobal.getName() );
@@ -573,6 +580,14 @@ public class PrototypeLXI extends Bot {
 	//Takes in all the information that is given to getMove()
 	protected void update(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
 		myInfo = me;//Update own info
+		BotInfo[] allBots = concat(liveBots, deadBots);
+		team.clear();
+		team.add(me);
+		for (BotInfo bot : allBots) {
+			if (bot.getTeamName().equals(me.getTeamName() )) {
+				team.add(bot);
+			}
+		}
 
 		if (formation) {
 			crappyBots = getClosestBots(liveBots, formationCenter);//Get the closest bots
@@ -723,7 +738,7 @@ public class PrototypeLXI extends Bot {
 
 	//override this for support classes
 
-	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
+	protected BotInfo getAllies(ArrayList<BotInfo> team) {
 		return null;
 	}
 	
@@ -1027,7 +1042,7 @@ public class PrototypeLXI extends Bot {
 			//no moves possible
 			return choices;
 		}
-		if (possibleMoves.get(0) >= 5 || (target == null)) {
+		if (possibleMoves.get(0) >= 5) {
 			//cannot move but can only fire
 			return choices;
 		}
@@ -1119,19 +1134,27 @@ public class PrototypeLXI extends Bot {
 
 		// grave checks
 		for (BotInfo bot : allBots) {
-			
+			System.out.println("checking for graves");
+			/*
 			if ( (bot.isDead() && (spoofTargets.isEmpty()) && (bot == target || 
 				Math.abs(botHelper.calcDistance(target.getX(), target.getY(), bot.getX(), bot.getY() ) ) < RADIUS*6) ) ) {
 				//if target is within 6 radius of grave, break
 				//System.out.println("no grave check");
 				//break;
-			}
+			}*/
 			//no grave checks if spoofing around the grave
 			if ((graveStuckTo != null && graveStuckTo == bot) || 
 					!spoofTargets.isEmpty() ) {
 				//System.out.println("no grave check due to spoof");
 				break;
 			}
+			
+			if (target != null && team.contains(bot) && target == bot) {
+				//if healing/supplying teammate
+				System.out.println("no grave check due to supporting");
+				break;
+			}
+			
 			if (true) {
 				//break;
 			}
@@ -1353,11 +1376,11 @@ public class PrototypeLXI extends Bot {
 			// no distance on y to line up target
 			// instead of 0, possibly use RADIUS-2 or -RADIUS+2 respectively
 			if (spoofTargets.isEmpty()) {
+				System.out.println("target bot number = " + target.getBotNumber());
 				//not in the process of spoofing target
 				if (target.getBotNumber() >= 0) {
-					
 					if (team.contains(target) ) {
-						//System.out.println("team target");
+						System.out.println("team target");
 						//goes towards target
 						if (yDif > BattleBotArena.BOT_SPEED*2) {
 							desires[0] = -((yDif / (BattleBotArena.BOTTOM_EDGE - BattleBotArena.TOP_EDGE)) * 2);
@@ -1933,7 +1956,7 @@ public class PrototypeLXI extends Bot {
 		return c;
 	}
 
-	public void whichTank(){
+	protected void whichTank(){
 		whichTank = 0;
 	}
 
@@ -2010,7 +2033,7 @@ public class PrototypeLXI extends Bot {
 			if (msg.equals(teamMessage) ){
 				for (BotInfo bot : allBots) {
 					if (bot.getBotNumber() == botNum) {
-						team.add(bot);
+						//team.add(bot);
 						break;
 					}
 				}

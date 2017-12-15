@@ -36,7 +36,7 @@ public class TupperWare extends PrototypeLXI {
 	}
 
 	@Override
-	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
+	protected BotInfo getAllies(ArrayList<BotInfo> team) {
 		ArrayList<BotInfo> needyBots = new ArrayList<BotInfo>();
 		BotInfo needyBot = null;
 

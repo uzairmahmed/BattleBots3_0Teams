@@ -480,7 +480,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Total number of Bots in round 1 (if you have fewer than this, the rest of the spots
 	 * in the array will be filled with Drones, RandBots, and Sentries).
 	 */
-	public static final int 	NUM_BOTS = 5;
+	public static final int 	NUM_BOTS = 2;
 	/**
 	 * Rowbottom 
 	 * Not used*Number of bullets on screen at once for each bot
@@ -850,8 +850,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** HUMAN TEST BOT CREATION
 		// *** Comment the next two lines out if you don't want to use the
 		// *** HumanBot (under user control)
-		bots[4] = new HumanBot();
-		addKeyListener((HumanBot)bots[4]);
+		bots[1] = new HumanBot();
+		addKeyListener((HumanBot)bots[1]);
 
 		// ******************************
 
@@ -859,9 +859,9 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 		bots[0] = new Ziploc();
-		bots[1] = new TupperWare();
-		bots[2] = new TinFoil();
-		bots[3] = new TinFoil();
+		//bots[1] = new TupperWare();
+		//bots[2] = new TinFoil();
+		//bots[3] = new TinFoil();
 		//bots[1] = new PrototypeLXI();
 		//bots[2] = new PrototypeV();
 

@@ -33,13 +33,14 @@ public class Ziploc extends PrototypeLXI {
 
 	//TODO set priorities based on role
 	@Override
-	protected BotInfo getAllies(ArrayList<BotInfo> team, BotInfo[] liveBots) {
+	protected BotInfo getAllies(ArrayList<BotInfo> team) {
 		ArrayList<BotInfo> needyBots = new ArrayList<BotInfo>();
 		//Go through every teammate
 		for (int i = 0; i < team.size(); i++){
 			BotInfo curBot = team.get(i);
+			System.out.println(curBot.getName());
 
-
+			/*
 			//If the current bot has already been noticed
 			if (needyBots.contains(curBot)){
 
@@ -61,6 +62,8 @@ public class Ziploc extends PrototypeLXI {
 							VIB = curNeedyBot;
 						}
 					}
+					
+					System.out.println(VIB.getName() + " is needy");
 					return VIB;
 				}
 			}
@@ -71,10 +74,50 @@ public class Ziploc extends PrototypeLXI {
 				if (curBot.getHealth() / roleValues(curBot)[0] < 0.75) {
 					needyBots.add(curBot);
 				}
+			}*/
+			
+			/*
+			if (curBot.getHealth() / roleValues(curBot)[0] < 0.75) {
+				needyBots.add(curBot);
+			}*/
+			
+			System.out.println("current health = " + curBot.getHealth() );
+			if (curBot.getHealth() < roleValues(curBot)[0]) {
+				needyBots.add(curBot);
+				System.out.println(curBot.getName() + " needs health");
 			}
+
 		}
+		
+		BotInfo VIB = null;
+		double lowestHealth = 100;
+
+		//Goes through each needy bot
+		for (int j = 0; j < needyBots.size(); j++){
+			BotInfo curNeedyBot = needyBots.get(j);
+
+			double percentageHealth = curNeedyBot.getHealth() / roleValues(curNeedyBot)[0];
+			if (percentageHealth < lowestHealth) {
+				//lowest health gets most importance
+				VIB = curNeedyBot;
+			} else if (percentageHealth == lowestHealth) {
+				if (roleValues(curNeedyBot)[1] > roleValues(VIB)[1]){
+					//higher importance
+					VIB = curNeedyBot;
+				}
+			}
+			/*
+			//checks if the priority is greater than the old one
+			if (roleValues(curNeedyBot)[1]>roleValues(VIB)[1]){
+				VIB = curNeedyBot;
+			}*/
+		}
+		if (VIB != null) {
+			System.out.println(VIB.getName() + " is needy");
+		}
+		return VIB;
 		//If nothing returns, nothing is needy
-		return null;
+		//return null;
 	}
 
 	@Override
