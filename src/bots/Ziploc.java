@@ -39,6 +39,7 @@ public class Ziploc extends PrototypeLXI {
 		for (int i = 0; i < team.size(); i++){
 			BotInfo curBot = team.get(i);
 
+
 			//If the current bot has already been noticed
 			if (needyBots.contains(curBot)){
 
@@ -66,7 +67,6 @@ public class Ziploc extends PrototypeLXI {
 
 			//If it hasnt been noticed
 			else {
-
 				//If the bot has crossed its threshold
 				if (curBot.getHealth() / roleValues(curBot)[0] < 0.75) {
 					needyBots.add(curBot);
