@@ -35,8 +35,8 @@ public class TinFoil extends PrototypeLXI {
 
 	@Override
 	protected void updateFakeBotInfo(){
-		if (whichTank == 1) myLocation.setPos(formationCenter.getFakeX(), formationCenter.getFakeY() - RADIUS*6);
-		else if (whichTank == 2) myLocation.setPos(formationCenter.getFakeX(), formationCenter.getFakeY() + RADIUS*6);
+		if (whichTank == 1) myLocation.setPos(formationCenter.getFakeX() - RADIUS*6, formationCenter.getFakeY());
+		else if (whichTank == 2) myLocation.setPos(formationCenter.getFakeX() + RADIUS*6, formationCenter.getFakeY());
 	}
 
 }

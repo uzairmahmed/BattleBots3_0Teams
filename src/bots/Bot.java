@@ -54,7 +54,7 @@ import arena.Bullet;
  * they will be truncated to whatever fits on the screen.</li></ol>
  * <br>
  * 
- * <b>Rubric</b><br><br>
+ * <b>Rubric</b><br><br>z
  *
  * To get an A+, your robot should meet all of the following criteria:
  * <ol>

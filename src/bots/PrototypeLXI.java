@@ -135,10 +135,10 @@ public class PrototypeLXI extends Bot {
 	public void newRound() {
 		counter = 0;
 		spoofTargets.clear();
-		formation = false;
+		formation = true;
 		//creates formation center at 300, 300
-		formationCenter = new FakeBotInfo(300, 300, -5, "Center");
-		myLocation = new FakeBotInfo(300, 300, -10, "Locale");
+		formationCenter = new FakeBotInfo(300,300, -5, "Center");
+		myLocation = new FakeBotInfo(myInfo.getX(), myInfo.getY(), -10, "Locale");
 
 	}
 
@@ -1540,6 +1540,7 @@ public class PrototypeLXI extends Bot {
 		// System.out.println("yDif = " + yDif + " ideal = " + idealDistanceY);
 		
 		if (targetChanged) {
+
 			//lines up on closest axis if the target has changed
 			double xDist = Math.abs(me.getX() - target.getX());
 			double yDist = Math.abs(me.getY() - target.getY());
@@ -1550,15 +1551,16 @@ public class PrototypeLXI extends Bot {
 				lineUpDir = 1;
 			}
 		}
-		
-		//lines up on y axis if target is on edge of top or bottom
-		if (targetGlobal.getY() >= BattleBotArena.BOTTOM_EDGE - RADIUS*3 ||
-			targetGlobal.getY() <= BattleBotArena.TOP_EDGE + RADIUS*3) {
-			lineUpDir = 1;
-		}
-		if (targetGlobal.getX() >= BattleBotArena.RIGHT_EDGE - RADIUS*3 ||
-			targetGlobal.getX() <= BattleBotArena.LEFT_EDGE + RADIUS*3) {
-			lineUpDir = 0;
+		if (targetGlobal != null) {
+			//lines up on y axis if target is on edge of top or bottom
+			if (targetGlobal.getY() >= BattleBotArena.BOTTOM_EDGE - RADIUS * 3 ||
+					targetGlobal.getY() <= BattleBotArena.TOP_EDGE + RADIUS * 3) {
+				lineUpDir = 1;
+			}
+			if (targetGlobal.getX() >= BattleBotArena.RIGHT_EDGE - RADIUS * 3 ||
+					targetGlobal.getX() <= BattleBotArena.LEFT_EDGE + RADIUS * 3) {
+				lineUpDir = 0;
+			}
 		}
 		
 		//if actual bot
