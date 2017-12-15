@@ -137,7 +137,7 @@ public class PrototypeLXI extends Bot {
 		spoofTargets.clear();
 		formation = true;
 		//creates formation center at 300, 300
-		formationCenter = new FakeBotInfo(300,300, -5, "Center");
+		formationCenter = new FakeBotInfo(0,0, -5, "Center");
 		myLocation = new FakeBotInfo(myInfo.getX(), myInfo.getY(), -10, "Locale");
 
 	}
@@ -213,6 +213,7 @@ public class PrototypeLXI extends Bot {
 
 		if(counter == 3){
 			whichTank();
+			formationCenter.setPos(myInfo.getX(), myInfo.getY());
 		}
 		//System.out.println("team size = " + team.size() );
 		// If there are any bullets 

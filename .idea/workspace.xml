@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a48f3ccb-1ff8-4ecc-95de-84a21790df8f" name="Default" comment="Added the needy bot code with extra decision making">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bots/PrototypeLXI.java" afterPath="$PROJECT_DIR$/src/bots/PrototypeLXI.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -14,27 +15,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PrototypeLXI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PrototypeLXI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/PrototypeLXI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="826" column="16" lean-forward="true" selection-start-line="826" selection-start-column="16" selection-end-line="826" selection-end-column="16" />
+            <state relative-caret-position="30">
+              <caret line="139" column="45" lean-forward="false" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#7692#7701#0" expanded="true" />
-                <element signature="e#17763#17772#0" expanded="true" />
-                <element signature="e#21819#21820#0" expanded="true" />
-                <element signature="e#21872#21873#0" expanded="true" />
-                <element signature="e#22021#22030#0" expanded="true" />
-                <element signature="e#27305#27314#0" expanded="true" />
-                <element signature="e#27566#27567#0" expanded="true" />
-                <element signature="e#27584#27585#0" expanded="true" />
-                <element signature="e#27938#27939#0" expanded="true" />
-                <element signature="e#27986#27987#0" expanded="true" />
-                <element signature="e#28201#28210#0" expanded="true" />
-                <element signature="e#34863#34872#0" expanded="true" />
-                <marker date="1513361646167" expanded="false" signature="66256:66261" ph=" { " />
-                <marker date="1513361646167" expanded="false" signature="66332:66335" ph=" }" />
+                <element signature="e#2288#2297#0" expanded="true" />
+                <element signature="e#2490#2499#0" expanded="true" />
+                <element signature="e#3984#3993#0" expanded="true" />
+                <element signature="e#4105#4114#0" expanded="true" />
+                <element signature="e#7745#7754#0" expanded="true" />
+                <element signature="e#17816#17825#0" expanded="true" />
+                <element signature="e#22074#22083#0" expanded="true" />
+                <element signature="e#27358#27367#0" expanded="true" />
+                <element signature="e#28254#28263#0" expanded="true" />
+                <element signature="e#34916#34925#0" expanded="true" />
+                <element signature="e#67400#67409#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -43,7 +41,7 @@
       <file leaf-file-name="Bot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/Bot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
+            <state relative-caret-position="735">
               <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
               <folding>
                 <marker date="1513361549723" expanded="true" signature="349:3573" ph="/**...*/" />
@@ -55,8 +53,8 @@
       <file leaf-file-name="Ziploc.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/Ziploc.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="120" column="5" lean-forward="true" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
+            <state relative-caret-position="215">
+              <caret line="124" column="91" lean-forward="true" selection-start-line="124" selection-start-column="91" selection-end-line="124" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -65,17 +63,17 @@
       <file leaf-file-name="TinFoil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/TinFoil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
+            <state relative-caret-position="395">
               <caret line="38" column="88" lean-forward="false" selection-start-line="38" selection-start-column="88" selection-end-line="38" selection-end-column="88" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BattleBotArena.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BattleBotArena.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3954">
+            <state relative-caret-position="4605">
               <caret line="482" column="45" lean-forward="false" selection-start-line="482" selection-start-column="45" selection-end-line="482" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -87,7 +85,7 @@
       <file leaf-file-name="TupperWare.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bots/TupperWare.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
+            <state relative-caret-position="185">
               <caret line="34" column="91" lean-forward="false" selection-start-line="34" selection-start-column="91" selection-end-line="34" selection-end-column="91" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -154,9 +152,9 @@
         <option value="$PROJECT_DIR$/src/bots/FakeBotInfo.java" />
         <option value="$PROJECT_DIR$/src/bots/Bot.java" />
         <option value="$PROJECT_DIR$/src/arena/BattleBotArena.java" />
-        <option value="$PROJECT_DIR$/src/bots/TinFoil.java" />
         <option value="$PROJECT_DIR$/src/bots/Ziploc.java" />
         <option value="$PROJECT_DIR$/src/bots/TupperWare.java" />
+        <option value="$PROJECT_DIR$/src/bots/TinFoil.java" />
         <option value="$PROJECT_DIR$/src/bots/PrototypeLXI.java" />
       </list>
     </option>
@@ -345,14 +343,16 @@
       <workItem from="1513272289181" duration="8829000" />
       <workItem from="1513288436406" duration="1389000" />
       <workItem from="1513358796680" duration="2913000" />
+      <workItem from="1513376216333" duration="2545000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47105000" />
+    <option name="totallyTimeSpent" value="49650000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="36" width="1366" height="734" extended-state="6" />
+    <frame x="0" y="36" width="1280" height="988" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -362,8 +362,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30498865" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="877" y="119" width="414" height="537" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3057325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="877" y="119" width="414" height="537" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -374,8 +374,8 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -408,20 +408,17 @@
           <caret line="141" column="0" lean-forward="true" selection-start-line="141" selection-start-column="0" selection-end-line="141" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#7692#7701#0" expanded="true" />
-            <element signature="e#17763#17772#0" expanded="true" />
-            <element signature="e#21819#21820#0" expanded="true" />
-            <element signature="e#21872#21873#0" expanded="true" />
-            <element signature="e#22021#22030#0" expanded="true" />
-            <element signature="e#27305#27314#0" expanded="true" />
-            <element signature="e#27566#27567#0" expanded="true" />
-            <element signature="e#27584#27585#0" expanded="true" />
-            <element signature="e#27938#27939#0" expanded="true" />
-            <element signature="e#27986#27987#0" expanded="true" />
-            <element signature="e#28201#28210#0" expanded="true" />
-            <element signature="e#34863#34872#0" expanded="true" />
-            <marker date="1513361646167" expanded="false" signature="66256:66261" ph=" { " />
-            <marker date="1513361646167" expanded="false" signature="66332:66335" ph=" }" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3984#3993#0" expanded="true" />
+            <element signature="e#4105#4114#0" expanded="true" />
+            <element signature="e#7745#7754#0" expanded="true" />
+            <element signature="e#17816#17825#0" expanded="true" />
+            <element signature="e#22074#22083#0" expanded="true" />
+            <element signature="e#27358#27367#0" expanded="true" />
+            <element signature="e#28254#28263#0" expanded="true" />
+            <element signature="e#34916#34925#0" expanded="true" />
+            <element signature="e#67400#67409#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -471,20 +468,17 @@
           <caret line="644" column="39" lean-forward="true" selection-start-line="644" selection-start-column="39" selection-end-line="644" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#7692#7701#0" expanded="true" />
-            <element signature="e#17763#17772#0" expanded="true" />
-            <element signature="e#21819#21820#0" expanded="true" />
-            <element signature="e#21872#21873#0" expanded="true" />
-            <element signature="e#22021#22030#0" expanded="true" />
-            <element signature="e#27305#27314#0" expanded="true" />
-            <element signature="e#27566#27567#0" expanded="true" />
-            <element signature="e#27584#27585#0" expanded="true" />
-            <element signature="e#27938#27939#0" expanded="true" />
-            <element signature="e#27986#27987#0" expanded="true" />
-            <element signature="e#28201#28210#0" expanded="true" />
-            <element signature="e#34863#34872#0" expanded="true" />
-            <marker date="1513361646167" expanded="false" signature="66256:66261" ph=" { " />
-            <marker date="1513361646167" expanded="false" signature="66332:66335" ph=" }" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3984#3993#0" expanded="true" />
+            <element signature="e#4105#4114#0" expanded="true" />
+            <element signature="e#7745#7754#0" expanded="true" />
+            <element signature="e#17816#17825#0" expanded="true" />
+            <element signature="e#22074#22083#0" expanded="true" />
+            <element signature="e#27358#27367#0" expanded="true" />
+            <element signature="e#28254#28263#0" expanded="true" />
+            <element signature="e#34916#34925#0" expanded="true" />
+            <element signature="e#67400#67409#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -640,20 +634,17 @@
           <caret line="149" column="32" lean-forward="false" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="32" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#7692#7701#0" expanded="true" />
-            <element signature="e#17763#17772#0" expanded="true" />
-            <element signature="e#21819#21820#0" expanded="true" />
-            <element signature="e#21872#21873#0" expanded="true" />
-            <element signature="e#22021#22030#0" expanded="true" />
-            <element signature="e#27305#27314#0" expanded="true" />
-            <element signature="e#27566#27567#0" expanded="true" />
-            <element signature="e#27584#27585#0" expanded="true" />
-            <element signature="e#27938#27939#0" expanded="true" />
-            <element signature="e#27986#27987#0" expanded="true" />
-            <element signature="e#28201#28210#0" expanded="true" />
-            <element signature="e#34863#34872#0" expanded="true" />
-            <marker date="1513361646167" expanded="false" signature="66256:66261" ph=" { " />
-            <marker date="1513361646167" expanded="false" signature="66332:66335" ph=" }" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3984#3993#0" expanded="true" />
+            <element signature="e#4105#4114#0" expanded="true" />
+            <element signature="e#7745#7754#0" expanded="true" />
+            <element signature="e#17816#17825#0" expanded="true" />
+            <element signature="e#22074#22083#0" expanded="true" />
+            <element signature="e#27358#27367#0" expanded="true" />
+            <element signature="e#28254#28263#0" expanded="true" />
+            <element signature="e#34916#34925#0" expanded="true" />
+            <element signature="e#67400#67409#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -703,20 +694,17 @@
           <caret line="644" column="39" lean-forward="true" selection-start-line="644" selection-start-column="39" selection-end-line="644" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#7692#7701#0" expanded="true" />
-            <element signature="e#17763#17772#0" expanded="true" />
-            <element signature="e#21819#21820#0" expanded="true" />
-            <element signature="e#21872#21873#0" expanded="true" />
-            <element signature="e#22021#22030#0" expanded="true" />
-            <element signature="e#27305#27314#0" expanded="true" />
-            <element signature="e#27566#27567#0" expanded="true" />
-            <element signature="e#27584#27585#0" expanded="true" />
-            <element signature="e#27938#27939#0" expanded="true" />
-            <element signature="e#27986#27987#0" expanded="true" />
-            <element signature="e#28201#28210#0" expanded="true" />
-            <element signature="e#34863#34872#0" expanded="true" />
-            <marker date="1513361646167" expanded="false" signature="66256:66261" ph=" { " />
-            <marker date="1513361646167" expanded="false" signature="66332:66335" ph=" }" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3984#3993#0" expanded="true" />
+            <element signature="e#4105#4114#0" expanded="true" />
+            <element signature="e#7745#7754#0" expanded="true" />
+            <element signature="e#17816#17825#0" expanded="true" />
+            <element signature="e#22074#22083#0" expanded="true" />
+            <element signature="e#27358#27367#0" expanded="true" />
+            <element signature="e#28254#28263#0" expanded="true" />
+            <element signature="e#34916#34925#0" expanded="true" />
+            <element signature="e#67400#67409#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -859,7 +847,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/Bot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
+        <state relative-caret-position="735">
           <caret line="56" column="25" lean-forward="false" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
           <folding>
             <marker date="1513361549723" expanded="true" signature="349:3573" ph="/**...*/" />
@@ -867,9 +855,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/bots/Ziploc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="124" column="91" lean-forward="true" selection-start-line="124" selection-start-column="91" selection-end-line="124" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/TupperWare.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="185">
           <caret line="34" column="91" lean-forward="false" selection-start-line="34" selection-start-column="91" selection-end-line="34" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -878,52 +874,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3954">
-          <caret line="482" column="45" lean-forward="false" selection-start-line="482" selection-start-column="45" selection-end-line="482" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/TinFoil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
+        <state relative-caret-position="395">
           <caret line="38" column="88" lean-forward="false" selection-start-line="38" selection-start-column="88" selection-end-line="38" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bots/Ziploc.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="120" column="5" lean-forward="true" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bots/PrototypeLXI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="826" column="16" lean-forward="true" selection-start-line="826" selection-start-column="16" selection-end-line="826" selection-end-column="16" />
+        <state relative-caret-position="30">
+          <caret line="139" column="45" lean-forward="false" selection-start-line="139" selection-start-column="45" selection-end-line="139" selection-end-column="45" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#7692#7701#0" expanded="true" />
-            <element signature="e#17763#17772#0" expanded="true" />
-            <element signature="e#21819#21820#0" expanded="true" />
-            <element signature="e#21872#21873#0" expanded="true" />
-            <element signature="e#22021#22030#0" expanded="true" />
-            <element signature="e#27305#27314#0" expanded="true" />
-            <element signature="e#27566#27567#0" expanded="true" />
-            <element signature="e#27584#27585#0" expanded="true" />
-            <element signature="e#27938#27939#0" expanded="true" />
-            <element signature="e#27986#27987#0" expanded="true" />
-            <element signature="e#28201#28210#0" expanded="true" />
-            <element signature="e#34863#34872#0" expanded="true" />
-            <marker date="1513361646167" expanded="false" signature="66256:66261" ph=" { " />
-            <marker date="1513361646167" expanded="false" signature="66332:66335" ph=" }" />
+            <element signature="e#2288#2297#0" expanded="true" />
+            <element signature="e#2490#2499#0" expanded="true" />
+            <element signature="e#3984#3993#0" expanded="true" />
+            <element signature="e#4105#4114#0" expanded="true" />
+            <element signature="e#7745#7754#0" expanded="true" />
+            <element signature="e#17816#17825#0" expanded="true" />
+            <element signature="e#22074#22083#0" expanded="true" />
+            <element signature="e#27358#27367#0" expanded="true" />
+            <element signature="e#28254#28263#0" expanded="true" />
+            <element signature="e#34916#34925#0" expanded="true" />
+            <element signature="e#67400#67409#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/arena/BattleBotArena.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4605">
+          <caret line="482" column="45" lean-forward="false" selection-start-line="482" selection-start-column="45" selection-end-line="482" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
