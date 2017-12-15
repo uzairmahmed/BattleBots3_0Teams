@@ -823,7 +823,7 @@ public class PrototypeLXI extends Bot {
 		}
 		//once array is run, list is sorted by closest distance
 		if (formation) {
-			return getClosestBots(TanksBots, formationCenter);
+			return getClosestBots(TankBots, formationCenter);
 		} else {
 			return getClosestBots(TankBots, me);
 		}
