@@ -402,11 +402,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Right edge of the screen
 	 */
-	public static final int RIGHT_EDGE = 800; //1260 // also arena panel width
+	public static final int RIGHT_EDGE = 1260; //1260 // also arena panel width
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 500;//804; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 600;//804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
