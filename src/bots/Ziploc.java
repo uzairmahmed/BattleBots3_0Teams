@@ -38,7 +38,7 @@ public class Ziploc extends PrototypeLXI {
 		//Go through every teammate
 		for (int i = 0; i < team.size(); i++){
 			BotInfo curBot = team.get(i);
-			System.out.println(curBot.getName());
+			//System.out.println(curBot.getName());
 
 			/*
 			//If the current bot has already been noticed
@@ -81,10 +81,10 @@ public class Ziploc extends PrototypeLXI {
 				needyBots.add(curBot);
 			}*/
 			
-			System.out.println("current health = " + curBot.getHealth() );
+			//System.out.println("current health = " + curBot.getHealth() );
 			if (curBot.getHealth() < roleValues(curBot)[0]) {
 				needyBots.add(curBot);
-				System.out.println(curBot.getName() + " needs health");
+				//System.out.println(curBot.getName() + " needs health");
 			}
 
 		}
@@ -113,7 +113,7 @@ public class Ziploc extends PrototypeLXI {
 			}*/
 		}
 		if (VIB != null) {
-			System.out.println(VIB.getName() + " is needy");
+			System.out.println(VIB.getName() + " needs health");
 		}
 		return VIB;
 		//If nothing returns, nothing is needy

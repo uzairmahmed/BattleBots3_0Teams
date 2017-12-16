@@ -38,12 +38,13 @@ public class TupperWare extends PrototypeLXI {
 	@Override
 	protected BotInfo getAllies(ArrayList<BotInfo> team) {
 		ArrayList<BotInfo> needyBots = new ArrayList<BotInfo>();
-		BotInfo needyBot = null;
+		//BotInfo needyBot = null;
 
-		//Go through every teammate
-		for (int i = 0; i < team.size(); i++){
+		//Go through every teammate except myself
+		for (int i = 1; i < team.size(); i++){
 			BotInfo curBot = team.get(i);
 
+			/*
 			//If the current bot has already been noticed
 			if (needyBots.contains(curBot)){
 
@@ -76,10 +77,47 @@ public class TupperWare extends PrototypeLXI {
 				if (curBot.getBulletsLeft() / roleValues(curBot)[0] < 0.75) {
 					needyBots.add(curBot);
 				}
+				
+				
+			}*/
+			
+			//System.out.println("current ammo = " + curBot.getBulletsLeft() );
+			if (curBot.getBulletsLeft() <= roleValues(curBot)[0]-10) {
+				needyBots.add(curBot);
+				//System.out.println(curBot.getName() + " needs ammo");
 			}
 		}
+		
+		BotInfo VIB = null;
+		double lowestAmmo = 100;
+
+		//Goes through each needy bot
+		for (int j = 0; j < needyBots.size(); j++){
+			BotInfo curNeedyBot = needyBots.get(j);
+
+			double percentageAmmo = curNeedyBot.getBulletsLeft() / roleValues(curNeedyBot)[0];
+			if (percentageAmmo < lowestAmmo) {
+				//lowest health gets most importance
+				VIB = curNeedyBot;
+			} else if (percentageAmmo == lowestAmmo) {
+				if (roleValues(curNeedyBot)[1] > roleValues(VIB)[1]){
+					//higher importance
+					VIB = curNeedyBot;
+				}
+			}
+			/*
+			//checks if the priority is greater than the old one
+			if (roleValues(curNeedyBot)[1]>roleValues(VIB)[1]){
+				VIB = curNeedyBot;
+			}*/
+		}
+		if (VIB != null) {
+			System.out.println(VIB.getName() + " needs ammo");
+		}
+		return VIB;
+		
 		//If nothing returns, nothing is needy
-		return null;
+		//return null;
 	}
 
 	//THESE ARE HARD CODED VARIABLES REMEMBER TO CHANGE THEM IF ARENA CHANGES
