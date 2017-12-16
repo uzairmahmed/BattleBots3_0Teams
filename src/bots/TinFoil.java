@@ -5,7 +5,7 @@ import roles.Role;
 import roles.RoleType;
 
 public class TinFoil extends PrototypeLXI {
-	public int whichTank = 0;
+	//public int whichTank = 0;
 	public TinFoil() {
 		// TODO Auto-generated constructor stub
 		NAME = "Tinfoil";
@@ -14,7 +14,7 @@ public class TinFoil extends PrototypeLXI {
 	}
 
 	@Override
-	public void whichTank(){
+	protected void whichTank(){
 		int maxBN = 0;
 		for (BotInfo b:team){
 			if (b.getRole() == RoleType.TANK) {
@@ -35,8 +35,8 @@ public class TinFoil extends PrototypeLXI {
 
 	@Override
 	protected void updateFakeBotInfo(){
-		if (whichTank == 1) myLocation.setPos(formationCenter.getFakeX() - RADIUS*6, formationCenter.getFakeY());
-		else if (whichTank == 2) myLocation.setPos(formationCenter.getFakeX() + RADIUS*6, formationCenter.getFakeY());
+		if (whichTank == 1) myLocation.setPos(formationCenter.getFakeX(), formationCenter.getFakeY() - RADIUS*6);
+		else if (whichTank == 2) myLocation.setPos(formationCenter.getFakeX(), formationCenter.getFakeY() + RADIUS*6);
 	}
 
 }

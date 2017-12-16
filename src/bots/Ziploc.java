@@ -122,7 +122,11 @@ public class Ziploc extends PrototypeLXI {
 
 	@Override
 	protected void updateFakeBotInfo(){
-		myLocation.setPos(formationCenter.getFakeX(), formationCenter.getFakeY() + RADIUS*6);
+		if (formationType == 0) {
+			myLocation.setPos(formationCenter.getFakeX() + RADIUS*6, formationCenter.getFakeY() );
+		} else if (formationType == 1) {
+			myLocation.setPos(formationCenter.getFakeX() - RADIUS*6, formationCenter.getFakeY() );
+		}
 	}
 
 	//THESE ARE HARD CODED VARIABLES REMEMBER TO CHANGE THEM IF ARENA CHANGES
