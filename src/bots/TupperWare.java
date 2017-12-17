@@ -31,11 +31,11 @@ public class TupperWare extends PrototypeLXI {
 	}
 
 	@Override
-	protected void updateFakeBotInfo(){
+	protected void updateFakeBotInfo(double distance){
 		if (formationType == 0) {
-			myLocation.setPos(formationCenter.getFakeX() - RADIUS*6, formationCenter.getFakeY() );
+			myLocation.setPos(formationCenter.getFakeX() - distance, formationCenter.getFakeY() );
 		} else if (formationType == 1) {
-			myLocation.setPos(formationCenter.getFakeX() + RADIUS*6, formationCenter.getFakeY() );
+			myLocation.setPos(formationCenter.getFakeX() + distance, formationCenter.getFakeY() );
 		}
 	}
 
@@ -124,14 +124,13 @@ public class TupperWare extends PrototypeLXI {
 		//return null;
 	}
 
-	//THESE ARE HARD CODED VARIABLES REMEMBER TO CHANGE THEM IF ARENA CHANGES
 
 	//Returns the max ammo, and the support priority
 	protected int[] roleValues(BotInfo bot){
-		if (bot.getRole() == RoleType.TANK) return new int[]{30,5};
-		else if (bot.getRole() == RoleType.ATTACK) return new int[]{50,4};
-		else if (bot.getRole() == RoleType.MEDIC) return new int[]{30,3};
-		else if (bot.getRole() == RoleType.SUPPORT) return new int[]{2000,2};
+		if (bot.getRole() == RoleType.TANK) return new int[]{Role.TANK_MAX_AMMO,5};
+		else if (bot.getRole() == RoleType.ATTACK) return new int[]{Role.ATTACK_MAX_AMMO,4};
+		else if (bot.getRole() == RoleType.MEDIC) return new int[]{Role.MEDIC_MAX_AMMO,3};
+		else if (bot.getRole() == RoleType.SUPPORT) return new int[]{Role.SUPPORT_MAX_AMMO,2};
 		else if (bot.getRole() == RoleType.NOOB) return new int[]{10,1};
 		else return new int[]{0,0};
 	}

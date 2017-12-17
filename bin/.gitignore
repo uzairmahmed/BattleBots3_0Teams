@@ -1,6 +1,8 @@
-/arena/
-/bots/
+/.classpath
+/.project
 /doc/
 /images/
-/roles/
 /sounds/
+/arena/
+/bots/
+/roles/
