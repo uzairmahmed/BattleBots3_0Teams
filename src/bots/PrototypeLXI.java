@@ -310,9 +310,10 @@ public class PrototypeLXI extends Bot {
 
 		//special not available
 		if (!specialOK) {
+			/*
 			if (me.getBotNumber() == 0) {
 				System.out.println("special not ok");
-			}
+			}*/
 			noMoves = noSpecial(noMoves);
 		}
 		// add if for one bullet left
@@ -758,7 +759,7 @@ public class PrototypeLXI extends Bot {
 	//Takes in all the information that is given to getMove()
 	protected void update(BotInfo me, boolean shotOK, BotInfo[] liveBots, BotInfo[] deadBots, Bullet[] bullets) {
 		myInfo = me;//Update own info
-		BotInfo[] allBots = concat(liveBots, deadBots);
+		//BotInfo[] allBots = concat(liveBots, deadBots);
 		team.clear();
 		team.add(me);
 		/*
@@ -778,16 +779,16 @@ public class PrototypeLXI extends Bot {
 		if (formBroken) {
 			if (!isFormationBroken() ) {
 				formBroken = false;
-				System.err.println("formation fixed");
+				//System.err.println("formation fixed");
 			}
 		} else {
 			if (isFormationBroken() ) {
 				formBroken = true;
-				System.err.println("formation broken");
+				//System.err.println("formation broken");
 			}
 		}
 		if (myInfo.getBotNumber() == 0) {
-			System.out.println("formBroken = " + formBroken);
+			//System.out.println("formBroken = " + formBroken);
 		}
 		
 
@@ -1631,7 +1632,7 @@ public class PrototypeLXI extends Bot {
 			
 			if (this.counter <= 60) {
 				//ignores collisions for first 10 frames
-				System.out.println("no grave check due to start");
+				//System.out.println("no grave check due to start");
 				break;
 			}
 			
@@ -2723,7 +2724,7 @@ public class PrototypeLXI extends Bot {
 						}
 
 						if (bot.getHealth() < max) {
-							System.out.println(bot.getName() + " health = " + bot.getHealth());
+							//System.out.println(bot.getName() + " health = " + bot.getHealth());
 							//bot is needy
 							if (Math.abs(botHelper.calcDistance(me.getX(), me.getY(), 
 								bot.getX(), bot.getY() ) ) <= Role.MEDIC_HEAL_DISTANCE) {
@@ -2758,7 +2759,7 @@ public class PrototypeLXI extends Bot {
 							}
 	
 							if (bot.getBulletsLeft() <= max-10) {
-								System.out.println(bot.getName() + " ammo = " + bot.getBulletsLeft());
+								//System.out.println(bot.getName() + " ammo = " + bot.getBulletsLeft());
 								if (Math.abs(botHelper.calcDistance(me.getX(), me.getY(), 
 									bot.getX(), bot.getY() ) ) <= Role.SUPPORT_SUPPLY_DISTANCE) {
 									desires[8] = -10;

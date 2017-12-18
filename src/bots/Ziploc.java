@@ -112,9 +112,10 @@ public class Ziploc extends PrototypeLXI {
 				VIB = curNeedyBot;
 			}*/
 		}
+		/*
 		if (VIB != null) {
 			System.out.println(VIB.getName() + " needs health");
-		}
+		}*/
 		return VIB;
 		//If nothing returns, nothing is needy
 		//return null;

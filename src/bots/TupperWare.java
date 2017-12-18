@@ -115,9 +115,10 @@ public class TupperWare extends PrototypeLXI {
 				VIB = curNeedyBot;
 			}*/
 		}
+		/*
 		if (VIB != null) {
 			System.out.println(VIB.getName() + " needs ammo");
-		}
+		}*/
 		return VIB;
 		
 		//If nothing returns, nothing is needy
