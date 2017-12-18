@@ -82,6 +82,7 @@ public class PrototypeLXI extends Bot {
 	protected BotInfo graveStuckTo = null;
 	//Array List of targets to spoof if stuck
 	protected ArrayList<BotInfo> spoofTargets = new ArrayList<BotInfo>();
+	protected int stuckTimer = 0;
 	//used for spoofing
 	protected double targetFakePos = -1;
 	protected boolean arrivedX;
@@ -107,6 +108,7 @@ public class PrototypeLXI extends Bot {
 	protected int brokeTimer;
 	protected FakeBotInfo formationCenter;
 	protected FakeBotInfo myLocation;
+	protected ArrayList<Integer> botsNotInForm = new ArrayList<Integer>();
 	protected Boolean[] teamFormStatus = new Boolean[]{false, false, false, false};
 	protected ArrayList<BotInfo> botsNotInForm = new ArrayList<BotInfo>();
 	//mutation
@@ -179,6 +181,13 @@ public class PrototypeLXI extends Bot {
 		ArrayList<Integer> possibleMoves = new ArrayList<Integer>();//List of possible moves
 		boolean threat = false;//Whether or not there is a threat
 		update(me, shotOK, liveBots, deadBots, bullets);//Updates all variables based on new data
+
+		if (!botsNotInForm.contains(myInfo.getBotNumber())) {
+			if (stuckTimer == 180) {
+				teamMessage = "PandasRLife - You guys can leave me if you want.";
+				return BattleBotArena.SEND_MESSAGE;
+			}
+		}
 
 		//noMoves = noFire(possibleMoves);
 		
@@ -792,6 +801,11 @@ public class PrototypeLXI extends Bot {
 		}
 		
 
+		if(!isStuck()){
+			stuckTimer=0;
+		} else{
+			stuckTimer++;
+		}
 		
 		if (formation) {
 			if (alliance) {
@@ -3016,13 +3030,17 @@ public class PrototypeLXI extends Bot {
 	public void incomingMessage(int botNum, String msg) {
 		if (counter<4){
 			
-			if (msg.equals(teamMessage) ){
+			if (msg.equals("PandasRLife") ){
 				for (BotInfo bot : allBots) {
 					if (bot.getBotNumber() == botNum) {
 						//team.add(bot);
 						break;
 					}
 				}
+			}
+
+			if (msg.equals("PandasRLife - You guys can leave me if you want.")){
+				botsNotInForm.add(botNum);
 			}
 			
 		}
