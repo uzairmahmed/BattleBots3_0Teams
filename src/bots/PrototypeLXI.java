@@ -108,7 +108,7 @@ public class PrototypeLXI extends Bot {
 	protected FakeBotInfo formationCenter;
 	protected FakeBotInfo myLocation;
 	protected Boolean[] teamFormStatus = new Boolean[]{false, false, false, false};
-	
+	protected ArrayList<BotInfo> botsNotInForm = new ArrayList<BotInfo>();
 	//mutation
 	//radius*6
 	private static double formationDistance = 70;
@@ -774,6 +774,22 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 
+		
+		if (formBroken) {
+			if (!isFormationBroken() ) {
+				formBroken = false;
+				System.err.println("formation fixed");
+			}
+		} else {
+			if (isFormationBroken() ) {
+				formBroken = true;
+				System.err.println("formation broken");
+			}
+		}
+		if (myInfo.getBotNumber() == 0) {
+			System.out.println("formBroken = " + formBroken);
+		}
+		
 
 		
 		if (formation) {
@@ -2501,26 +2517,32 @@ public class PrototypeLXI extends Bot {
 					lowest = tempDesires[i];
 				}
 			}
+			
+			double speed = BattleBotArena.BOT_SPEED;
+			if (formBroken) {
+				speed = BattleBotArena.BOT_SPEED*0.75;
+			}
+			
 			//y movement
 			if (idealMove == 0) {
 				//up
 				formationCenter.setPos(formationCenter.getX(),
-						formationCenter.getY()-BattleBotArena.BOT_SPEED*0.75 );
+						formationCenter.getY()-speed );
 			}
 			if (idealMove == 1) {
 				//down
 				formationCenter.setPos(formationCenter.getX(),
-						formationCenter.getY()+BattleBotArena.BOT_SPEED*0.75 );
+						formationCenter.getY()+speed );
 			}
 			//x movement
 			if (idealMove == 2) {
 				//left
-				formationCenter.setPos(formationCenter.getX()-BattleBotArena.BOT_SPEED*0.75,
+				formationCenter.setPos(formationCenter.getX()-speed,
 						formationCenter.getY() );
 			}
 			if (idealMove == 3) {
 				//right
-				formationCenter.setPos(formationCenter.getX()+BattleBotArena.BOT_SPEED*0.75,
+				formationCenter.setPos(formationCenter.getX()+speed,
 						formationCenter.getY() );
 			}
 			
@@ -2893,26 +2915,25 @@ public class PrototypeLXI extends Bot {
 
 	protected Boolean isFormationBroken(){
 		for (BotInfo bot : team) {
-			if (bot.getRole() == RoleType.TANK) {
-				if (((Math.abs((formationCenter.getY() + formationDistance) - bot.getY())) > (formationDistance/2))){
-					if ((counter-brokeTimer)>60){
-						teamFormStatus[bot.getBotNumber()%4] = true;
+			if (!botsNotInForm.contains(bot)) {
+				if (bot.getRole() == RoleType.TANK) {
+					if (Math.abs( (formationCenter.getY() - bot.getY() ) ) > formationDistance*1.5) {
+						if ((counter - brokeTimer) > 60) {
+							teamFormStatus[bot.getBotNumber() % 4] = true;
+						}
+						brokeTimer++;
+					} else {
+						teamFormStatus[bot.getBotNumber() % 4] = false;
 					}
-					brokeTimer++;
-				}
-				else {
-					teamFormStatus[bot.getBotNumber()%4] = false;
-				}
-			}
-			else{
-				if (((Math.abs((formationCenter.getX() + formationDistance) - bot.getX())) > (formationDistance/2))){
-					if ((counter-brokeTimer)>60){
-						teamFormStatus[bot.getBotNumber()%4] = true;
+				} else {
+					if (Math.abs( (formationCenter.getX() - bot.getX() ) ) > formationDistance*1.5) {
+						if ((counter - brokeTimer) > 60) {
+							teamFormStatus[bot.getBotNumber() % 4] = true;
+						}
+						brokeTimer++;
+					} else {
+						teamFormStatus[bot.getBotNumber() % 4] = false;
 					}
-					brokeTimer++;
-				}
-				else {
-					teamFormStatus[bot.getBotNumber()%4] = false;
 				}
 			}
 		}
