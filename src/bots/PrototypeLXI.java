@@ -767,9 +767,24 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 
+		
 		if (formation) {
+			ArrayList<BotInfo> PriorityList = new ArrayList<BotInfo>();
+			PriorityList.addAll(getClosestMedic(liveBots, formationCenter));
+			PriorityList.addAll(getClosestSupport(liveBots, formationCenter));
+			PriorityList.addAll(getClosestNoob(liveBots, formationCenter));
+			PriorityList.addAll(getClosestAttack(liveBots, formationCenter));
+			PriorityList.addAll(getClosestTank(liveBots, formationCenter));
+			
 			crappyBots = getClosestBots(liveBots, formationCenter);//Get the closest bots
 		} else {
+			ArrayList<BotInfo> PriorityList = new ArrayList<BotInfo>();
+			PriorityList.addAll(getClosestMedic(liveBots, me));
+			PriorityList.addAll(getClosestSupport(liveBots, me));
+			PriorityList.addAll(getClosestNoob(liveBots, me));
+			PriorityList.addAll(getClosestAttack(liveBots, me));
+			PriorityList.addAll(getClosestTank(liveBots, me));
+			
 			crappyBots = getClosestBots(liveBots, me);//Get the closest bots
 		}
 
@@ -919,7 +934,7 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		
-		System.out.println(counter + " medics have been found!");
+		System.out.println(counter + " medics hav been found!");
 		
 		
 		BotInfo[] MedicBots = new BotInfo[counter];
@@ -933,17 +948,9 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		//once array is run, list is sorted by closest distance
-		
-		if (formation) {
-			return getClosestBots(MedicBots, formationCenter);
-		} else {
-			return getClosestBots(MedicBots, me);
-		}
-		
-		
-		
-		
-		
+
+		return getClosestBots(MedicBots, me);
+
 	}
 	
 	protected ArrayList<BotInfo> getClosestTank(BotInfo[] allBots, BotInfo me) {
@@ -974,12 +981,9 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		//once array is run, list is sorted by closest distance
-		if (formation) {
-			return getClosestBots(TankBots, formationCenter);
-		} else {
-			return getClosestBots(TankBots, me);
-		}
-		
+
+		return getClosestBots(TankBots, me);
+
 	}
 	
 	
@@ -1011,7 +1015,7 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		//once array is run, list is sorted by closest distance
-		return getClosestBots(AttackBots, formationCenter);
+		return getClosestBots(AttackBots, me);
 		
 	}
 	
@@ -1043,7 +1047,7 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		//once array is run, list is sorted by closest distance
-		return getClosestBots(SupportBots, formationCenter);
+		return getClosestBots(SupportBots, me);
 		
 	}
 	
@@ -1075,7 +1079,7 @@ public class PrototypeLXI extends Bot {
 			}
 		}
 		//once array is run, list is sorted by closest distance
-		return getClosestBots(NoobBots, formationCenter);
+		return getClosestBots(NoobBots, me);
 		
 	}
 	

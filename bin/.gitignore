@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+/arena/
+/bots/
+/doc/
+/images/
+=======
 /.classpath
 /.project
 /doc/
@@ -5,4 +11,5 @@
 /sounds/
 /arena/
 /bots/
+>>>>>>> tank_firing
 /roles/
