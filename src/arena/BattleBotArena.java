@@ -222,9 +222,9 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	-Modify traits through equation, and start new round with new traits
 	-Once round is finished, if it is not round one, then compare new score with old score
 	-If new score is greater, the replace bots previous traits with newer traits
-	-Risne and repeat
+	-Rinse and repeat
 	-Once all rounds are over, print out the traits that were deemed most successful
-	-Repeat multiple times to find different benefitial weighing of traits
+	-Repeat multiple times to find different beneficial weighing of traits
 	
 	
 	 */
@@ -402,11 +402,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Right edge of the screen
 	 */
-	public static final int RIGHT_EDGE = 800; //1260 // also arena panel width
+	public static final int RIGHT_EDGE = 1260; //1260 // also arena panel width
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 500;//804; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 804;//804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -480,7 +480,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Total number of Bots in round 1 (if you have fewer than this, the rest of the spots
 	 * in the array will be filled with Drones, RandBots, and Sentries).
 	 */
-	public static final int 	NUM_BOTS = 2;
+	public static final int 	NUM_BOTS = 16;
 	/**
 	 * Rowbottom 
 	 * Not used*Number of bullets on screen at once for each bot
@@ -509,7 +509,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * When ELIMINATIONS_PER_ROUND is set to 0 then 
 	 * NUM_ROUNDS determines the final round
 	 */
-	public static final int NUM_ROUNDS = 15;//ROWBOTTOM Rounds will be NUM_ROUNDS
+	public static final int NUM_ROUNDS = 100;//ROWBOTTOM Rounds will be NUM_ROUNDS
 
 	/**
 	 * @author rowbottomn
@@ -850,8 +850,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** HUMAN TEST BOT CREATION
 		// *** Comment the next two lines out if you don't want to use the
 		// *** HumanBot (under user control)
-		bots[1] = new HumanBot();
-		addKeyListener((HumanBot)bots[1]);
+		//bots[4] = new HumanBot();
+		addKeyListener((HumanBot)bots[4]);
 
 		// ******************************
 
@@ -859,12 +859,16 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
 		bots[0] = new Ziploc();
-		//bots[1] = new TupperWare();
-		//bots[2] = new TinFoil();
-		//bots[3] = new TinFoil();
-		//bots[1] = new PrototypeLXI();
-		//bots[2] = new PrototypeV();
+		bots[1] = new TupperWare();
+		bots[2] = new TinFoil();
+		bots[3] = new TinFoil();
+		//bots[5] = new PrototypeLXI();
+		//bots[5] = new PrototypeV();
 
+		bots[4] = new Ziploc();
+		bots[5] = new TupperWare();
+		bots[6] = new TinFoil();
+		bots[7] = new TinFoil();
 	
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
@@ -1043,15 +1047,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 
 			
 		}
+	
 		
-		
-		/*
+		System.out.println("mutated traits = ");
 		for(int i = 0; i < mutatedTraits.length; i ++) {
-			System.out.println(mutatedTraits[i]);
-			
-			
+			System.out.print(mutatedTraits[i] + ", " );
 		}
-		*/
+		
 		
 		
 		
@@ -1808,6 +1810,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** paused or instant replay mode?
 		else if (state == GAME_PAUSED || state == GAME_OVER || state == WINNER)
 		{
+			
+			//mutation
+			System.out.println("mutated traits = ");
+			for(int i = 0; i < mutatedTraits.length; i ++) {
+				System.out.println(mutatedTraits[i] + ", " );
+			}
+			
 			if (--pauseCount <= 0)
 				pauseCount = PAUSE_FLASH_TIME;
 

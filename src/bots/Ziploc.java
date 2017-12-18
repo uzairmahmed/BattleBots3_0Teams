@@ -38,7 +38,7 @@ public class Ziploc extends PrototypeLXI {
 		//Go through every teammate
 		for (int i = 0; i < team.size(); i++){
 			BotInfo curBot = team.get(i);
-			System.out.println(curBot.getName());
+			//System.out.println(curBot.getName());
 
 			/*
 			//If the current bot has already been noticed
@@ -81,10 +81,10 @@ public class Ziploc extends PrototypeLXI {
 				needyBots.add(curBot);
 			}*/
 			
-			System.out.println("current health = " + curBot.getHealth() );
+			//System.out.println("current health = " + curBot.getHealth() );
 			if (curBot.getHealth() < roleValues(curBot)[0]) {
 				needyBots.add(curBot);
-				System.out.println(curBot.getName() + " needs health");
+				//System.out.println(curBot.getName() + " needs health");
 			}
 
 		}
@@ -113,7 +113,7 @@ public class Ziploc extends PrototypeLXI {
 			}*/
 		}
 		if (VIB != null) {
-			System.out.println(VIB.getName() + " is needy");
+			System.out.println(VIB.getName() + " needs health");
 		}
 		return VIB;
 		//If nothing returns, nothing is needy
@@ -121,17 +121,20 @@ public class Ziploc extends PrototypeLXI {
 	}
 
 	@Override
-	protected void updateFakeBotInfo(){
-		myLocation.setPos(formationCenter.getFakeX() + RADIUS*6, formationCenter.getFakeY());
+	protected void updateFakeBotInfo(double distance){
+		if (formationType == 0) {
+			myLocation.setPos(formationCenter.getFakeX() + distance, formationCenter.getFakeY() );
+		} else if (formationType == 1) {
+			myLocation.setPos(formationCenter.getFakeX() - distance, formationCenter.getFakeY() );
+		}
 	}
 
-	//THESE ARE HARD CODED VARIABLES REMEMBER TO CHANGE THEM IF ARENA CHANGES
 	//Returns the max ammo, and the support priority
 	protected int[] roleValues(BotInfo bot){
-		if (bot.getRole() == RoleType.TANK) return new int[]{6,2};
-		else if (bot.getRole() == RoleType.ATTACK) return new int[]{3,3};
-		else if (bot.getRole() == RoleType.MEDIC) return new int[]{3,5};
-		else if (bot.getRole() == RoleType.SUPPORT) return new int[]{3,4};
+		if (bot.getRole() == RoleType.TANK) return new int[]{Role.TANK_HEALTH,2};
+		else if (bot.getRole() == RoleType.ATTACK) return new int[]{Role.ATTACK_HEALTH,3};
+		else if (bot.getRole() == RoleType.MEDIC) return new int[]{Role.MEDIC_HEALTH,5};
+		else if (bot.getRole() == RoleType.SUPPORT) return new int[]{Role.SUPPORT_HEALTH,4};
 		else if (bot.getRole() == RoleType.NOOB) return new int[]{2,1};
 		else return new int[]{0,0};
 	}
