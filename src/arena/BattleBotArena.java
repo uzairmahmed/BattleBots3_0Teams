@@ -406,7 +406,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 804;//804; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 604;//804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -869,7 +869,14 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		bots[5] = new TupperWare();
 		bots[6] = new TinFoil();
 		bots[7] = new TinFoil();
-	
+		
+		/*
+		bots[8] = new OmegaBot();
+		bots[9] = new OmegaBot();
+		bots[10] = new OmegaBot();
+		bots[11] = new OmegaBot();
+		*/
+		
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
 		int c = 1;
