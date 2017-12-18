@@ -103,8 +103,11 @@ public class PrototypeLXI extends Bot {
 	//formation variables
 	protected boolean formation;
 	protected int formationType;
+	protected boolean formBroken;
+	protected int brokeTimer;
 	protected FakeBotInfo formationCenter;
 	protected FakeBotInfo myLocation;
+	protected Boolean[] teamFormStatus = new Boolean[]{false, false, false, false};
 	
 	//mutation
 	//radius*6
@@ -761,11 +764,13 @@ public class PrototypeLXI extends Bot {
 				team.add(bot);
 			}
 		}*/
+
 		for (BotInfo bot : liveBots) {
 			if (bot.getTeamName().equals(me.getTeamName() ) ) {
 				team.add(bot);
 			}
 		}
+
 
 		
 		if (formation) {
@@ -2821,6 +2826,38 @@ public class PrototypeLXI extends Bot {
 
 	protected void whichTank(){
 		whichTank = 0;
+	}
+
+	protected Boolean isFormationBroken(){
+		for (BotInfo bot : team) {
+			if (bot.getRole() == RoleType.TANK) {
+				if (((Math.abs((formationCenter.getY() + formationDistance) - bot.getY())) > (formationDistance/2))){
+					if ((counter-brokeTimer)>60){
+						teamFormStatus[bot.getBotNumber()%4] = true;
+					}
+					brokeTimer++;
+				}
+				else {
+					teamFormStatus[bot.getBotNumber()%4] = false;
+				}
+			}
+			else{
+				if (((Math.abs((formationCenter.getX() + formationDistance) - bot.getX())) > (formationDistance/2))){
+					if ((counter-brokeTimer)>60){
+						teamFormStatus[bot.getBotNumber()%4] = true;
+					}
+					brokeTimer++;
+				}
+				else {
+					teamFormStatus[bot.getBotNumber()%4] = false;
+				}
+			}
+		}
+		if (Arrays.asList(teamFormStatus).contains(true))return true;
+		else {
+			brokeTimer = 0;
+			return false;
+		}
 	}
 
 	/*
