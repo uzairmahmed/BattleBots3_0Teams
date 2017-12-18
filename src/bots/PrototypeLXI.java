@@ -108,12 +108,14 @@ public class PrototypeLXI extends Bot {
 	
 	//mutation
 	//radius*6
-	private static double formationDistance = 96;
-	public static double[] startingBotTraits = new double[] {formationDistance};
-	public static double[] botTraits = startingBotTraits;
-	//mutation values: 108.93, 128.63, 140.53, 167.7 (6668), 194 (6629), 155.22 (5707)
-	//strain 2: 96.28 (6773)
+	private static double formationDistance = 70;
+	//public static double[] startingBotTraits = new double[] {formationDistance};
+	//public static double[] botTraits = startingBotTraits;
+	//mutation values: 
+	//strain 1: 108.93, 128.63, 140.53, 167.7 (6668), 194 (6629), 155.22 (5707)
+	//strain 2: 96.28 (6773), 123.16 (6478)
 	//strain 3: 30.49 (6391), 29.94 (5969)
+	//strain 4: 94 (5983), 101.54 (5580)
 	
 	protected boolean alliance;
 	protected ArrayList<String> allianceNames = new ArrayList<String> ();
@@ -285,10 +287,11 @@ public class PrototypeLXI extends Bot {
 			
 			//used for testing purposes
 			//System.out.println("team size = " + team.size());
+			/*
 			if (me.getTeamName().equals("Team2")) {
 				//System.out.println("no formation");
 				formation = false;
-			}
+			}*/
 		}
 		/*
 		System.out.println("team size = " + team.size() );
@@ -769,23 +772,31 @@ public class PrototypeLXI extends Bot {
 
 		
 		if (formation) {
-			ArrayList<BotInfo> PriorityList = new ArrayList<BotInfo>();
-			PriorityList.addAll(getClosestMedic(liveBots, formationCenter));
-			PriorityList.addAll(getClosestSupport(liveBots, formationCenter));
-			PriorityList.addAll(getClosestNoob(liveBots, formationCenter));
-			PriorityList.addAll(getClosestAttack(liveBots, formationCenter));
-			PriorityList.addAll(getClosestTank(liveBots, formationCenter));
-			
-			crappyBots = getClosestBots(liveBots, formationCenter);//Get the closest bots
+			if (alliance) {
+				ArrayList<BotInfo> PriorityList = new ArrayList<BotInfo>();
+				PriorityList.addAll(getClosestMedic(liveBots, formationCenter));
+				PriorityList.addAll(getClosestSupport(liveBots, formationCenter));
+				PriorityList.addAll(getClosestNoob(liveBots, formationCenter));
+				PriorityList.addAll(getClosestAttack(liveBots, formationCenter));
+				PriorityList.addAll(getClosestTank(liveBots, formationCenter));
+				
+				crappyBots = PriorityList;
+			} else {
+				crappyBots = getClosestBots(liveBots, formationCenter);//Get the closest bots
+			}
 		} else {
-			ArrayList<BotInfo> PriorityList = new ArrayList<BotInfo>();
-			PriorityList.addAll(getClosestMedic(liveBots, me));
-			PriorityList.addAll(getClosestSupport(liveBots, me));
-			PriorityList.addAll(getClosestNoob(liveBots, me));
-			PriorityList.addAll(getClosestAttack(liveBots, me));
-			PriorityList.addAll(getClosestTank(liveBots, me));
-			
-			crappyBots = getClosestBots(liveBots, me);//Get the closest bots
+			if (alliance) {
+				ArrayList<BotInfo> PriorityList = new ArrayList<BotInfo>();
+				PriorityList.addAll(getClosestMedic(liveBots, me));
+				PriorityList.addAll(getClosestSupport(liveBots, me));
+				PriorityList.addAll(getClosestNoob(liveBots, me));
+				PriorityList.addAll(getClosestAttack(liveBots, me));
+				PriorityList.addAll(getClosestTank(liveBots, me));
+				
+				crappyBots = PriorityList;
+			} else {
+				crappyBots = getClosestBots(liveBots, me);//Get the closest bots
+			}
 		}
 
 		crappyBots = removeUnwantedTargets(crappyBots);//Make sure team mate is not a target
@@ -793,7 +804,7 @@ public class PrototypeLXI extends Bot {
 		frameCount++;//Increase frame counter
 		stuck = isStuck();//Check if stuck
 
-		updateFakeBotInfo(botTraits[0]); //Updates the personal location
+		updateFakeBotInfo(formationDistance); //Updates the personal location
 
 		if(BattleBotArena.DEBUG) {
 			//System.out.println("TargetIndex: " + targetIndex);	
@@ -901,6 +912,20 @@ public class PrototypeLXI extends Bot {
 				// 1].getCumulativeScore()
 				// + copy[i + 1].getScore()) {
 
+				double dist1 = botHelper.calcDistance(me.getX(), me.getY(), 
+						copy.get(i).getX(), copy.get(i).getY() );
+				double dist2 = botHelper.calcDistance(me.getX(), me.getY(),
+						copy.get(i + 1).getX(), copy.get(i + 1).getY() );
+				dist1 -= roleDesire(copy.get(i) );
+				dist2 -= roleDesire(copy.get(i+1) );
+				
+				if (dist1 > dist2) {
+					temp = copy.get(i + 1);
+					copy.set(i + 1, copy.get(i));
+					copy.set(i, temp);
+				}
+				
+				/*
 				if (botHelper.calcDistance(me.getX(), me.getY(), copy.get(i).getX(),
 						copy.get(i).getY()) > botHelper.calcDistance(me.getX(), me.getY(),
 								copy.get(i + 1).getX(), copy.get(i + 1).getY())) {
@@ -908,7 +933,7 @@ public class PrototypeLXI extends Bot {
 					copy.set(i + 1, copy.get(i));
 					copy.set(i, temp);
 					// System.err.println("Swapped");
-				}
+				}*/
 
 			}
 
@@ -916,6 +941,23 @@ public class PrototypeLXI extends Bot {
 		//returns the sorted array
 		return copy;
 
+	}
+	
+	protected double roleDesire(BotInfo bot) {
+		if (bot.getRole() == RoleType.ATTACK) {
+			return 20;
+		}
+		if (bot.getRole() == RoleType.TANK) {
+			return 0;
+		}
+		if (bot.getRole() == RoleType.MEDIC) {
+			return 70;
+		}
+		if (bot.getRole() == RoleType.SUPPORT) {
+			return 60;
+		}
+		//noob
+		return 30;
 	}
 	
 	//Grab an array list of all medics
@@ -928,13 +970,13 @@ public class PrototypeLXI extends Bot {
 		
 		//Finds bots that are medics and adds them to array
 		for(int i = 0; i <  allBots.length; i++) {
-			System.out.println(allBots[i].getRole());
+			//System.out.println(allBots[i].getRole());
 			if(allBots[i].getRole().toString() == "MEDIC") {
 				counter++;
 			}
 		}
 		
-		System.out.println(counter + " medics hav been found!");
+		//System.out.println(counter + " medics hav been found!");
 		
 		
 		BotInfo[] MedicBots = new BotInfo[counter];
@@ -961,13 +1003,13 @@ public class PrototypeLXI extends Bot {
 		
 		//Finds bots that are tanks and adds them to array
 		for(int i = 0; i <  allBots.length; i++) {
-			System.out.println(allBots[i].getRole());
+			//System.out.println(allBots[i].getRole());
 			if(allBots[i].getRole().toString() == "TANK") {
 				counter++;
 			}
 		}
 		
-		System.out.println(counter + " tanks hav been found!");
+		//System.out.println(counter + " tanks hav been found!");
 		
 		
 		BotInfo[] TankBots = new BotInfo[counter];
@@ -995,13 +1037,13 @@ public class PrototypeLXI extends Bot {
 		
 		//Finds bots that are attacks and adds them to array
 		for(int i = 0; i <  allBots.length; i++) {
-			System.out.println(allBots[i].getRole());
+			//System.out.println(allBots[i].getRole());
 			if(allBots[i].getRole().toString() == "ATTACK") {
 				counter++;
 			}
 		}
 		
-		System.out.println(counter + " attacks hav been found!");
+		//System.out.println(counter + " attacks hav been found!");
 		
 		
 		BotInfo[] AttackBots = new BotInfo[counter];
@@ -1027,13 +1069,13 @@ public class PrototypeLXI extends Bot {
 		
 		//Finds bots that are support and adds them to array
 		for(int i = 0; i <  allBots.length; i++) {
-			System.out.println(allBots[i].getRole());
+			//System.out.println(allBots[i].getRole());
 			if(allBots[i].getRole().toString() == "SUPPORT") {
 				counter++;
 			}
 		}
 		
-		System.out.println(counter + " supports hav been found!");
+		//System.out.println(counter + " supports hav been found!");
 		
 		
 		BotInfo[] SupportBots = new BotInfo[counter];
@@ -1059,13 +1101,13 @@ public class PrototypeLXI extends Bot {
 		
 		//Finds bots that are noobs and adds them to array
 		for(int i = 0; i <  allBots.length; i++) {
-			System.out.println(allBots[i].getRole());
+			//System.out.println(allBots[i].getRole());
 			if(allBots[i].getRole().toString() == "NOOB") {
 				counter++;
 			}
 		}
 		
-		System.out.println(counter + " noobs hav been found!");
+		//System.out.println(counter + " noobs hav been found!");
 		
 		
 		BotInfo[] NoobBots = new BotInfo[counter];
@@ -2423,6 +2465,27 @@ public class PrototypeLXI extends Bot {
 					tempDesires[3] = -0.00 + ((xDif / (BattleBotArena.RIGHT_EDGE - BattleBotArena.LEFT_EDGE)) * 2);
 					// System.out.println("below");
 				}
+			}
+			
+			double xPos = me.getX() - formationDistance;
+			double yPos = me.getY() - formationDistance;
+
+			// Checks for dangers around the edge of the screen
+			if (xPos < BattleBotArena.LEFT_EDGE + BattleBotArena.BOT_SPEED * 2) {
+				tempDesires[2] += 10;
+				// System.out.println("edge from left");
+			}
+			if (xPos + (formationDistance*2 + RADIUS*2) > BattleBotArena.RIGHT_EDGE - BattleBotArena.BOT_SPEED * 2) {
+				tempDesires[3] += 10;
+				// System.out.println("edge from right");
+			}
+			if (yPos < BattleBotArena.TOP_EDGE + BattleBotArena.BOT_SPEED * 2) {
+				tempDesires[0] += 10;
+				// System.out.println("edge from above");
+			}
+			if (yPos + (formationDistance*2 + RADIUS*2) > BattleBotArena.BOTTOM_EDGE - BattleBotArena.BOT_SPEED * 2) {
+				tempDesires[1] += 10;
+				// System.out.println("edge from bottom");
 			}
 			
 			int idealMove = -1;
