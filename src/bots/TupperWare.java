@@ -20,7 +20,7 @@ public class TupperWare extends PrototypeLXI {
 	 */
 	public TupperWare() {
 		// TODO Auto-generated constructor stub
-		NAME = "TupperWare";
+		NAME = "TupperW$";
 		role = RoleType.SUPPORT;
 	}
 

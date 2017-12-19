@@ -110,7 +110,7 @@ public class PrototypeLXI extends Bot {
 	protected FakeBotInfo myLocation;
 	protected ArrayList<Integer> botsNotInForm = new ArrayList<Integer>();
 	protected Boolean[] teamFormStatus = new Boolean[]{false, false, false, false};
-	protected ArrayList<BotInfo> botsNotInForm = new ArrayList<BotInfo>();
+	//protected ArrayList<BotInfo> botsNotInForm = new ArrayList<BotInfo>();
 	//mutation
 	//radius*6
 	private static double formationDistance = 70;
@@ -141,9 +141,9 @@ public class PrototypeLXI extends Bot {
 		role = RoleType.TANK;
 		// System.out.println(mode(new Integer[] {3,1,1,1,3,3,4,4,4,4}));
 		
-		String [] allianceN = new String [] {"Thor", "Vision", "DrStrange",
-				"TheOne", "TheTwo", "TheThree", "TheFour"};
-		//String [] allianceN = new String [] {"Ziploc", "TupperWa", "TinFoil"};
+		//String [] allianceN = new String [] {"Thor$", "Vision$", "DrStran$",
+				//"TheOne$", "TheTwo$", "TheThre$", "TheFour$"};
+		String [] allianceN = new String [] {"Ziploc$", "TupperW$", "TinFoil$"};
 		
 		for (String name : allianceN) {
 			allianceNames.add(name);
@@ -185,6 +185,7 @@ public class PrototypeLXI extends Bot {
 		if (!botsNotInForm.contains(myInfo.getBotNumber())) {
 			if (stuckTimer == 180) {
 				teamMessage = "PandasRLife - You guys can leave me if you want.";
+				formation = false;
 				return BattleBotArena.SEND_MESSAGE;
 			}
 		}
@@ -2930,7 +2931,7 @@ public class PrototypeLXI extends Bot {
 
 	protected Boolean isFormationBroken(){
 		for (BotInfo bot : team) {
-			if (!botsNotInForm.contains(bot)) {
+			if (!botsNotInForm.contains(bot.getBotNumber())) {
 				if (bot.getRole() == RoleType.TANK) {
 					if (Math.abs( (formationCenter.getY() - bot.getY() ) ) > formationDistance*1.5) {
 						if ((counter - brokeTimer) > 60) {

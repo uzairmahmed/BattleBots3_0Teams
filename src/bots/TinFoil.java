@@ -8,7 +8,7 @@ public class TinFoil extends PrototypeLXI {
 	//public int whichTank = 0;
 	public TinFoil() {
 		// TODO Auto-generated constructor stub
-		NAME = "TinFoil";
+		NAME = "TinFoil$";
 		role = RoleType.TANK;
 		//role = RoleType.ATTACK;
 

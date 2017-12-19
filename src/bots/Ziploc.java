@@ -20,7 +20,7 @@ public class Ziploc extends PrototypeLXI {
 	 */
 	public Ziploc() {
 		// TODO Auto-generated constructor stub
-		NAME = "Ziploc";
+		NAME = "Ziploc$";
 		role = RoleType.MEDIC;		
 	}
 	
