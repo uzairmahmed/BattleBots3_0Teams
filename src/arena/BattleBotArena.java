@@ -192,10 +192,138 @@ import java.util.ArrayList;
  * @version <br>4.4(April 19 2017 - Randomized the starting location for each team, however the starting orientation on the team is set by 
  * 									order of the constructor calls
  * 								  - Responsibilities for scoring is now the moved to the Botinfo class.
+ * @version <br>5.0(Dec 5 2017) - Increased screen size and tweaks scoring values
+ * @version <br>5.1(Dec 6 2017) - Cleaned out the role  and roles from old stuff not being used and misleading cleaned graphics, made botsize larger.
  * 								
  */
 public class BattleBotArena extends JPanel implements MouseListener, MouseWheelListener, MouseMotionListener, ActionListener, Runnable {
 
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/*
+	
+	
+	Bot evolution
+	
+	
+	values modifying
+	
+	
+	
+	-Have public static variables that carry the same traits as in PrototypeLXI
+	-Once round is finished, save the traits and total score achieved to an array
+	-Modify traits through equation, and start new round with new traits
+	-Once round is finished, if it is not round one, then compare new score with old score
+	-If new score is greater, the replace bots previous traits with newer traits
+	-Rinse and repeat
+	-Once all rounds are over, print out the traits that were deemed most successful
+	-Repeat multiple times to find different beneficial weighing of traits
+	
+	
+	 */
+	
+	
+	public double[] savedTraits;
+	public double[] currentTraits;
+	public double[] mutatedTraits; 
+	public double oldScore;
+	public double newScore;
+	
+	
+	
+			//mutate in the reset function
+	
+	
+	public double[] mutateTraits(double traits[]) {
+		/*
+		 * Each number inside the box represents the place in the array:
+		 * (leave n.a if it is not available)
+		 * 
+		 * [0] = n.a.
+		 * [1] = n.a.
+		 * [2] = n.a.
+		 * [3] = n.a.
+		 * [4] = n.a.
+		 * [5] = n.a.
+		 * [6] = n.a.
+		 * [7] = n.a.
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		//importedTraits = traits; //sets traits that will be modified to the traits that were sent in
+		currentTraits = traits; //sets traits that will be compared to the traits that were sent in
+		
+		
+		
+		
+		 //store original traits in an array to compare after all rounds are finished
+		 
+		
+		for(int i = 0; i < traits.length; i++) {
+			
+			//Bell Curve used can be found at desmos: https://www.desmos.com/calculator/awfyuuwknp
+			
+			double a = 5.00; 		//the vertical stretch of the bell curve
+			double b = 1.05; 	//the horizontal compression of the bell curve
+			double c = 0; 			//the horizontal shift of the bell curve
+			double range = 10; 	//the distance from the x location of the vertex a value will be chosen
+			/*
+			 ----------Note----------
+			 If c = 0   -->   There is equal chance of the random value to be added OR subtracted
+			 If c > 0   -->   There is a greater chance of the random value to be added rather than subtracted
+			 If c < 0   -->   There is a greater chance of the random value to be subtracted rather than added
+			
+			 */
+						
+			
+			if((Math.random() * range * 2) - (range-c) > 0) {
+				traits[i] += a*(Math.pow(b, (- Math.pow((((Math.random() * range * 2) - (range-c)) - c), 2))/2));
+			}
+			if((Math.random() * range * 2) - (range-c) < 0) {
+				traits[i] -= a*(Math.pow(b, (- Math.pow((((Math.random() * range * 2) - (range-c)) - c), 2))/2));
+			}
+			
+			
+			
+			/*
+			 ----------Note----------
+			 (Math.random() * range * 2) - (range-c)
+			 
+			 > Math.random() generates a positive double between 0 and 1 
+			 > It is then multiplied by range * 2 to give us a number within the range to the right or left from the vertex
+			 > Finally (range-c) is subtracted from it to account for the horizontal shift applied to equation
+			 
+			 Random number between desired range is now generated
+			 
+			 > Random number is placed as the x value in the equation (based off desmos graph, link above)
+			 
+			 */
+			
+			
+			//determine based on specific traits the weight of the affect(traits with smaller values shouldn't be adding massive values.....massive values shouldn't be adding or subtracting super small values)
+			//send new traits to bot at beginning of next round
+			
+			//set number of rounds to 100
+			//
+			
+		}
+		
+		return traits;
+	}
+	
+	
+	
+	
 	/**
 	 * Set to TRUE for debugging output
 	 */
@@ -261,7 +389,8 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 */
 	public static final int SEND_TEAM = 11;
 	/**
-	 * Rowbottom for send a team messagea bot to request healing, this will send a special message to the
+	 * NOT IMPLEMENTED Rowbottom for send a team messagea bot to request healing, this will send a special message to the medic
+     *
 	 */
 
 	public static final int REQUEST_HEALING = 12;
@@ -273,11 +402,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Right edge of the screen
 	 */
-	public static final int RIGHT_EDGE = 700; // also arena panel width
+	public static final int RIGHT_EDGE = 800; //1260 // also arena panel width
 	/**
 	 * Bottom edge of the screen
 	 */
-	public static final int BOTTOM_EDGE = 500; // arena panel height is this constant + TEXT_BUFFER
+	public static final int BOTTOM_EDGE = 500;//804; // arena panel height is this constant + TEXT_BUFFER
 	/**
 	 * Left edge of the screen
 	 */
@@ -299,11 +428,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points per kill 
 	 */
-	public static final int 	KILL_SCORE = 5;//Rowbottom changed from 5
+	public static final int 	KILL_SCORE = 10;//Rowbottom changed from 5
 	/**
 	 * survival points 
 	 */
-	public static final double 	POINTS_PER_SECOND = 0.1;//Rowbottom changed from 0.1
+	public static final double 	POINTS_PER_SECOND = 0.05;//Rowbottom changed from 0.1
 	/**
 	 * healing points
 	 */
@@ -324,7 +453,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * points off per exception caught
 	 */
-	public static final int 	ERROR_PENALTY = 1;// Rowbottom changed from 5
+	public static final int 	ERROR_PENALTY = 0;// Rowbottom changed from 5
 	/**
 	 * true = scores between rounds are cumulative
 	 * false = highest scoring Bot in last round is declared the winner
@@ -351,7 +480,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Total number of Bots in round 1 (if you have fewer than this, the rest of the spots
 	 * in the array will be filled with Drones, RandBots, and Sentries).
 	 */
-	public static final int 	NUM_BOTS = 16;
+	public static final int 	NUM_BOTS = 10;
 	/**
 	 * Rowbottom 
 	 * Not used*Number of bullets on screen at once for each bot
@@ -360,11 +489,11 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	/**
 	 * Bot speed in pixels/frame
 	 */
-	public static final double 	BOT_SPEED = 2.0;
+	public static final double 	BOT_SPEED = 2.0;//considering 3
 	/**
 	 * Bullet speed in pixels/frame
 	 */
-	public static final double 	BULLET_SPEED = 8;
+	public static final double 	BULLET_SPEED = 8;//considering 9
 	/**
 	 * Maximum message length
 	 */
@@ -380,7 +509,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * When ELIMINATIONS_PER_ROUND is set to 0 then 
 	 * NUM_ROUNDS determines the final round
 	 */
-	public static final int NUM_ROUNDS = 30;//ROWBOTTOM Rounds will be NUM_ROUNDS
+	public static final int NUM_ROUNDS = 100;//ROWBOTTOM Rounds will be NUM_ROUNDS
 
 	/**
 	 * @author rowbottomn
@@ -721,17 +850,33 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** HUMAN TEST BOT CREATION
 		// *** Comment the next two lines out if you don't want to use the
 		// *** HumanBot (under user control)
-		//bots[0] = new HumanBot();
-		//addKeyListener((HumanBot)bots[0]);
+		//bots[4] = new HumanBot();
+		addKeyListener((HumanBot)bots[4]);
 
 		// ******************************
 
 		// *** INSERT PLAYER BOTS HERE. Use any array numbers you like
 		// *** as the bots will be shuffled again later.
 		// *** Any empty spots will be filled with standard arena bots.
-		bots[0] = new PrototypeLXI();
+		bots[0] = new Ziploc();
+		bots[1] = new TupperWare();
+		bots[2] = new TinFoil();
+		bots[3] = new TinFoil();
+		//bots[5] = new PrototypeLXI();
+		//bots[5] = new PrototypeV();
 
-	
+		bots[4] = new Ziploc();
+		bots[5] = new TupperWare();
+		bots[6] = new TinFoil();
+		bots[7] = new TinFoil();
+		
+		/*
+		bots[8] = new OmegaBot();
+		bots[9] = new OmegaBot();
+		bots[10] = new OmegaBot();
+		bots[11] = new OmegaBot();
+		*/
+		
 		// *******************************
 		// Remaining slots filled with Drones, RandBots, and sentryBots.
 		int c = 1;
@@ -766,6 +911,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 	 * Main method to create and display the arena
 	 * @param args unused
 	 */
+
 	public static void main(String[] args)
 	{
 		JFrame frame = new JFrame();//set up the frame
@@ -778,6 +924,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		frame.setVisible(true);
 		panel.init();
 		panel.requestFocusInWindow();
+		
 	}
 
 	/**
@@ -820,7 +967,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			String temp = "images/role_"+i+".png";
 			//System.out.println(roleImages[i]);
 			roleImages[i] = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource(temp));
-		//	System.out.println(roleImages[i]);
+
 		}
 		
 		// Listeners for mouse input
@@ -828,7 +975,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		addMouseMotionListener (this);
 		addMouseWheelListener (this);
 		// Set size of panel and make it focusable
-		setPreferredSize(new Dimension(700, 600));
+		setPreferredSize(new Dimension(RIGHT_EDGE, BOTTOM_EDGE+TEXT_BUFFER));
 		setFocusable(true);
 	}
 
@@ -837,20 +984,102 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// Paint buffer and instant replay array
 		for (int i = 0; i<NUM_FRAMES; i++)
 			replayImages[i] = createImage(RIGHT_EDGE, BOTTOM_EDGE);
-		buffer = createImage(RIGHT_EDGE, BOTTOM_EDGE+TEXT_BUFFER);
-		// Set up the bots and the game
-		fullReset();
+			buffer = createImage(RIGHT_EDGE, BOTTOM_EDGE+TEXT_BUFFER);
+			// Set up the bots and the game
+			fullReset();
 	}
 	/**
 	 * Reset for a new round. Called between rounds, and also after a full reset.
 	 */
 	private void reset()
 	{
-		HelperMethods.say("reseting");
+		if(round != 0) {
+			System.out.println("Score for round "+ round + ": " + currentScore(1,false));
+			newScore += currentScore(1,false);
+		}
+		
+		
+		
+		
+		System.out.println("-----------------------------");
+		System.out.println("Round: " + (round + 1));
+		System.out.println("-----------------------------");
+
+		
+		
+		
+		
+		
+		
+		/*
+		if(round == 0) {
+			savedTraits = PrototypeLXI.startingBotTraits;
+			currentTraits = mutateTraits(savedTraits);
+			mutatedTraits = currentTraits;
+			oldScore = 0;
+			
+		} else if(round % 4 >= 3) {
+			
+			System.out.println("Score for Last 3 Rounds: " + newScore );
+			System.out.println("Old Score: " + oldScore );
+			System.out.println();
+			
+			
+			
+			
+			currentTraits = mutateTraits(currentTraits);
+			if(newScore > oldScore) {
+				currentTraits = mutatedTraits;
+				mutatedTraits = mutateTraits(mutatedTraits);
+				//oldScore = currentScore(0,false);
+				
+				System.out.println("Mutating Better Traits");
+				System.out.println();
+				
+			} else{
+				mutatedTraits = mutateTraits(currentTraits);
+				
+				System.out.println("Mutating Old Traits");
+				System.out.println();
+				
+				//otherwise leaves old score as the higher score
+			}
+			
+			
+			oldScore = newScore;
+			newScore = 0;
+			
+			
+			
+
+			
+		}
+	
+		
+		System.out.println("mutated traits = ");
+		for(int i = 0; i < mutatedTraits.length; i ++) {
+			System.out.print(mutatedTraits[i] + ", " );
+		}
+		
+		
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//HelperMethods.say("reseting");
 		timePlayed = 0;						// reset the clock
 		round ++;							// advance the round
 		botsLeft = NUM_BOTS;				// put all the bots back in the game
-		messages = new LinkedList<String>();// clear the messag buffer
+		messages = new LinkedList<String>();// clear the message buffer
 
 		// Clear the array of public Bot info. (This is the info given to the Bots when making their moves.)
 		BotInfo[] newBotsInfo = new BotInfo[NUM_BOTS];
@@ -1240,12 +1469,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									}
 									else if (botRoles[i].getRole() == RoleType.TANK){
 										bulletCount ++;
-
 									}
 								}
+								//if we have all our bullets available and we are a tank and the tank has enough ammo left
 								if (bulletCount >= Role.TANK_BULLETS&&botRoles[i].getRole() == RoleType.TANK&&botRoles[i].getBulletsLeft() >= Role.TANK_BULLETS){
 								//	HelperMethods.say("I can blast");
 									specialOK = true;
+
 								}
 							}
 							//System.out.println("Bot"+i+"'s bullets"+currentBot.getBulletsLeft()+","+shotOK);
@@ -1379,27 +1609,31 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 									if (botRoles[i].getRole() == RoleType.TANK){
 										int ydir = 0;
 										int xdir = 0;
-										if (botsInfo[i].getLastMove()%4 == 1){//up or fire up
+										if (botsInfo[i].getLastMove() == 1){//up
 											ydir = -1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 2){//down or fireDown
+										else if (botsInfo[i].getLastMove() == 2){//down
 											ydir = 1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 3){//left or fireright
+										else if (botsInfo[i].getLastMove() == 3){//left
 											xdir = -1;
 										}
-										else if (botsInfo[i].getLastMove()%4 == 0){//right or fireRight
+										else if (botsInfo[i].getLastMove() == 0){//right
 											xdir = 1;
 										}
+										else{
+											HelperMethods.say("WTF? no direction selected");
+											continue;
+										}
 										for (int f = 0; f < Role.TANK_BULLETS; f++){
-											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
+											bullets[i][f] = new Bullet(botsInfo[i].getX()+Bot.RADIUS+xdir*(Bot.RADIUS+1)+(Bot.RADIUS*0.8*(f-1)*Math.abs(ydir)), botsInfo[i].getY()+Bot.RADIUS+ydir*(Bot.RADIUS+1)+(Bot.RADIUS*0.8*(f-1)*Math.abs(xdir)), xdir*BULLET_SPEED,  ydir*BULLET_SPEED);
 											botRoles[i].fireBullet(1);//decreases ammo count
 										}
 									}
 									else if (botRoles[i].getRole() == RoleType.MEDIC){
 										BotInfo target = bots[i].getTarget() ;
 										if ( target == null){
-											HelperMethods.say("WTF, no target selected");
+											HelperMethods.say("WTF? no target selected");
 										}
 										double d = Math.sqrt(Math.pow(botsInfo[i].getX()-target.getX(),2)+Math.pow(botsInfo[i].getY()-target.getY(),2));
 										
@@ -1583,6 +1817,13 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 		// *** paused or instant replay mode?
 		else if (state == GAME_PAUSED || state == GAME_OVER || state == WINNER)
 		{
+			
+			//mutation
+			System.out.println("mutated traits = ");
+			for(int i = 0; i < mutatedTraits.length; i ++) {
+				System.out.println(mutatedTraits[i] + ", " );
+			}
+			
 			if (--pauseCount <= 0)
 				pauseCount = PAUSE_FLASH_TIME;
 
@@ -1982,7 +2223,7 @@ public class BattleBotArena extends JPanel implements MouseListener, MouseWheelL
 			//Graphics g2 = g;
 			//g = buffer.getGraphics();
 
-			// black out hte screen
+			// black out the screen
 			g.setColor(Color.black);
 			g.fillRect(0,0,getWidth(),getHeight());
 
